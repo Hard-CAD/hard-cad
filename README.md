@@ -16,13 +16,13 @@
 <br />
 
 <p align="center">
-  <a href="#-interactive-project-page"><strong>Project Page</strong></a> •
-  <a href="#-the-core-problem-the-iou-paradox"><strong>The IoU Paradox</strong></a> •
-  <a href="#-key-features"><strong>Key Features</strong></a> •
-  <a href="#-recorded-case-studies"><strong>Case Studies</strong></a> •
-  <a href="#-quickstart--usage"><strong>Quickstart</strong></a> •
-  <a href="#-repository-structure"><strong>Structure</strong></a> •
-  <a href="#-citation"><strong>Citation</strong></a>
+  <a href="#interactive-project-page--3d-inspector"><strong>Project Page</strong></a> •
+  <a href="#the-iou-paradox-in-generative-cad"><strong>The IoU Paradox</strong></a> •
+  <a href="#key-features"><strong>Key Features</strong></a> •
+  <a href="#recorded-case-studies"><strong>Case Studies</strong></a> •
+  <a href="#quickstart--usage"><strong>Quickstart</strong></a> •
+  <a href="#repository-structure"><strong>Structure</strong></a> •
+  <a href="#citation"><strong>Citation</strong></a>
 </p>
 
 ---
@@ -34,22 +34,20 @@
 
 ---
 
-## 🌟 Interactive Project Page & 3D WebGL Viewer
+## Interactive Project Page & 3D Inspector
 
-We provide a comprehensive, standalone academic project homepage ready for browsing and deployment:
-- **Live Online Demo:** [**https://hard-cad.github.io/hard-cad/**](https://hard-cad.github.io/hard-cad/)
+A standalone academic project page is provided for interactive inspection:
+- **Project Website:** [**https://hard-cad.github.io/hard-cad/**](https://hard-cad.github.io/hard-cad/)
 - **Local Entry Point:** [`index.html`](index.html)
-- **Included Features:**
-  - 🧊 **Interactive 3D WebGL CAD Viewer:** Real-time 3D rotation, panning, zoom, wireframe toggle, and state switching between initial, feedback, and ground-truth geometry powered by Three.js and tessellated B-Rep analytics.
-  - ↔️ **Split-Screen Before/After Slider:** Draggable slider interactively revealing where material regressed or grew across candidate revisions.
-  - 🔄 **Interactive Case Switcher:** Toggle between `cad15` and `cad30` before/after geometry and paired diagnostic reports.
-  - 📐 **B-Rep & Contract Visualizer:** High-resolution architectural diagrams and cohort distribution plots.
-  - 📋 **Live Snippet Tabs:** One-click copyable CLI commands, Python API calls, and YAML schema contracts.
-  - 📄 **Full Manuscript Access:** Direct link to [`assets/Hard-CAD.pdf`](assets/Hard-CAD.pdf).
+- **Features:**
+  - **Interactive 3D WebGL Inspector:** 360° rotation, panning, zoom, wireframe toggle, and state switching between initial, feedback, and ground-truth geometry powered by Three.js and tessellated B-Rep analytics.
+  - **Before / After Split Slider:** Interactive comparison revealing localized material changes across candidate revisions.
+  - **Case Switcher:** Toggle between `cad15` (cut regression) and `cad30` (void clearance) with paired diagnostic tables.
+  - **Manuscript PDF:** Direct access to [`assets/Hard-CAD.pdf`](assets/Hard-CAD.pdf).
 
 ---
 
-## 🚨 The Core Problem: The IoU Paradox
+## The IoU Paradox in Generative CAD
 
 In generative CAD and iterative model repair, standard evaluation protocols rely on **Intersection over Union (IoU)** or **Chamfer Distance**. However, precision mechanical engineering demands strict compliance with localized functional requirements (e.g., clearance holes, through-bores, and keep-out volumes).
 
@@ -66,7 +64,7 @@ A model revision can substantially **improve global IoU** while introducing a **
 
 ---
 
-## ⚙️ Key Features
+## Key Features
 
 - **Formal Schema Contracts (`brief.yaml`):** Explicitly defines required and forbidden regions (boxes, cylinders, spheres), coordinate reference frames, units, and strict tolerances ($10^{-6}\text{ mm}^3$).
 - **Deterministic Kernel Execution:** Directly invokes OpenCASCADE B-Rep Boolean operations via FreeCAD without mesh discretization artifacts.
@@ -80,7 +78,7 @@ A model revision can substantially **improve global IoU** while introducing a **
 
 ---
 
-## 🔬 Recorded Case Studies
+## Recorded Case Studies
 
 Ready-to-open case study bundles include YAML contracts, STEP files, and paired HTML/JSON reports:
 
@@ -96,7 +94,7 @@ Ready-to-open case study bundles include YAML contracts, STEP files, and paired 
 
 ---
 
-## 🚀 Quickstart & Usage
+## Quickstart & Usage
 
 ### 1. Installation
 
@@ -163,7 +161,7 @@ requirements:
 
 ---
 
-## 📊 Experimental Results
+## Experimental Results
 
 Across 30 modeling briefs and 41 eligible revision pairs, Hard-CAD analyzed 84 paired cut instances:
 
@@ -175,7 +173,7 @@ Across 30 modeling briefs and 41 eligible revision pairs, Hard-CAD analyzed 84 p
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
 hard-cad/
@@ -197,7 +195,7 @@ hard-cad/
 
 ---
 
-## 📖 Citation
+## Citation
 
 If you find this work or benchmark useful in your research, please cite:
 
@@ -206,12 +204,13 @@ If you find this work or benchmark useful in your research, please cite:
   title   = {Hard-CAD: Contract-Based Diagnostics for Generated CAD Geometry},
   journal = {Computers \& Graphics},
   year    = {2026},
+  url     = {https://hard-cad.github.io/hard-cad/},
   note    = {Under Review}
 }
 ```
 
 ---
 
-## 📄 License
+## License
 
 This repository is distributed under the MIT License. See [LICENSE](LICENSE) for details.

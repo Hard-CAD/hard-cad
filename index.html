@@ -11,658 +11,529 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            brand: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              400: '#38bdf8',
-              500: '#0ea5e9',
-              600: '#0284c7',
-              700: '#0369a1',
-              800: '#075985',
-              900: '#0c4a6e',
-              950: '#082f49',
+            paper: {
+              50: '#fafafa',
+              100: '#f5f5f7',
+              200: '#e5e5ea',
+              300: '#d1d1d6',
+              800: '#1c1c1e',
+              900: '#000000',
             },
-            cadred: '#ef4444',
-            cadgreen: '#10b981',
-            cadamber: '#f59e0b'
+            cadblue: '#2563eb',
+            cadslate: '#334155'
           },
           fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-            mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+            serif: ['Newsreader', 'Charter', 'Georgia', 'Cambria', 'serif'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace']
           }
         }
       }
     }
   </script>
   
-  <!-- Google Fonts & Lucide Icons -->
+  <!-- Fonts: Newsreader (academic serif) + Inter (clean UI) + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Three.js 3D Viewer Libraries -->
+  <!-- Three.js Libraries -->
   <script src="assets/three.min.js"></script>
   <script src="assets/STLLoader.js"></script>
   <script src="assets/OrbitControls.js"></script>
 
   <style>
-    body { font-feature-settings: "cv02", "cv03", "cv04", "cv11"; }
-    .glass-nav {
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+    body {
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
     }
-    .tech-grid {
-      background-size: 40px 40px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    .booktabs {
+      border-top: 1.5px solid #1c1c1e;
+      border-bottom: 1.5px solid #1c1c1e;
     }
-    .glow-cyan {
-      box-shadow: 0 0 40px -10px rgba(56, 189, 248, 0.3);
-    }
-    .glow-red {
-      box-shadow: 0 0 30px -8px rgba(239, 68, 68, 0.35);
+    .booktabs th {
+      border-bottom: 1px solid #71717a;
     }
     /* Comparison Slider */
-    .img-comp-container { position: relative; overflow: hidden; }
-    .img-comp-overlay { position: absolute; top: 0; left: 0; height: 100%; overflow: hidden; width: 50%; }
-    .img-comp-slider {
+    .slider-wrap {
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+    .slider-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 50%;
+      overflow: hidden;
+    }
+    .slider-line {
       position: absolute;
       top: 0;
       bottom: 0;
       left: 50%;
-      width: 4px;
-      background: #38bdf8;
+      width: 2px;
+      background: #2563eb;
       cursor: ew-resize;
       transform: translateX(-50%);
       z-index: 20;
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
     }
-    .img-comp-button {
+    .slider-handle-btn {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 36px;
-      height: 36px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      background: #0284c7;
-      color: white;
-      border: 2px solid white;
+      background: #ffffff;
+      border: 1.5px solid #2563eb;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       pointer-events: none;
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased selection:bg-brand-500 selection:text-white">
+<body class="bg-white text-zinc-900 font-sans selection:bg-zinc-200 selection:text-zinc-900">
 
-  <!-- Floating Modern Navigation Bar -->
-  <header class="sticky top-0 z-50 glass-nav border-b border-slate-800/80 transition-all">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-2.5 font-extrabold text-lg tracking-tight text-white group">
-        <span class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-cyan-400 flex items-center justify-center text-slate-950 font-mono font-black text-sm shadow-md group-hover:scale-105 transition-transform">
-          H
-        </span>
-        <span class="tracking-tight">Hard-CAD</span>
-        <span class="hidden sm:inline-block px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider bg-brand-950/80 text-brand-300 border border-brand-800/60">
-          CAG 2026
-        </span>
-      </a>
-
-      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
-        <a href="#overview" class="hover:text-brand-400 transition-colors">Overview</a>
-        <a href="#viewer3d" class="hover:text-brand-400 transition-colors flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>3D WebGL Viewer</span>
-        </a>
-        <a href="#paradox" class="hover:text-brand-400 transition-colors">The IoU Paradox</a>
-        <a href="#pipeline" class="hover:text-brand-400 transition-colors">Pipeline</a>
-        <a href="#results" class="hover:text-brand-400 transition-colors">Results</a>
-        <a href="#quickstart" class="hover:text-brand-400 transition-colors">Quickstart</a>
-      </nav>
-
-      <div class="flex items-center gap-2.5">
-        <a href="https://hard-cad.github.io/hard-cad/" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-900/60 transition shadow-sm">
+  <!-- Top Minimalist Navigation / Meta Bar -->
+  <nav class="border-b border-zinc-200 bg-white/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="font-semibold text-sm tracking-tight text-zinc-900">Hard-CAD</span>
+        <span class="text-zinc-300">/</span>
+        <span class="text-xs text-zinc-500 font-serif italic">Computers &amp; Graphics 2026</span>
+      </div>
+      <div class="flex items-center gap-3 text-xs">
+        <a href="https://hard-cad.github.io/hard-cad/" class="text-zinc-600 hover:text-zinc-900 transition flex items-center gap-1 font-mono">
           <i data-lucide="globe" class="w-3.5 h-3.5"></i>
-          <span>GitHub.io</span>
+          <span>hard-cad.github.io</span>
         </a>
-        <a href="assets/Hard-CAD.pdf" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-full bg-brand-600 text-white hover:bg-brand-500 transition shadow-sm">
-          <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-          <span>Paper PDF</span>
-        </a>
-        <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-full bg-slate-900 border border-slate-700 text-slate-200 hover:bg-slate-800 transition shadow-sm">
+        <span class="text-zinc-300">|</span>
+        <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="text-zinc-600 hover:text-zinc-900 transition flex items-center gap-1">
           <i data-lucide="github" class="w-3.5 h-3.5"></i>
           <span>GitHub</span>
         </a>
       </div>
     </div>
-  </header>
+  </nav>
 
-  <!-- Hero Section -->
-  <section class="relative pt-16 pb-20 md:pt-24 md:pb-28 tech-grid border-b border-slate-800/80 overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-brand-950/30 via-slate-950/80 to-slate-950 pointer-events-none"></div>
-
-    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <!-- Hero: Classic Academic Paper Header -->
+  <header class="pt-12 pb-10 sm:pt-16 sm:pb-12 border-b border-zinc-100 bg-[#fafafa]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
       
-      <!-- Badges -->
-      <div class="flex flex-wrap items-center justify-center gap-2 mb-6">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-brand-500/30 text-brand-300 text-xs font-semibold uppercase tracking-wider shadow-sm">
-          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-          Computers &amp; Graphics (CAG) &bull; Research Manuscript
-        </div>
-        <a href="https://hard-cad.github.io/hard-cad/" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-medium hover:border-emerald-400 transition">
-          <i data-lucide="link" class="w-3 h-3"></i>
-          hard-cad.github.io/hard-cad
-        </a>
+      <!-- Journal Tag -->
+      <div class="text-sm font-serif italic text-zinc-600 mb-4 tracking-wide">
+        Computers &amp; Graphics (CAG) &bull; Special Issue on Generative Geometry
       </div>
 
-      <!-- Main Paper Title -->
-      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight sm:leading-tight">
-        Hard-CAD: Contract-Based Diagnostics <br class="hidden sm:inline" />
-        <span class="bg-gradient-to-r from-brand-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent">
-          for Generated CAD Geometry
-        </span>
+      <!-- Title (Refined Academic Styling) -->
+      <h1 class="text-2xl sm:text-4xl md:text-[2.6rem] font-serif font-medium text-zinc-950 tracking-tight leading-tight sm:leading-tight">
+        Hard-CAD: Contract-Based Diagnostics for Generated CAD Geometry
       </h1>
 
-      <!-- Punchline Subtitle -->
-      <p class="mt-6 text-xl sm:text-2xl font-semibold text-slate-200 max-w-3xl mx-auto tracking-normal">
+      <!-- Thesis Subtitle -->
+      <p class="mt-4 text-base sm:text-lg text-zinc-600 font-serif italic max-w-2xl mx-auto">
         &ldquo;Don't just measure IoU. Diagnose the requirement.&rdquo;
       </p>
 
-      <!-- Sub-description -->
-      <p class="mt-4 text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed font-normal">
-        Generative CAD models can achieve 99% voxel IoU while filling in precision bolt-holes or blocking specified voids.
-        Hard-CAD binds formal YAML contracts with deterministic OpenCASCADE B-Rep kernels to pinpoint localized regressions.
+      <!-- Author Metadata -->
+      <div class="mt-6 text-sm text-zinc-600">
+        <div class="font-medium text-zinc-800">
+          Anonymous Authors
+        </div>
+        <div class="text-xs text-zinc-500 mt-1">
+          Under Peer Review &bull; Source Code &amp; Verified Assets Available
+        </div>
+      </div>
+
+      <!-- Standard Academic Resource Buttons (Nerfies Style) -->
+      <div class="mt-7 flex flex-wrap items-center justify-center gap-2.5">
+        <a href="assets/Hard-CAD.pdf" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900 text-white text-xs sm:text-sm font-medium hover:bg-zinc-800 transition shadow-sm">
+          <i data-lucide="file-text" class="w-4 h-4"></i>
+          <span>Paper (PDF)</span>
+        </a>
+        <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          <span>Code &amp; Benchmark</span>
+        </a>
+        <a href="#viewer3d" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
+          <i data-lucide="box" class="w-4 h-4 text-zinc-600"></i>
+          <span>Interactive 3D View</span>
+        </a>
+        <a href="#citation" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
+          <i data-lucide="quote" class="w-4 h-4 text-zinc-600"></i>
+          <span>BibTeX</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-16">
+
+    <!-- Teaser Figure 1 (Journal Paper Style) -->
+    <section>
+      <div class="border border-zinc-200 rounded-lg p-2 sm:p-4 bg-white">
+        <img src="assets/diagnostic_concept.png" alt="Diagnostic Concept" class="w-full h-auto object-contain">
+      </div>
+      <p class="mt-3 text-xs sm:text-sm text-zinc-600 leading-relaxed text-justify">
+        <strong class="font-semibold text-zinc-900">Figure 1. The Hard-CAD diagnostic pipeline.</strong>
+        Generative CAD revisions are evaluated against formal requirement contracts (e.g. keep-out cylinders, bounding volumes, tolerances). Rather than reporting a single scalar overlap (IoU), Hard-CAD pairs each requirement across versions, identifying whether an edit repaired an existing defect, preserved passing geometry, or introduced a local regression.
+      </p>
+    </section>
+
+    <!-- Abstract -->
+    <section id="abstract" class="pt-2">
+      <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-4 pb-2 border-b border-zinc-200">
+        Abstract
+      </h2>
+      <div class="text-sm sm:text-base text-zinc-700 leading-relaxed space-y-3 font-serif text-justify">
+        <p>
+          Existing CAD benchmarks evaluate geometric similarity, requirement satisfaction, and edit preservation using coarse voxel/mesh overlap or point-cloud Chamfer distance. However, in precision mechanical engineering, a generated model can preserve 99% of its occupied material while placing a mounting bore on the wrong axis, blocking a vital fluid passage, or fusing components that should remain distinct. An overlap score describes a global geometric relation; it does not specify which local requirements are satisfied.
+        </p>
+        <p>
+          Hard-CAD brings these measurements into a contract-based diagnostic record: it pairs the same declared requirement across revisions, links local changes to global material differences, retains unavailable checks, and supports executable replay. We analyzed outputs from 30 modeling briefs under two local agent conditions, obtaining 41 eligible revision pairs. In one revision, a previously clear side-cut gains 28.27 mm³ while intersection-over-union (IoU) improves and total extra material decreases, because more material is removed elsewhere. In another, a void clears while extra material grows. The paired records identify the affected requirements and quantify both changes.
+        </p>
+      </div>
+    </section>
+
+    <!-- Key Concept: The IoU Paradox with Academic Booktabs Table -->
+    <section id="paradox">
+      <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-3 pb-2 border-b border-zinc-200">
+        The Metric Dilemma: Global IoU vs. Local Contract
+      </h2>
+      <p class="text-sm text-zinc-600 mb-6 leading-relaxed">
+        When evaluating model revisions, conventional evaluation protocols assume that an increase in IoU or a decrease in extra volume indicates improvement. The table below demonstrates why this assumption fails in precision engineering:
       </p>
 
-      <!-- Action Buttons -->
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-3.5">
-        <a href="assets/Hard-CAD.pdf" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-brand-600 to-cyan-500 text-slate-950 font-bold text-sm hover:from-brand-500 hover:to-cyan-400 transition shadow-lg shadow-cyan-500/20">
-          <i data-lucide="file-down" class="w-4 h-4"></i>
-          Download Manuscript (PDF)
-        </a>
-        <a href="#viewer3d" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white font-semibold text-sm hover:bg-slate-800 hover:border-slate-600 transition shadow-sm">
-          <i data-lucide="box" class="w-4 h-4 text-cyan-400"></i>
-          Interactive 3D Viewer
-        </a>
-        <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white font-semibold text-sm hover:bg-slate-800 hover:border-slate-600 transition shadow-sm">
-          <i data-lucide="github" class="w-4 h-4"></i>
-          GitHub Code
-        </a>
+      <!-- Clean Academic Table (LaTeX Booktabs style) -->
+      <div class="overflow-x-auto my-6">
+        <table class="w-full text-xs sm:text-sm booktabs font-mono text-zinc-800">
+          <thead>
+            <tr class="text-left text-zinc-600 font-medium">
+              <th class="py-2.5 px-3">Evaluation Metric</th>
+              <th class="py-2.5 px-3">Initial Candidate</th>
+              <th class="py-2.5 px-3">Revised Candidate</th>
+              <th class="py-2.5 px-3">Delta / Observed Change</th>
+              <th class="py-2.5 px-3">Conclusion</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-200">
+            <tr class="bg-zinc-50/50">
+              <td class="py-2.5 px-3 font-semibold text-zinc-900">Voxel IoU</td>
+              <td class="py-2.5 px-3">0.9612</td>
+              <td class="py-2.5 px-3 font-semibold text-emerald-700">0.9613</td>
+              <td class="py-2.5 px-3 text-emerald-700">+0.000126 &uarr;</td>
+              <td class="py-2.5 px-3 text-zinc-600 italic">"Model improved"</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-semibold text-zinc-900">Total Extra Volume</td>
+              <td class="py-2.5 px-3">38,059.73 mm³</td>
+              <td class="py-2.5 px-3 font-semibold text-emerald-700">38,031.45 mm³</td>
+              <td class="py-2.5 px-3 text-emerald-700">-28.27 mm³ &darr;</td>
+              <td class="py-2.5 px-3 text-zinc-600 italic">"Less error volume"</td>
+            </tr>
+            <tr class="bg-red-50/40">
+              <td class="py-2.5 px-3 font-semibold text-zinc-900 font-sans">Req. 1: <code class="text-xs">part-0-cut-0</code></td>
+              <td class="py-2.5 px-3 text-zinc-700">FAIL (38,059 mm³)</td>
+              <td class="py-2.5 px-3 text-zinc-700">FAIL (38,003 mm³)</td>
+              <td class="py-2.5 px-3 text-zinc-600">-56.55 mm³ trimmed</td>
+              <td class="py-2.5 px-3 text-zinc-600">Still failing</td>
+            </tr>
+            <tr class="bg-red-50/80 text-red-900 font-medium">
+              <td class="py-2.5 px-3 font-bold font-sans">Req. 2: <code class="text-xs">part-0-cut-1</code> (Side-Cut)</td>
+              <td class="py-2.5 px-3 text-emerald-700 font-bold">PASS (0.00 mm³)</td>
+              <td class="py-2.5 px-3 text-red-700 font-bold">FAIL (28.27 mm³)</td>
+              <td class="py-2.5 px-3 text-red-700 font-bold">+28.27 mm³ filled</td>
+              <td class="py-2.5 px-3 text-red-700 font-bold">Critical Regression &cross;</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+      <p class="text-xs text-zinc-500 font-serif italic text-center">
+        Table 1. Paired diagnostic measurements for brief <span class="font-mono">cad15</span>. Global volume decreased by 28.27 mm³ overall, masking that the agent filled an existing valid side cut.
+      </p>
 
-      <!-- Quick Metrics Bar -->
-      <div class="mt-14 grid grid-cols-2 sm:grid-cols-5 gap-3 max-w-4xl mx-auto">
-        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
-          <div class="text-2xl font-black font-mono text-cyan-400">30</div>
-          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium mt-0.5">Design Briefs</div>
+      <!-- Draggable Visual Comparison Slider -->
+      <div class="mt-8 border border-zinc-200 rounded-lg p-3 sm:p-5 bg-zinc-50">
+        <div class="flex items-center justify-between text-xs text-zinc-600 mb-2 font-mono">
+          <span>&larr; Initial (Side-cut PASS: 0.00 mm³)</span>
+          <span>Feedback Revision (Side-cut FAIL: 28.27 mm³) &rarr;</span>
         </div>
-        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
-          <div class="text-2xl font-black font-mono text-cyan-400">41</div>
-          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium mt-0.5">Revision Pairs</div>
-        </div>
-        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
-          <div class="text-2xl font-black font-mono text-cyan-400">84</div>
-          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium mt-0.5">Cut Instances</div>
-        </div>
-        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
-          <div class="text-2xl font-black font-mono text-emerald-400">12 / 12</div>
-          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium mt-0.5">Doc Precision</div>
-        </div>
-        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 col-span-2 sm:col-span-1">
-          <div class="text-2xl font-black font-mono text-purple-400">10⁻⁶ mm³</div>
-          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium mt-0.5">Kernel Tolerance</div>
-        </div>
-      </div>
 
-    </div>
-  </section>
+        <div class="relative rounded border border-zinc-300 bg-white slider-wrap h-64 sm:h-72" id="slider-container">
+          <!-- After (Feedback) -->
+          <img src="assets/concept_cad15_after.png" class="absolute inset-0 w-full h-full object-contain p-2" alt="Revision">
+          
+          <!-- Before (Initial) with dynamic clip width -->
+          <div class="slider-overlay" id="slider-overlay">
+            <img src="assets/concept_cad15_before.png" class="absolute inset-0 w-full h-full object-contain p-2" alt="Initial">
+          </div>
 
-  <!-- Section: Interactive 3D WebGL CAD Viewer -->
-  <section id="viewer3d" class="py-16 md:py-24 bg-slate-950 border-b border-slate-800/80 relative">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-3xl mx-auto mb-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-3">
-          <i data-lucide="orbit" class="w-3.5 h-3.5"></i>
-          <span>Real-Time WebGL Viewer</span>
+          <!-- Divider line -->
+          <div class="slider-line" id="slider-handle">
+            <div class="slider-handle-btn">
+              <i data-lucide="chevrons-left-right" class="w-3.5 h-3.5 text-blue-600"></i>
+            </div>
+          </div>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Explore Geometry in Interactive 3D
-        </h2>
-        <p class="mt-3 text-slate-400 text-sm sm:text-base">
-          Rotate (left-drag), pan (right-drag), and zoom (scroll) the actual benchmark STEP/STL parts directly in your browser.
+
+        <p class="mt-2 text-center text-xs text-zinc-500">
+          <em>Drag the blue divider to compare geometry directly. Notice how the cylindrical side-cut on the upper right is open on the left, but blocked on the right.</em>
         </p>
       </div>
 
-      <!-- 3D Canvas Box -->
-      <div class="rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl overflow-hidden glow-cyan">
+    </section>
+
+    <!-- Interactive 3D CAD Inspection Tool -->
+    <section id="viewer3d">
+      <div class="flex items-center justify-between pb-2 border-b border-zinc-200 mb-3">
+        <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950">
+          Interactive 3D Geometry Inspector
+        </h2>
+        <span class="text-xs font-mono text-zinc-500 uppercase tracking-wider">FreeCAD B-Rep &bull; WebGL</span>
+      </div>
+      
+      <p class="text-sm text-zinc-600 mb-5 leading-relaxed">
+        Inspect the actual CAD boundary representations evaluated in the manuscript. Rotate with left mouse button, pan with right mouse button, and zoom with scroll wheel.
+      </p>
+
+      <!-- 3D Viewer Container (Clean Technical CAD Style) -->
+      <div class="border border-zinc-300 rounded-lg overflow-hidden bg-white shadow-sm">
         
-        <!-- Viewer Top Controls Bar -->
-        <div class="p-4 bg-slate-950 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <!-- Controls Bar -->
+        <div class="p-3 bg-zinc-100 border-b border-zinc-200 flex flex-wrap items-center justify-between gap-3 text-xs">
           
-          <!-- Model Selection -->
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400 font-medium">Model:</span>
-            <div class="inline-flex rounded-lg bg-slate-900 p-0.5 border border-slate-800">
-              <button onclick="set3DModel('cad15')" id="btn-m-cad15" class="px-3 py-1.5 rounded-md font-semibold bg-brand-600 text-white transition">
-                cad15 (Cut Regresses)
-              </button>
-              <button onclick="set3DModel('cad30')" id="btn-m-cad30" class="px-3 py-1.5 rounded-md font-semibold text-slate-400 hover:text-white transition">
-                cad30 (Void Clears)
-              </button>
-            </div>
+          <!-- Model selector -->
+          <div class="flex items-center gap-1.5">
+            <span class="font-medium text-zinc-600">Case:</span>
+            <button onclick="set3DModel('cad15')" id="btn-m-cad15" class="px-2.5 py-1 rounded bg-white border border-zinc-300 font-medium text-zinc-800 shadow-xs">
+              cad15 (Cut Regresses)
+            </button>
+            <button onclick="set3DModel('cad30')" id="btn-m-cad30" class="px-2.5 py-1 rounded bg-transparent border border-transparent font-medium text-zinc-500 hover:text-zinc-800">
+              cad30 (Void Clears)
+            </button>
           </div>
 
-          <!-- State Selection -->
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400 font-medium">State:</span>
-            <div class="inline-flex rounded-lg bg-slate-900 p-0.5 border border-slate-800">
-              <button onclick="set3DState('initial')" id="btn-s-initial" class="px-2.5 py-1.5 rounded-md font-medium text-slate-300 hover:text-white transition">
-                Initial
-              </button>
-              <button onclick="set3DState('feedback')" id="btn-s-feedback" class="px-2.5 py-1.5 rounded-md font-medium bg-brand-600 text-white transition">
-                Feedback Revision
-              </button>
-              <button onclick="set3DState('reference')" id="btn-s-reference" class="px-2.5 py-1.5 rounded-md font-medium text-slate-300 hover:text-white transition">
-                Ground Truth
-              </button>
-            </div>
+          <!-- Revision State -->
+          <div class="flex items-center gap-1.5">
+            <span class="font-medium text-zinc-600">State:</span>
+            <button onclick="set3DState('initial')" id="btn-s-initial" class="px-2.5 py-1 rounded bg-transparent border border-transparent text-zinc-600 hover:text-zinc-900">
+              Initial
+            </button>
+            <button onclick="set3DState('feedback')" id="btn-s-feedback" class="px-2.5 py-1 rounded bg-white border border-zinc-300 font-medium text-zinc-900 shadow-xs">
+              Feedback Revision
+            </button>
+            <button onclick="set3DState('reference')" id="btn-s-reference" class="px-2.5 py-1 rounded bg-transparent border border-transparent text-zinc-600 hover:text-zinc-900">
+              Ground Truth
+            </button>
           </div>
 
-          <!-- Rendering Modes -->
+          <!-- Display Toggles -->
           <div class="flex items-center gap-2">
-            <button onclick="toggleWireframe()" id="btn-wire" class="px-2.5 py-1.5 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 hover:text-white transition flex items-center gap-1">
-              <i data-lucide="grid" class="w-3.5 h-3.5"></i>
+            <button onclick="toggleWireframe()" id="btn-wire" class="px-2 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition flex items-center gap-1">
+              <i data-lucide="grid" class="w-3 h-3"></i>
               <span>Wireframe</span>
             </button>
-            <button onclick="toggleAutoRotate()" id="btn-autorotate" class="px-2.5 py-1.5 rounded-lg border border-slate-700 bg-slate-900 text-cyan-400 hover:text-white transition flex items-center gap-1">
-              <i data-lucide="rotate-cw" class="w-3.5 h-3.5"></i>
-              <span>Auto-Rotate: ON</span>
+            <button onclick="toggleAutoRotate()" id="btn-autorotate" class="px-2 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition flex items-center gap-1">
+              <i data-lucide="rotate-cw" class="w-3 h-3"></i>
+              <span>Rotate</span>
             </button>
-            <button onclick="resetCamera()" class="px-2.5 py-1.5 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 hover:text-white transition">
-              Reset Camera
+            <button onclick="resetCamera()" class="px-2 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition">
+              Reset
             </button>
           </div>
 
         </div>
 
-        <!-- Canvas and Status Overlay -->
-        <div class="relative w-full h-[480px] bg-slate-950">
+        <!-- Canvas Area -->
+        <div class="relative w-full h-[400px] bg-[#f8fafc]">
           <div id="cad-canvas-container" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
 
-          <!-- Loading Spinner -->
-          <div id="viewer-loading" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/80 z-20 transition-opacity">
-            <div class="w-10 h-10 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
-            <p class="mt-3 text-xs font-mono text-cyan-300" id="viewer-loading-text">Loading 3D CAD Geometry...</p>
-          </div>
-
-          <!-- Real-Time Info Overlay Card -->
-          <div class="absolute bottom-4 left-4 z-10 max-w-xs p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 backdrop-blur-md text-xs shadow-xl">
-            <div class="flex items-center justify-between mb-1">
-              <span class="font-bold text-white text-sm" id="overlay-title">cad15 · Feedback</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold" id="overlay-badge">REGRESSION</span>
+          <!-- CAD Spec Callout Card -->
+          <div class="absolute bottom-3 left-3 max-w-xs p-3 rounded bg-white/95 border border-zinc-200 text-xs shadow-md font-sans">
+            <div class="font-semibold text-zinc-900 flex items-center justify-between mb-1">
+              <span id="overlay-title">cad15 · Feedback</span>
+              <span id="overlay-badge" class="px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-red-100 text-red-800">REGRESSION</span>
             </div>
-            <p class="text-slate-400 text-[11px] leading-snug" id="overlay-desc">
-              Global IoU improved by +0.000126, but the declared side-cut regressed with 28.27 mm³ unwanted solid material!
+            <p id="overlay-desc" class="text-zinc-600 text-[11px] leading-snug">
+              IoU improved +0.000126, but the declared side-cut filled in with 28.27 mm³ unwanted solid material.
             </p>
-            <div class="mt-2 pt-2 border-t border-slate-800/80 flex items-center justify-between font-mono text-[11px]">
-              <span class="text-slate-500">Kernel: FreeCAD OpenCASCADE</span>
-              <span class="text-cyan-400 font-semibold" id="overlay-tol">Tol: 10⁻⁶ mm³</span>
+            <div class="mt-2 pt-1.5 border-t border-zinc-100 flex justify-between text-[10px] text-zinc-500 font-mono">
+              <span>Tolerance: 10⁻⁶ mm³</span>
+              <span class="text-blue-600 font-medium">B-Rep Verified</span>
             </div>
           </div>
-
-        </div>
-
-        <!-- Footer Notice -->
-        <div class="p-3 bg-slate-950/90 border-t border-slate-800/80 text-center text-xs text-slate-500 font-mono">
-          Interactive WebGL viewport running Three.js with tessellated B-Rep analytics from STEP geometry.
         </div>
 
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- Methodology & Workflow -->
+    <section id="pipeline">
+      <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-3 pb-2 border-b border-zinc-200">
+        Contract-Based Diagnostic Architecture
+      </h2>
+      <p class="text-sm text-zinc-600 mb-6 leading-relaxed">
+        Hard-CAD decouples requirement evaluation into three deterministic phases: formal contract specification, analytical B-Rep kernel measurement, and paired differencing.
+      </p>
 
-  <!-- Section: The IoU Paradox & Interactive Comparison Slider -->
-  <section id="paradox" class="py-16 md:py-24 bg-slate-900 border-b border-slate-800">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-950/80 border border-red-500/40 text-red-400 text-xs font-semibold uppercase tracking-wider mb-3">
-          <i data-lucide="alert-octagon" class="w-3.5 h-3.5"></i>
-          <span>The Ground Truth Dilemma</span>
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Why Standard Global Metrics Are Blind
-        </h2>
-        <p class="mt-3 text-slate-400 text-sm sm:text-base">
-          Drag the interactive comparison slider below to inspect the geometric changes between Initial and Revised candidates.
-        </p>
+      <div class="border border-zinc-200 rounded-lg p-2 sm:p-4 bg-white mb-4">
+        <img src="assets/contract_revision_workflow.png" alt="Contract Revision Workflow" class="w-full h-auto object-contain">
       </div>
+      <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed text-justify mb-8">
+        <strong class="font-semibold text-zinc-900">Figure 2. Execution architecture.</strong>
+        Human design briefs are codified into declarative contracts specifying coordinate frames, units, and geometric regions. The FreeCAD OpenCASCADE kernel computes exact solid differences, producing self-contained diagnostic artifacts.
+      </p>
 
-      <!-- Interactive 2D Slider Card -->
-      <div class="bg-slate-950 rounded-2xl border border-slate-800 shadow-2xl p-6 sm:p-8">
-        
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          <!-- Left: Split-View Slider -->
-          <div class="lg:col-span-7">
-            <div class="flex items-center justify-between mb-2 text-xs font-medium text-slate-400">
-              <span class="text-emerald-400 font-semibold">&larr; Initial (Cut PASS 0.00 mm³)</span>
-              <span class="text-red-400 font-semibold">Feedback (Cut Regressed 28.27 mm³) &rarr;</span>
-            </div>
-
-            <div class="relative rounded-xl border border-slate-800 overflow-hidden bg-slate-900 img-comp-container h-64 sm:h-80" id="slider-container">
-              <!-- Under Image (Feedback) -->
-              <img src="assets/concept_cad15_after.png" class="absolute inset-0 w-full h-full object-contain p-4" alt="Revised Candidate">
-              
-              <!-- Over Image (Initial) with dynamic clip width -->
-              <div class="img-comp-overlay" id="slider-overlay">
-                <img src="assets/concept_cad15_before.png" class="absolute inset-0 w-full h-full object-contain p-4" alt="Initial Candidate">
-              </div>
-
-              <!-- Slider divider bar -->
-              <div class="img-comp-slider" id="slider-handle">
-                <div class="img-comp-button">
-                  <i data-lucide="chevrons-left-right" class="w-4 h-4"></i>
-                </div>
-              </div>
-            </div>
-
-            <p class="mt-2 text-center text-xs text-slate-500 italic">
-              Drag the blue divider to see how the side-cut was erroneously filled while global material was reduced.
-            </p>
-          </div>
-
-          <!-- Right: Diagnostic Matrix Table -->
-          <div class="lg:col-span-5 space-y-4">
-            
-            <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Global Scorecard</span>
-                <span class="text-xs font-mono font-bold text-emerald-400">+0.000126 IoU</span>
-              </div>
-              <div class="space-y-2 text-xs">
-                <div class="flex justify-between text-slate-300">
-                  <span>Extra Volume Delta:</span>
-                  <span class="font-mono text-emerald-400">-28.27 mm³ (Apparent Gain)</span>
-                </div>
-                <div class="flex justify-between text-slate-300">
-                  <span>Missing Volume Delta:</span>
-                  <span class="font-mono text-slate-400">0.00 mm³</span>
-                </div>
-              </div>
-              <div class="mt-3 p-2.5 rounded bg-amber-950/40 border border-amber-500/30 text-[11px] text-amber-300">
-                A conventional benchmark concludes the revision is superior!
-              </div>
-            </div>
-
-            <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">Hard-CAD Diagnosis</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-red-950 text-red-400 border border-red-800">REGRESSION</span>
-              </div>
-              
-              <table class="w-full text-xs font-mono">
-                <thead>
-                  <tr class="border-b border-slate-800 text-slate-500 text-left">
-                    <th class="pb-1.5">Requirement</th>
-                    <th class="pb-1.5">Initial</th>
-                    <th class="pb-1.5">Feedback</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-800/60">
-                  <tr>
-                    <td class="py-2 text-slate-300">part-0-cut-0</td>
-                    <td class="py-2 text-red-400">FAIL</td>
-                    <td class="py-2 text-red-400">FAIL</td>
-                  </tr>
-                  <tr class="bg-red-950/30 font-bold">
-                    <td class="py-2 text-red-300">part-0-cut-1</td>
-                    <td class="py-2 text-emerald-400">PASS (0.00)</td>
-                    <td class="py-2 text-red-400">FAIL (28.27) ❌</td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <div class="mt-3 pt-2 border-t border-slate-800 flex justify-between items-center text-xs">
-                <a href="examples/cad15_iou_improves_cut_regresses/report.html" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold inline-flex items-center gap-1">
-                  <span>Open Full Diagnosis Report</span>
-                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
-                </a>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Section: Methodology & Architecture Workflow -->
-  <section id="pipeline" class="py-16 md:py-24 bg-slate-950 border-b border-slate-800">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-950/80 border border-brand-500/40 text-brand-300 text-xs font-semibold uppercase tracking-wider mb-3">
-          <i data-lucide="layers" class="w-3.5 h-3.5"></i>
-          <span>Architecture</span>
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          The Contract-Based Revision Workflow
-        </h2>
-        <p class="mt-3 text-slate-400 text-sm sm:text-base">
-          From human design specifications to deterministic B-Rep geometry validation and paired diff tables.
-        </p>
-      </div>
-
-      <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 sm:p-6 mb-12 shadow-2xl">
-        <img src="assets/contract_revision_workflow.png" alt="Contract Revision Workflow" class="w-full h-auto object-contain rounded-xl">
-        <p class="mt-4 text-xs sm:text-sm text-slate-400 text-center font-normal">
-          <strong class="text-white">Figure 2:</strong> Architectural flow of Hard-CAD. Modeling briefs are ingested as formal schema contracts. STEP/BREP outputs are evaluated across iterations, generating paired diff tables, individual HTML/JSON diagnosis artifacts, and reproducible provenance logs.
-        </p>
-      </div>
-
-      <!-- 3 Pillars Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-brand-500/40 transition">
-          <div class="w-12 h-12 rounded-xl bg-brand-950 border border-brand-800/80 text-cyan-400 flex items-center justify-center mb-4">
-            <i data-lucide="file-code" class="w-6 h-6"></i>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2">01 / Formal Schema Contract</h3>
-          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            Specifies exact cylindrical/box keep-out regions, coordinate reference frames, units (mm), and strict tolerances ($10^{-6}\text{ mm}^3$) without ambiguity.
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+        <div class="border-t-2 border-zinc-900 pt-3">
+          <div class="font-mono text-xs text-zinc-500 mb-1">SECTION 3</div>
+          <h3 class="font-medium text-zinc-900 mb-2">Schema Contracts</h3>
+          <p class="text-xs text-zinc-600 leading-relaxed">
+            Requirements are declared as YAML schemas with explicit coordinate frames (world/local), units (mm), and keep-out or bounding geometries.
           </p>
         </div>
-
-        <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-brand-500/40 transition">
-          <div class="w-12 h-12 rounded-xl bg-brand-950 border border-brand-800/80 text-cyan-400 flex items-center justify-center mb-4">
-            <i data-lucide="cpu" class="w-6 h-6"></i>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2">02 / Deterministic CAD Kernel</h3>
-          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            Directly executes OpenCASCADE B-Rep Boolean cuts and clearances in FreeCAD, preserving analytical curves without mesh tessellation distortion.
+        <div class="border-t-2 border-zinc-900 pt-3">
+          <div class="font-mono text-xs text-zinc-500 mb-1">SECTION 4</div>
+          <h3 class="font-medium text-zinc-900 mb-2">Kernel Verification</h3>
+          <p class="text-xs text-zinc-600 leading-relaxed">
+            Analytical B-Rep Boolean subtraction computes intersection volumes down to 10⁻⁶ mm³, completely avoiding polyhedral mesh tessellation noise.
           </p>
         </div>
-
-        <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-brand-500/40 transition">
-          <div class="w-12 h-12 rounded-xl bg-brand-950 border border-brand-800/80 text-cyan-400 flex items-center justify-center mb-4">
-            <i data-lucide="git-commit" class="w-6 h-6"></i>
-          </div>
-          <h3 class="text-lg font-bold text-white mb-2">03 / Paired Differencing</h3>
-          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            Compares identical requirements across model revisions $M_1$ and $M_2$, computing state transitions (PASS &harr; FAIL) and local signed material differences.
+        <div class="border-t-2 border-zinc-900 pt-3">
+          <div class="font-mono text-xs text-zinc-500 mb-1">SECTION 5</div>
+          <h3 class="font-medium text-zinc-900 mb-2">Paired Differencing</h3>
+          <p class="text-xs text-zinc-600 leading-relaxed">
+            Records identify requirement transitions (PASS &rarr; FAIL) alongside global signed material changes, isolating defect regressions from repairs.
           </p>
         </div>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- Experimental Results -->
+    <section id="results">
+      <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-3 pb-2 border-b border-zinc-200">
+        Empirical Evaluation
+      </h2>
+      <p class="text-sm text-zinc-600 mb-6 leading-relaxed">
+        Evaluation across 30 design briefs, 41 eligible revision pairs, and 84 cut requirement instances demonstrates the pervasive disconnect between scalar similarity scores and requirement-level compliance:
+      </p>
 
-  <!-- Section: Results & Scientific Evidence -->
-  <section id="results" class="py-16 md:py-24 bg-slate-900 border-b border-slate-800">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-xs font-semibold uppercase tracking-wider mb-3">
-          <i data-lucide="activity" class="w-3.5 h-3.5"></i>
-          <span>Empirical Evaluation</span>
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Comprehensive Revision Cohort Analysis
-        </h2>
-        <p class="mt-3 text-slate-400 text-sm sm:text-base">
-          Evaluated across 30 design briefs, 41 eligible revision pairs, and 84 cut requirement instances.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 shadow-xl">
-          <h3 class="font-bold text-white text-base mb-3 flex items-center gap-2">
-            <i data-lucide="scatter-chart" class="w-4 h-4 text-cyan-400"></i>
-            <span>Revision Cohort Distribution</span>
-          </h3>
-          <div class="rounded-xl overflow-hidden bg-slate-900 border border-slate-800/80 mb-3">
-            <img src="assets/revision_cohort.png" alt="Revision Cohort" class="w-full h-auto object-contain">
-          </div>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Scatter distribution demonstrating the decoupling of global IoU improvements from local requirement violations across 41 revision pairs.
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+        <div class="border border-zinc-200 rounded-lg p-3 bg-white">
+          <img src="assets/revision_cohort.png" alt="Revision Cohort" class="w-full h-auto object-contain mb-2">
+          <p class="text-xs text-zinc-500 leading-snug">
+            <strong class="text-zinc-800">Figure 3. Cohort scatter analysis.</strong> Change in global IoU versus signed volume modification across 41 revision pairs.
           </p>
         </div>
-
-        <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 shadow-xl">
-          <h3 class="font-bold text-white text-base mb-3 flex items-center gap-2">
-            <i data-lucide="wrench" class="w-4 h-4 text-cyan-400"></i>
-            <span>Autonomous Agent Repair Trials</span>
-          </h3>
-          <div class="rounded-xl overflow-hidden bg-slate-900 border border-slate-800/80 mb-3">
-            <img src="assets/agent_repair_examples.png" alt="Agent Repair Examples" class="w-full h-auto object-contain">
-          </div>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Multi-stage repair feedback loops. While agents frequently clear target voids, paired records uncover collateral geometric side-effects.
+        <div class="border border-zinc-200 rounded-lg p-3 bg-white">
+          <img src="assets/agent_repair_examples.png" alt="Agent Repair Examples" class="w-full h-auto object-contain mb-2">
+          <p class="text-xs text-zinc-500 leading-snug">
+            <strong class="text-zinc-800">Figure 4. Agent repair trajectories.</strong> Tool-using agents attempting multi-stage geometry edits often generate unintended collateral volume.
           </p>
         </div>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- Quickstart & Reproducibility -->
+    <section id="quickstart">
+      <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-3 pb-2 border-b border-zinc-200">
+        Reproducibility &amp; Usage
+      </h2>
+      <p class="text-sm text-zinc-600 mb-4 leading-relaxed">
+        Hard-CAD is distributed as an open-source tool and executable evaluation suite. No proprietary CAD licenses, model tokens, or GPU clusters are required.
+      </p>
 
-  <!-- Section: Quickstart Code & CLI Snippets -->
-  <section id="quickstart" class="py-16 md:py-24 bg-slate-950 border-b border-slate-800">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-2xl mx-auto mb-10">
-        <div class="inline-flex items-center gap-2 text-brand-400 font-semibold text-xs tracking-wider uppercase mb-2">
-          <i data-lucide="terminal" class="w-4 h-4"></i>
-          <span>Quickstart</span>
-        </div>
-        <h2 class="text-3xl font-extrabold text-white tracking-tight">
-          Try Hard-CAD in Seconds
-        </h2>
-        <p class="mt-2 text-slate-400 text-sm">
-          Run reproducible checks on STEP models using either the CLI or Python API.
-        </p>
-      </div>
-
-      <!-- Code Box -->
-      <div class="rounded-2xl border border-slate-800 bg-slate-900/95 shadow-2xl overflow-hidden">
-        
-        <div class="px-4 py-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between text-xs">
-          <div class="flex items-center gap-1.5">
-            <button onclick="switchCode('cli')" id="code-btn-cli" class="px-3 py-1 rounded font-mono font-medium text-white bg-slate-800 transition">CLI</button>
-            <button onclick="switchCode('python')" id="code-btn-python" class="px-3 py-1 rounded font-mono font-medium text-slate-400 hover:text-white transition">Python API</button>
-            <button onclick="switchCode('yaml')" id="code-btn-yaml" class="px-3 py-1 rounded font-mono font-medium text-slate-400 hover:text-white transition">Contract YAML</button>
+      <div class="border border-zinc-200 rounded-lg overflow-hidden bg-zinc-900 text-zinc-200 font-mono text-xs">
+        <div class="px-4 py-2.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <button onclick="switchCode('cli')" id="code-btn-cli" class="text-white font-semibold">CLI</button>
+            <span class="text-zinc-600">|</span>
+            <button onclick="switchCode('python')" id="code-btn-python" class="text-zinc-400 hover:text-white">Python API</button>
+            <span class="text-zinc-600">|</span>
+            <button onclick="switchCode('yaml')" id="code-btn-yaml" class="text-zinc-400 hover:text-white">Contract YAML</button>
           </div>
-          <button onclick="copyCurrentCode()" class="text-slate-400 hover:text-white flex items-center gap-1 font-mono transition">
+          <button onclick="copyCurrentCode()" class="text-zinc-400 hover:text-white flex items-center gap-1 transition">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
             <span id="copy-text">Copy</span>
           </button>
         </div>
 
-        <div class="p-5 font-mono text-xs sm:text-sm text-slate-200 overflow-x-auto leading-relaxed">
-          <!-- CLI Code -->
-          <pre id="code-block-cli"><span class="text-slate-500"># 1. Clone repository and install validator</span>
+        <div class="p-4 overflow-x-auto leading-relaxed">
+          <pre id="code-block-cli"># 1. Install hardcad
 git clone https://github.com/Hard-CAD/hard-cad.git
 cd hard-cad
 pip install -e ".[yaml]"
 
-<span class="text-slate-500"># 2. Run recorded benchmark verification</span>
+# 2. Run the recorded paper benchmark demo
 hardcad demo --output paper-demo --cad-python python
 
-<span class="text-slate-500"># 3. View the generated diagnostic cards</span>
+# 3. Inspect generated diagnostic reports
 open paper-demo/index.html</pre>
 
-          <!-- Python Code -->
-          <pre id="code-block-python" class="hidden"><span class="text-cyan-400">from</span> hardcad <span class="text-cyan-400">import</span> diagnose
+          <pre id="code-block-python" class="hidden">from hardcad import diagnose
 
-<span class="text-slate-500"># Diagnose candidate STEP geometry against reference & contract brief</span>
+# Run contract diagnostics against candidate and reference geometry
 report = diagnose(
-    candidate=<span class="text-amber-300">"candidate_v2.step"</span>,
-    reference=<span class="text-amber-300">"reference.step"</span>,
-    brief=<span class="text-amber-300">"brief.yaml"</span>,
-    cad_python=<span class="text-amber-300">"python"</span>  <span class="text-slate-500"># FreeCAD python executable</span>
+    candidate="candidate_v2.step",
+    reference="reference.step",
+    brief="brief.yaml",
+    cad_python="python"  # Path to FreeCAD Python executable
 )
 
-<span class="text-slate-500"># Export interactive HTML diagnosis report</span>
-report.to_html(<span class="text-amber-300">"diagnosis.html"</span>)
+# Export interactive report
+report.to_html("diagnosis.html")
 print(report.summary())</pre>
 
-          <!-- YAML Code -->
-          <pre id="code-block-yaml" class="hidden"><span class="text-cyan-400">schema_version:</span> <span class="text-amber-300">hardcad.contract.v1</span>
-<span class="text-cyan-400">unit:</span> <span class="text-amber-300">mm</span>
-<span class="text-cyan-400">frame:</span> <span class="text-amber-300">world</span>
-<span class="text-cyan-400">requirements:</span>
-  - <span class="text-cyan-400">id:</span> <span class="text-amber-300">part-0-cut-0</span>
-    <span class="text-cyan-400">kind:</span> <span class="text-amber-300">keep_out</span>
-    <span class="text-cyan-400">region:</span>
-      <span class="text-cyan-400">kind:</span> <span class="text-amber-300">box</span>
-      <span class="text-cyan-400">origin:</span> [-23, -18, 2]
-      <span class="text-cyan-400">size:</span> [46, 36, 23]
-    <span class="text-cyan-400">tolerance_mm3:</span> <span class="text-purple-300">1.0e-06</span>
-  - <span class="text-cyan-400">id:</span> <span class="text-amber-300">part-0-cut-1</span>
-    <span class="text-cyan-400">kind:</span> <span class="text-amber-300">keep_out</span>
-    <span class="text-cyan-400">region:</span>
-      <span class="text-cyan-400">kind:</span> <span class="text-amber-300">cylinder</span>
-      <span class="text-cyan-400">origin:</span> [-25, 0, 12]
-      <span class="text-cyan-400">radius:</span> <span class="text-purple-300">3</span>
-      <span class="text-cyan-400">height:</span> <span class="text-purple-300">3</span>
-      <span class="text-cyan-400">axis:</span> [1, 0, 0]
-    <span class="text-cyan-400">tolerance_mm3:</span> <span class="text-purple-300">1.0e-06</span></pre>
+          <pre id="code-block-yaml" class="hidden">schema_version: hardcad.contract.v1
+unit: mm
+frame: world
+state: recorded_static_pose
+requirements:
+  - id: part-0-cut-0
+    kind: keep_out
+    region:
+      kind: box
+      origin: [-23, -18, 2]
+      size: [46, 36, 23]
+    tolerance_mm3: 1.0e-06
+  - id: part-0-cut-1
+    kind: keep_out
+    region:
+      kind: cylinder
+      origin: [-25, 0, 12]
+      radius: 3
+      height: 3
+      axis: [1, 0, 0]
+    tolerance_mm3: 1.0e-06</pre>
         </div>
-
       </div>
+    </section>
 
-    </div>
-  </section>
-
-  <!-- Section: Citation -->
-  <section id="citation" class="py-16 md:py-24 bg-slate-900 border-b border-slate-800">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-2xl font-bold text-white tracking-tight">
+    <!-- BibTeX Citation -->
+    <section id="citation">
+      <div class="flex items-center justify-between pb-2 border-b border-zinc-200 mb-3">
+        <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950">
           Citation
         </h2>
-        <button onclick="copyBibtex()" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 border border-slate-700 text-slate-200 hover:bg-slate-700 shadow-sm transition">
+        <button onclick="copyBibtex()" class="text-xs text-zinc-600 hover:text-zinc-900 flex items-center gap-1 font-mono">
           <i data-lucide="copy" class="w-3.5 h-3.5"></i>
           <span id="bibtex-copy-btn">Copy BibTeX</span>
         </button>
       </div>
 
-      <div class="p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800 shadow-xl font-mono text-xs sm:text-sm text-slate-300 overflow-x-auto leading-relaxed">
+      <div class="border border-zinc-200 rounded-lg p-4 bg-zinc-50 font-mono text-xs text-zinc-800 overflow-x-auto leading-relaxed">
         <pre id="bibtex-content">@article{hardcad2026,
   title   = {Hard-CAD: Contract-Based Diagnostics for Generated CAD Geometry},
   journal = {Computers \& Graphics},
@@ -671,37 +542,34 @@ print(report.summary())</pre>
   note    = {Under Review}
 }</pre>
       </div>
+    </section>
 
-    </div>
-  </section>
+  </main>
 
-  <!-- Footer -->
-  <footer class="py-12 bg-slate-950 text-slate-500 text-xs border-t border-slate-900">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <span class="font-bold text-slate-300">Hard-CAD</span>
-        <span>&bull;</span>
-        <span>Deterministic Diagnostics for Generative CAD</span>
+  <!-- Clean Academic Footer -->
+  <footer class="border-t border-zinc-200 py-10 text-xs text-zinc-500 bg-[#fafafa]">
+    <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <span class="font-medium text-zinc-700">Hard-CAD</span> &bull; 
+        <a href="https://hard-cad.github.io/hard-cad/" class="text-zinc-600 hover:underline">hard-cad.github.io/hard-cad</a>
       </div>
-      <div class="flex items-center gap-6">
-        <a href="https://hard-cad.github.io/hard-cad/" class="hover:text-slate-300 transition">GitHub Pages</a>
-        <a href="assets/Hard-CAD.pdf" target="_blank" class="hover:text-slate-300 transition">Manuscript (PDF)</a>
-        <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="hover:text-slate-300 transition">GitHub</a>
-        <a href="#" class="hover:text-slate-300 transition">Back to Top &uarr;</a>
+      <div class="flex items-center gap-4">
+        <a href="assets/Hard-CAD.pdf" target="_blank" class="hover:text-zinc-900 transition">Manuscript (PDF)</a>
+        <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="hover:text-zinc-900 transition">GitHub</a>
+        <a href="#" class="hover:text-zinc-900 transition">Top &uarr;</a>
       </div>
     </div>
   </footer>
 
   <!-- Scripts: Three.js 3D Viewer & Slider & Tabs -->
   <script>
-    // Initialize Lucide Icons
     lucide.createIcons();
 
     // -------------------------------------------------------------------------
-    // Three.js Interactive 3D CAD Viewer
+    // Three.js Interactive 3D CAD Viewer (Technical Studio Lighting)
     // -------------------------------------------------------------------------
     let scene, camera, renderer, controls, currentMesh = null;
-    let autoRotate = true;
+    let autoRotate = false;
     let isWireframe = false;
     let selectedModel = 'cad15';
     let selectedState = 'feedback';
@@ -711,42 +579,42 @@ print(report.summary())</pre>
         title: 'cad15 · Side-Cut Regression',
         initial: {
           badge: 'INITIAL (PASS)',
-          badgeClass: 'bg-emerald-950 text-emerald-400 border border-emerald-800',
-          desc: 'Initial model: The side-cut (part-0-cut-1) was fully clear (PASS 0.00 mm³), though the main slot failed.',
-          color: 0x38bdf8
+          badgeClass: 'bg-emerald-100 text-emerald-800',
+          desc: 'Initial candidate: Side-cut (part-0-cut-1) was clear (PASS 0.00 mm³).',
+          color: 0x475569
         },
         feedback: {
           badge: 'REGRESSION (FAIL)',
-          badgeClass: 'bg-red-950 text-red-400 border border-red-800',
-          desc: 'Feedback model: IoU gained +0.000126, but side-cut filled in with 28.27 mm³ unwanted material!',
-          color: 0xef4444
+          badgeClass: 'bg-red-100 text-red-800',
+          desc: 'Feedback revision: IoU improved +0.000126, but side-cut filled with 28.27 mm³ unwanted material.',
+          color: 0xdc2626
         },
         reference: {
           badge: 'GROUND TRUTH',
-          badgeClass: 'bg-purple-950 text-purple-400 border border-purple-800',
-          desc: 'Ground Truth Reference: The exact nominal geometry meeting all specification requirements.',
-          color: 0x10b981
+          badgeClass: 'bg-zinc-100 text-zinc-800',
+          desc: 'Ground Truth Reference: The nominal verified CAD specification.',
+          color: 0x2563eb
         }
       },
       cad30: {
         title: 'cad30 · Void Clearance',
         initial: {
           badge: 'BLOCKED VOID',
-          badgeClass: 'bg-red-950 text-red-400 border border-red-800',
+          badgeClass: 'bg-amber-100 text-amber-800',
           desc: 'Initial candidate: part-0-cut-0 blocked by 37.70 mm³ solid material.',
-          color: 0xf59e0b
+          color: 0x64748b
         },
         feedback: {
           badge: 'REPAIRED (PASS)',
-          badgeClass: 'bg-emerald-950 text-emerald-400 border border-emerald-800',
-          desc: 'Feedback model: Void cleared completely (PASS 0.00 mm³), but extra material increased by +1987 mm³!',
-          color: 0x10b981
+          badgeClass: 'bg-emerald-100 text-emerald-800',
+          desc: 'Feedback revision: Void cleared (PASS 0.00 mm³), but extra material grew by +1987.30 mm³.',
+          color: 0x16a34a
         },
         reference: {
           badge: 'GROUND TRUTH',
-          badgeClass: 'bg-purple-950 text-purple-400 border border-purple-800',
+          badgeClass: 'bg-zinc-100 text-zinc-800',
           desc: 'Ground Truth Reference: Nominal verified part specification.',
-          color: 0x06b6d4
+          color: 0x2563eb
         }
       }
     };
@@ -755,14 +623,14 @@ print(report.summary())</pre>
       const container = document.getElementById('cad-canvas-container');
       if (!container) return;
 
-      const width = container.clientWidth || 800;
-      const height = container.clientHeight || 480;
+      const width = container.clientWidth || 700;
+      const height = container.clientHeight || 400;
 
       scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x020617); // Slate 950
+      scene.background = new THREE.Color(0xf8fafc); // Clean light studio gray
 
       camera = new THREE.PerspectiveCamera(40, width / height, 1, 2000);
-      camera.position.set(120, 110, 140);
+      camera.position.set(110, 100, 130);
 
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(width, height);
@@ -774,29 +642,27 @@ print(report.summary())</pre>
       controls.enableDamping = true;
       controls.dampingFactor = 0.08;
       controls.autoRotate = autoRotate;
-      controls.autoRotateSpeed = 1.8;
+      controls.autoRotateSpeed = 1.2;
 
-      // Lights
-      const ambient = new THREE.AmbientLight(0xffffff, 0.65);
-      scene.add(ambient);
+      // Studio Lighting
+      const hemiLight = new THREE.HemisphereLight(0xffffff, 0xe2e8f0, 0.85);
+      scene.add(hemiLight);
 
-      const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.9);
-      dirLight1.position.set(100, 180, 120);
+      const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.75);
+      dirLight1.position.set(120, 180, 120);
       scene.add(dirLight1);
 
-      const dirLight2 = new THREE.DirectionalLight(0x38bdf8, 0.5);
-      dirLight2.position.set(-120, -80, -100);
+      const dirLight2 = new THREE.DirectionalLight(0x94a3b8, 0.4);
+      dirLight2.position.set(-100, -60, -100);
       scene.add(dirLight2);
 
-      // Grid helper
-      const grid = new THREE.GridHelper(240, 24, 0x38bdf8, 0x1e293b);
+      // Subtle drafting grid
+      const grid = new THREE.GridHelper(220, 22, 0xcbd5e1, 0xe2e8f0);
       grid.position.y = -35;
       scene.add(grid);
 
-      // Load initial model
       loadCurrent3DModel();
 
-      // Render loop
       function animate() {
         requestAnimationFrame(animate);
         controls.update();
@@ -810,21 +676,14 @@ print(report.summary())</pre>
     function onWindowResize() {
       const container = document.getElementById('cad-canvas-container');
       if (!container || !renderer || !camera) return;
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      camera.aspect = width / height;
+      camera.aspect = container.clientWidth / container.clientHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
+      renderer.setSize(container.clientWidth, container.clientHeight);
     }
 
     function loadCurrent3DModel() {
       const loader = new THREE.STLLoader();
       const stlPath = `assets/${selectedModel}_${selectedState}.stl`;
-      const loadingEl = document.getElementById('viewer-loading');
-      const loadingText = document.getElementById('viewer-loading-text');
-
-      if (loadingEl) loadingEl.style.display = 'flex';
-      if (loadingText) loadingText.innerText = `Loading ${stlPath}...`;
 
       loader.load(
         stlPath,
@@ -838,10 +697,10 @@ print(report.summary())</pre>
           geometry.center();
 
           const info = modelMeta[selectedModel][selectedState];
-          const material = new THREE.MeshPhongMaterial({
-            color: info.color || 0x38bdf8,
-            specular: 0x475569,
-            shininess: 40,
+          const material = new THREE.MeshStandardMaterial({
+            color: info.color || 0x475569,
+            roughness: 0.35,
+            metalness: 0.25,
             wireframe: isWireframe
           });
 
@@ -850,14 +709,10 @@ print(report.summary())</pre>
           scene.add(currentMesh);
 
           updateOverlayInfo();
-          if (loadingEl) loadingEl.style.display = 'none';
         },
         undefined,
-        function (error) {
-          console.warn("Failed to load local STL file (possibly local file:// CORS):", error);
-          if (loadingText) {
-            loadingText.innerHTML = `Geometry preview available online at <br><a href="https://hard-cad.github.io/hard-cad/" class="text-white underline">hard-cad.github.io/hard-cad</a>`;
-          }
+        function (err) {
+          console.warn("STL file load issue (e.g. local file:// CORS):", err);
         }
       );
     }
@@ -871,7 +726,7 @@ print(report.summary())</pre>
       if (titleEl) titleEl.innerText = `${selectedModel.toUpperCase()} · ${selectedState.toUpperCase()}`;
       if (badgeEl) {
         badgeEl.innerText = info.badge;
-        badgeEl.className = `px-2 py-0.5 rounded text-[10px] font-mono font-bold ${info.badgeClass}`;
+        badgeEl.className = `px-1.5 py-0.5 rounded text-[10px] font-mono font-medium ${info.badgeClass}`;
       }
       if (descEl) descEl.innerText = info.desc;
     }
@@ -879,11 +734,11 @@ print(report.summary())</pre>
     function set3DModel(model) {
       selectedModel = model;
       document.getElementById('btn-m-cad15').className = model === 'cad15' 
-        ? 'px-3 py-1.5 rounded-md font-semibold bg-brand-600 text-white transition'
-        : 'px-3 py-1.5 rounded-md font-semibold text-slate-400 hover:text-white transition';
+        ? 'px-2.5 py-1 rounded bg-white border border-zinc-300 font-medium text-zinc-900 shadow-xs'
+        : 'px-2.5 py-1 rounded bg-transparent border border-transparent font-medium text-zinc-500 hover:text-zinc-800';
       document.getElementById('btn-m-cad30').className = model === 'cad30' 
-        ? 'px-3 py-1.5 rounded-md font-semibold bg-brand-600 text-white transition'
-        : 'px-3 py-1.5 rounded-md font-semibold text-slate-400 hover:text-white transition';
+        ? 'px-2.5 py-1 rounded bg-white border border-zinc-300 font-medium text-zinc-900 shadow-xs'
+        : 'px-2.5 py-1 rounded bg-transparent border border-transparent font-medium text-zinc-500 hover:text-zinc-800';
       loadCurrent3DModel();
     }
 
@@ -893,8 +748,8 @@ print(report.summary())</pre>
         const btn = document.getElementById('btn-s-' + s);
         if (btn) {
           btn.className = s === state 
-            ? 'px-2.5 py-1.5 rounded-md font-medium bg-brand-600 text-white transition'
-            : 'px-2.5 py-1.5 rounded-md font-medium text-slate-300 hover:text-white transition';
+            ? 'px-2.5 py-1 rounded bg-white border border-zinc-300 font-medium text-zinc-900 shadow-xs'
+            : 'px-2.5 py-1 rounded bg-transparent border border-transparent text-zinc-600 hover:text-zinc-900';
         }
       });
       loadCurrent3DModel();
@@ -907,31 +762,29 @@ print(report.summary())</pre>
       }
       const btn = document.getElementById('btn-wire');
       btn.className = isWireframe 
-        ? 'px-2.5 py-1.5 rounded-lg border border-cyan-500 bg-cyan-950 text-cyan-300 transition flex items-center gap-1'
-        : 'px-2.5 py-1.5 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 hover:text-white transition flex items-center gap-1';
+        ? 'px-2 py-1 rounded border border-blue-500 bg-blue-50 text-blue-700 transition flex items-center gap-1 font-medium'
+        : 'px-2 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition flex items-center gap-1';
     }
 
     function toggleAutoRotate() {
       autoRotate = !autoRotate;
       if (controls) controls.autoRotate = autoRotate;
       const btn = document.getElementById('btn-autorotate');
-      btn.innerHTML = `<i data-lucide="rotate-cw" class="w-3.5 h-3.5"></i><span>Auto-Rotate: ${autoRotate ? 'ON' : 'OFF'}</span>`;
       btn.className = autoRotate
-        ? 'px-2.5 py-1.5 rounded-lg border border-slate-700 bg-slate-900 text-cyan-400 hover:text-white transition flex items-center gap-1'
-        : 'px-2.5 py-1.5 rounded-lg border border-slate-700 bg-slate-900 text-slate-400 hover:text-white transition flex items-center gap-1';
-      lucide.createIcons();
+        ? 'px-2 py-1 rounded border border-blue-500 bg-blue-50 text-blue-700 transition flex items-center gap-1 font-medium'
+        : 'px-2 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition flex items-center gap-1';
     }
 
     function resetCamera() {
       if (camera && controls) {
-        camera.position.set(120, 110, 140);
+        camera.position.set(110, 100, 130);
         controls.target.set(0, 0, 0);
         controls.update();
       }
     }
 
     // -------------------------------------------------------------------------
-    // Interactive 2D Comparison Slider
+    // Draggable Comparison Slider
     // -------------------------------------------------------------------------
     function initComparisonSlider() {
       const container = document.getElementById('slider-container');
@@ -966,7 +819,7 @@ print(report.summary())</pre>
     }
 
     // -------------------------------------------------------------------------
-    // Code tabs & Copy functions
+    // Code Snippets Switcher
     // -------------------------------------------------------------------------
     let currentCodeTab = 'cli';
     function switchCode(tab) {
@@ -975,10 +828,10 @@ print(report.summary())</pre>
         const btn = document.getElementById('code-btn-' + t);
         const block = document.getElementById('code-block-' + t);
         if (t === tab) {
-          btn.className = 'px-3 py-1 rounded font-mono font-medium text-white bg-slate-800 transition';
+          btn.className = 'text-white font-semibold';
           block.classList.remove('hidden');
         } else {
-          btn.className = 'px-3 py-1 rounded font-mono font-medium text-slate-400 hover:text-white transition';
+          btn.className = 'text-zinc-400 hover:text-white';
           block.classList.add('hidden');
         }
       });
@@ -988,7 +841,7 @@ print(report.summary())</pre>
       const block = document.getElementById('code-block-' + currentCodeTab);
       navigator.clipboard.writeText(block.innerText).then(() => {
         const copyText = document.getElementById('copy-text');
-        copyText.innerText = 'Copied!';
+        copyText.innerText = 'Copied';
         setTimeout(() => { copyText.innerText = 'Copy'; }, 2000);
       });
     }
@@ -1002,7 +855,6 @@ print(report.summary())</pre>
       });
     }
 
-    // Initialize on DOM load
     window.addEventListener('DOMContentLoaded', () => {
       init3DViewer();
       initComparisonSlider();
