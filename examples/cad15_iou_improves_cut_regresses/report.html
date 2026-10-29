@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hard-CAD · cad15 paired diagnosis</title>
+<style>body{font:16px/1.5 system-ui,sans-serif;max-width:950px;margin:3rem auto;padding:0 1rem;color:#293034;background:#f5f6f6}
+main{background:white;border:1px solid #cbd1d1;padding:2rem}h1{line-height:1.15}th,td{text-align:left;padding:.65rem;border-bottom:1px solid #ccd2d2}table{width:100%;border-collapse:collapse}a{color:#435e65}code{font-size:.95em}</style>
+<main><p>Hard-CAD · recorded pair · cad15</p>
+<h1>Don't just measure IoU.<br>Diagnose the requirement.</h1>
+<p>Measured change: IoU <b>+0.000126</b> · extra material
+<b>-28.27 mm³</b> · missing material
+<b>+0.00 mm³</b>.</p>
+<table><thead><tr><th>Declared requirement</th><th>Initial occupancy</th><th>Feedback occupancy</th></tr></thead><tbody><tr><th>part-0-cut-0</th><td>FAIL · 38059.73 mm³</td><td>FAIL · 38003.18 mm³</td></tr><tr><th>part-0-cut-1</th><td>PASS · 0.00 mm³</td><td>FAIL · 28.27 mm³</td></tr></tbody></table>
+<p>Frame: world · units: mm · state: recorded_static_pose · occupancy tolerance: 10⁻⁶ mm³.</p>
+<p><a href="initial.html">Initial diagnosis</a> · <a href="feedback.html">Feedback diagnosis</a> ·
+<a href="difference.json">Paired JSON</a> · <a href="brief.yaml">YAML contract</a></p>
+<p>STEP inputs: <a href="reference.step">reference</a> · <a href="initial.step">initial</a> ·
+<a href="feedback.step">feedback</a>. <a href="provenance.json">Hashes and replay checks</a>.</p>
+<p>This curated reconstruction reproduces two recorded outputs; it is not a new generation.
+PASS/FAIL concerns the declared empty regions. It does not certify overall part functionality.
+The replay check passes when recorded numerical values and transitions are reproduced,
+including expected failed requirements. See the individual reports for engine versions and input hashes.</p></main></html>

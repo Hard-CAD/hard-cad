@@ -1,0 +1,46 @@
+{
+  "frame": "world",
+  "requirements": [
+    {
+      "id": "part-0-cut-0",
+      "kind": "keep_out",
+      "region": {
+        "kind": "box",
+        "origin": [
+          -23,
+          -18,
+          2
+        ],
+        "size": [
+          46,
+          36,
+          23
+        ]
+      },
+      "tolerance_mm3": 1e-06
+    },
+    {
+      "id": "part-0-cut-1",
+      "kind": "keep_out",
+      "region": {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "height": 3,
+        "kind": "cylinder",
+        "origin": [
+          -25,
+          0,
+          12
+        ],
+        "radius": 3
+      },
+      "tolerance_mm3": 1e-06
+    }
+  ],
+  "schema_version": "hardcad.contract.v1",
+  "state": "recorded_static_pose",
+  "unit": "mm"
+}

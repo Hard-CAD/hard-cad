@@ -1,0 +1,65 @@
+{
+  "after_candidate_sha256": "c76ce4ede84881aa6681e86adab0c6273c8b613f79cfffa8430dedaf7a866376",
+  "after_errors": [],
+  "after_status": "FAIL",
+  "before_candidate_sha256": "6842fed2430dcdb00b8422855dc9772414795c1e21bc8e997e7169f0eed9a5a0",
+  "before_errors": [],
+  "before_status": "FAIL",
+  "contract_sha256": "77c8c5937a3ec90e512a28f09821e4f1d91307f740845ff6bbc92344dfbaac45",
+  "engine": {
+    "implementation_sha256": "78f69ab792b8454e387d33ee2d2929c1ea60165718086f87789312ca0d6e2aa1",
+    "name": "FreeCAD",
+    "occt_version": "7.8.1",
+    "validator_version": "0.1.0",
+    "version": "1.1.1"
+  },
+  "global_metric_deltas": {
+    "candidate_volume_mm3": -28.274333882320207,
+    "extra_material_mm3": -28.274333882305655,
+    "intersection_mm3": 5.4569682106375694e-12,
+    "iou": 0.00012610565389650774,
+    "missing_material_mm3": 0.0,
+    "reference_volume_mm3": 0.0
+  },
+  "reference_sha256": "5e8d2576548e3a7bd2084b8d78d35197c376fa2e4d54261c6a2bd9012430d993",
+  "requirements": [
+    {
+      "after_reason": null,
+      "after_status": "FAIL",
+      "after_value": 38003.176998353076,
+      "before_reason": null,
+      "before_status": "FAIL",
+      "before_value": 38059.725666117694,
+      "id": "part-0-cut-0",
+      "kind": "keep_out",
+      "measured_delta": -56.548667764618585,
+      "tolerance": 1e-06,
+      "transition": "FAIL_TO_FAIL",
+      "unit": "mm3"
+    },
+    {
+      "after_reason": null,
+      "after_status": "FAIL",
+      "after_value": 28.274333882308134,
+      "before_reason": null,
+      "before_status": "PASS",
+      "before_value": 0.0,
+      "id": "part-0-cut-1",
+      "kind": "keep_out",
+      "measured_delta": 28.274333882308134,
+      "tolerance": 1e-06,
+      "transition": "PASS_TO_FAIL",
+      "unit": "mm3"
+    }
+  ],
+  "schema_version": "hardcad.comparison.v1",
+  "scope": {
+    "frame": "world",
+    "state": "recorded_static_pose",
+    "unit": "mm"
+  },
+  "transition_counts": {
+    "FAIL_TO_FAIL": 1,
+    "PASS_TO_FAIL": 1
+  }
+}

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>Hard-CAD validation report · FAIL</title>
+<style>
+:root{color-scheme:light;--ink:#13263b;--muted:#526477;--line:#dbe2e9}
+*{box-sizing:border-box}body{margin:0;background:#f1f5f8;color:var(--ink);font:15px/1.6 system-ui,sans-serif}
+main{max-width:1100px;margin:36px auto;padding:0 22px}header,section{background:white;border:1px solid var(--line);border-radius:12px;padding:25px;margin-bottom:20px}
+h1{font-size:30px;line-height:1.2;margin:6px 0 18px}h2{font-size:19px;margin:0 0 16px}p{margin:8px 0}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--muted)}
+.muted,small,dt{color:var(--muted)}small{display:block}.pill{display:inline-block;border-radius:5px;padding:3px 9px;font-size:12px;font-weight:700;margin:3px 6px 3px 0;white-space:nowrap}
+.pass{background:#d9f3e5;color:#145c39}.fail{background:#ffe0df;color:#912a26}.undetermined{background:#fff0c5;color:#795700}.error{background:#e8e2ff;color:#513494}
+.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;text-align:left}th,td{padding:13px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;text-transform:uppercase;letter-spacing:.04em}td:first-child{min-width:240px}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:0}.metrics div{background:#f5f8fb;padding:12px;border-radius:6px}dd{margin:2px 0;font-family:ui-monospace,monospace;overflow-wrap:anywhere}dt{font-size:12px}
+.identity dt{margin-top:13px}.identity dd{font-size:12px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;background:#f5f8fb;padding:15px;border-radius:6px}summary{cursor:pointer;font-weight:600}footer{font-size:12px;color:var(--muted);padding:0 5px 30px}
+</style></head><body><main>
+<header><p class="eyebrow">Hard-CAD · static requirement check</p><h1>FAIL</h1>
+<div><span class="pill pass">0 PASS</span><span class="pill fail">2 FAIL</span><span class="pill undetermined">0 UNDETERMINED</span><span class="pill error">0 ERROR</span></div><p class="muted">State: recorded_static_pose · Frame: world · Length unit: mm</p>
+<p>Each verdict checks the supplied geometric requirements. PASS does not establish design intent, motion, fit, or manufacturing feasibility.</p></header>
+<section><h2>Requirements</h2><div class="table-wrap"><table><thead><tr><th>Requirement</th><th>Status</th><th>Measured value</th><th>Allowed volume</th><th>Unavailable reason</th></tr></thead><tbody><tr><td><strong>part-0-cut-0</strong><small>Required void · occupied volume</small></td><td><span class="pill fail">FAIL</span></td><td>38003.177 mm³</td><td>1e-06 mm³</td><td>—</td></tr><tr><td><strong>part-0-cut-1</strong><small>Required void · occupied volume</small></td><td><span class="pill fail">FAIL</span></td><td>28.2743339 mm³</td><td>1e-06 mm³</td><td>—</td></tr></tbody></table></div></section>
+<section><h2>Global geometry</h2><dl class="metrics"><div><dt>candidate_volume_mm3</dt><dd>51542.90266447075</dd></div><div><dt>extra_material_mm3</dt><dd>39687.45133223539</dd></div><div><dt>intersection_mm3</dt><dd>11855.4513322354</dd></div><div><dt>iou</dt><dd>0.23001132492306298</dd></div><div><dt>missing_material_mm3</dt><dd>0.0</dd></div><div><dt>reference_volume_mm3</dt><dd>11855.451332235394</dd></div></dl></section>
+<section><h2>Evidence binding</h2><dl class="identity"><dt>Contract SHA-256</dt><dd>77c8c5937a3ec90e512a28f09821e4f1d91307f740845ff6bbc92344dfbaac45</dd>
+<dt>Candidate SHA-256</dt><dd>c76ce4ede84881aa6681e86adab0c6273c8b613f79cfffa8430dedaf7a866376</dd>
+<dt>Reference SHA-256</dt><dd>5e8d2576548e3a7bd2084b8d78d35197c376fa2e4d54261c6a2bd9012430d993</dd>
+<dt>Geometry engine</dt><dd>FreeCAD 1.1.1 · OCCT 7.8.1</dd>
+<dt>Validator version / implementation SHA-256</dt><dd>0.1.0 / 78f69ab792b8454e387d33ee2d2929c1ea60165718086f87789312ca0d6e2aa1</dd></dl>
+<details><summary>Complete JSON record</summary><pre>{
+  &quot;contract_sha256&quot;: &quot;77c8c5937a3ec90e512a28f09821e4f1d91307f740845ff6bbc92344dfbaac45&quot;,
+  &quot;engine&quot;: {
+    &quot;implementation_sha256&quot;: &quot;78f69ab792b8454e387d33ee2d2929c1ea60165718086f87789312ca0d6e2aa1&quot;,
+    &quot;name&quot;: &quot;FreeCAD&quot;,
+    &quot;occt_version&quot;: &quot;7.8.1&quot;,
+    &quot;validator_version&quot;: &quot;0.1.0&quot;,
+    &quot;version&quot;: &quot;1.1.1&quot;
+  },
+  &quot;errors&quot;: [],
+  &quot;global_metrics&quot;: {
+    &quot;candidate_volume_mm3&quot;: 51542.90266447075,
+    &quot;extra_material_mm3&quot;: 39687.45133223539,
+    &quot;intersection_mm3&quot;: 11855.4513322354,
+    &quot;iou&quot;: 0.23001132492306298,
+    &quot;missing_material_mm3&quot;: 0.0,
+    &quot;reference_volume_mm3&quot;: 11855.451332235394
+  },
+  &quot;inputs&quot;: {
+    &quot;candidate_sha256&quot;: &quot;c76ce4ede84881aa6681e86adab0c6273c8b613f79cfffa8430dedaf7a866376&quot;,
+    &quot;reference_sha256&quot;: &quot;5e8d2576548e3a7bd2084b8d78d35197c376fa2e4d54261c6a2bd9012430d993&quot;
+  },
+  &quot;requirements&quot;: [
+    {
+      &quot;id&quot;: &quot;part-0-cut-0&quot;,
+      &quot;kind&quot;: &quot;keep_out&quot;,
+      &quot;measured_value&quot;: 38003.176998353076,
+      &quot;reason&quot;: null,
+      &quot;status&quot;: &quot;FAIL&quot;,
+      &quot;tolerance&quot;: 1e-06,
+      &quot;unit&quot;: &quot;mm3&quot;
+    },
+    {
+      &quot;id&quot;: &quot;part-0-cut-1&quot;,
+      &quot;kind&quot;: &quot;keep_out&quot;,
+      &quot;measured_value&quot;: 28.274333882308134,
+      &quot;reason&quot;: null,
+      &quot;status&quot;: &quot;FAIL&quot;,
+      &quot;tolerance&quot;: 1e-06,
+      &quot;unit&quot;: &quot;mm3&quot;
+    }
+  ],
+  &quot;schema_version&quot;: &quot;hardcad.report.v1&quot;,
+  &quot;scope&quot;: {
+    &quot;frame&quot;: &quot;world&quot;,
+    &quot;state&quot;: &quot;recorded_static_pose&quot;,
+    &quot;unit&quot;: &quot;mm&quot;
+  },
+  &quot;status&quot;: &quot;FAIL&quot;
+}
+</pre></details></section>
+<footer>hardcad.report.v1 · Unmeasured requirements retain their status and reason. This file works offline and loads no external resources.</footer>
+</main></body></html>

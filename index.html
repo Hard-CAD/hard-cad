@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hard-CAD: Contract-Based Diagnostics for Generated CAD Geometry</title>
+  <meta name="description" content="Hard-CAD pairs declared geometric requirements across CAD revisions to diagnose local regressions hidden by global IoU metrics.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+              900: '#082f49',
+            },
+            cadred: '#ef4444',
+            cadgreen: '#10b981',
+            cadamber: '#f59e0b'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Google Fonts & Lucide Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body { font-feature-settings: "cv02", "cv03", "cv04", "cv11"; }
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .gradient-hero {
+      background: radial-gradient(circle at 50% 10%, rgba(2, 132, 199, 0.08) 0%, rgba(248, 250, 252, 0) 70%);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- Floating Navigation Bar -->
+  <header class="sticky top-0 z-50 glass-nav border-b border-slate-200/80 transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 font-bold text-lg tracking-tight text-slate-900 group">
+        <span class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-mono text-sm shadow-sm group-hover:scale-105 transition-transform">
+          H
+        </span>
+        <span>Hard-CAD</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+        <a href="#overview" class="hover:text-brand-600 transition-colors">Overview</a>
+        <a href="#dilemma" class="hover:text-brand-600 transition-colors">The IoU Paradox</a>
+        <a href="#cases" class="hover:text-brand-600 transition-colors">Case Studies</a>
+        <a href="#pipeline" class="hover:text-brand-600 transition-colors">Pipeline</a>
+        <a href="#results" class="hover:text-brand-600 transition-colors">Results</a>
+        <a href="#quickstart" class="hover:text-brand-600 transition-colors">Quickstart</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="assets/Hard-CAD.pdf" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-full bg-slate-900 text-white hover:bg-slate-800 transition shadow-sm">
+          <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+          <span>PDF</span>
+        </a>
+        <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-full bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 transition shadow-sm">
+          <i data-lucide="github" class="w-3.5 h-3.5"></i>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-12 pb-16 md:pt-20 md:pb-24 gradient-hero border-b border-slate-200/60 overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      
+      <!-- Venue & Status Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full bg-brand-50 border border-brand-200/80 text-brand-700 text-xs font-semibold uppercase tracking-wider shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+        Computers &amp; Graphics (CAG) &bull; Research Manuscript
+      </div>
+
+      <!-- Paper Title -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight sm:leading-none">
+        Hard-CAD: Contract-Based Diagnostics for Generated CAD Geometry
+      </h1>
+
+      <!-- Punchline / Subtitle -->
+      <p class="mt-6 text-xl sm:text-2xl font-medium text-brand-700 max-w-3xl mx-auto tracking-normal">
+        &ldquo;Don't just measure IoU. Diagnose the requirement.&rdquo;
+      </p>
+
+      <!-- Description -->
+      <p class="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        Existing generative CAD benchmarks evaluate global overlap and volume similarity. 
+        Hard-CAD bridges declared engineering contracts and B-Rep kernel measurements to expose local regressions that global IoU hides.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a href="assets/Hard-CAD.pdf" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-brand-600 text-white font-medium text-sm hover:bg-brand-700 transition shadow-md shadow-brand-500/20">
+          <i data-lucide="file-down" class="w-4 h-4"></i>
+          Read Paper (PDF)
+        </a>
+        <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 text-white font-medium text-sm hover:bg-slate-800 transition shadow-sm">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          Code Repository
+        </a>
+        <a href="#dilemma" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-700 font-medium text-sm hover:bg-slate-50 transition shadow-sm">
+          <i data-lucide="play-circle" class="w-4 h-4"></i>
+          Interactive Cases
+        </a>
+        <a href="#citation" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white border border-slate-300 text-slate-700 font-medium text-sm hover:bg-slate-50 transition shadow-sm">
+          <i data-lucide="quote" class="w-4 h-4"></i>
+          Cite
+        </a>
+      </div>
+
+      <!-- Teaser Highlight Card -->
+      <div class="mt-12 max-w-4xl mx-auto bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-200/80 p-3 sm:p-5">
+        <div class="rounded-xl overflow-hidden bg-slate-100 border border-slate-200/60">
+          <img src="assets/diagnostic_concept.png" alt="Hard-CAD Diagnostic Concept" class="w-full h-auto object-contain">
+        </div>
+        <p class="mt-3 text-xs sm:text-sm text-slate-500 text-center font-normal">
+          <strong class="text-slate-700">Figure 1:</strong> The Hard-CAD diagnostic workflow. An explicit requirement brief (YAML) binds declared keep-out voids to real B-Rep CAD geometry, comparing revision states and quantifying localized differences beyond coarse global overlap metrics.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 1: Abstract & The Core IoU Dilemma -->
+  <section id="overview" class="py-16 md:py-20 bg-white border-b border-slate-200/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex items-center gap-2 mb-3 text-brand-600 font-semibold text-xs tracking-wider uppercase">
+        <i data-lucide="book-open" class="w-4 h-4"></i>
+        <span>Abstract</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+        Why Generative CAD Needs Contract Diagnostics
+      </h2>
+
+      <div class="mt-6 prose prose-slate max-w-none text-slate-600 leading-relaxed text-justify">
+        <p class="text-base sm:text-lg">
+          Existing CAD benchmarks evaluate geometric similarity, requirement satisfaction, and edit preservation using coarse voxel/mesh overlap or point-cloud Chamfer distance. However, in precision mechanical engineering, a generated model can preserve 99% of its occupied material while placing a mounting bore on the wrong axis, blocking a vital fluid passage, or fusing moving parts together.
+        </p>
+        <p class="mt-4">
+          <strong>Hard-CAD</strong> introduces a contract-based diagnostic record: it pairs the same declared requirement across revisions, links local changes to global material differences, retains unavailable checks, and supports executable replay. By formalizing explicit requirements into lightweight YAML contracts and utilizing the deterministic OpenCASCADE B-Rep kernel (via FreeCAD), Hard-CAD decouples requirement-level engineering diagnostics from brittle black-box model scoring.
+        </p>
+      </div>
+
+      <!-- 3 Key Features Cards -->
+      <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-5 rounded-xl bg-slate-50 border border-slate-200/70 hover:border-brand-300 transition-colors">
+          <div class="w-10 h-10 rounded-lg bg-blue-100 text-brand-600 flex items-center justify-center mb-4">
+            <i data-lucide="file-check-2" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 text-base mb-2">Contract-Based Schema</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-normal">
+            Explicit YAML declarations of keep-out voids, bounding boxes, coordinate frames, units, and strict numerical tolerances (<span class="font-mono text-xs">10⁻⁶ mm³</span>).
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-slate-50 border border-slate-200/70 hover:border-brand-300 transition-colors">
+          <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center mb-4">
+            <i data-lucide="git-compare" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 text-base mb-2">Paired Revision Differencing</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-normal">
+            Traces individual requirement transitions (PASS &rarr; FAIL or FAIL &rarr; PASS) across model revisions to pinpoint regressions instantly.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-slate-50 border border-slate-200/70 hover:border-brand-300 transition-colors">
+          <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4">
+            <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 text-base mb-2">Deterministic Replay</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-normal">
+            Fully reproducible, kernel-grounded measurements independent of private CAD licenses, LLM tokens, or non-deterministic GPU engines.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 2: The Core Paradox & Interactive Case Studies -->
+  <section id="dilemma" class="py-16 md:py-20 bg-slate-50 border-b border-slate-200/60">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 mb-3 rounded-full bg-red-100 text-red-700 text-xs font-semibold uppercase tracking-wider">
+          <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i>
+          The IoU Blindspot
+        </div>
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">
+          When Global IoU Improves, Local Requirements Can Silently Regress
+        </h2>
+        <p class="mt-3 text-slate-600 text-sm sm:text-base">
+          In our benchmark cohort of 30 modeling briefs and 41 revision pairs, standard global metrics consistently failed to reflect localized physical correctness.
+        </p>
+      </div>
+
+      <!-- Interactive Tab Selector for Cases -->
+      <div id="cases" class="mt-12 bg-white rounded-2xl border border-slate-200/80 shadow-lg overflow-hidden">
+        
+        <!-- Tab Headers -->
+        <div class="flex border-b border-slate-200 bg-slate-50/70 p-2 gap-2">
+          <button id="tab-btn-cad15" onclick="switchCase('cad15')" class="flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 bg-white text-brand-700 shadow-sm border border-slate-200/80">
+            <i data-lucide="alert-circle" class="w-4 h-4 text-red-500"></i>
+            <span>Case 1: cad15 (IoU Improves &bull; Side-Cut Regresses)</span>
+          </button>
+          <button id="tab-btn-cad30" onclick="switchCase('cad30')" class="flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 text-slate-600 hover:text-slate-900 hover:bg-white/60">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>
+            <span>Case 2: cad30 (Void Clears &bull; Extra Material Grows)</span>
+          </button>
+        </div>
+
+        <!-- Case 1: cad15 Content -->
+        <div id="case-content-cad15" class="p-6 sm:p-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <!-- Left: Visual Comparison -->
+            <div class="lg:col-span-7 space-y-4">
+              <div class="grid grid-cols-2 gap-3">
+                <div class="rounded-xl border border-slate-200 p-3 bg-slate-50 text-center">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-2">Initial Candidate</span>
+                  <div class="h-44 rounded-lg bg-white border border-slate-200 flex items-center justify-center overflow-hidden p-2">
+                    <img src="assets/concept_cad15_before.png" alt="cad15 Initial" class="max-h-full max-w-full object-contain">
+                  </div>
+                  <span class="mt-2 inline-block text-xs font-mono text-emerald-600 font-medium">Cut-1: PASS (0.00 mm³)</span>
+                </div>
+
+                <div class="rounded-xl border border-red-200 p-3 bg-red-50/30 text-center">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-red-600 block mb-2">Revised Candidate</span>
+                  <div class="h-44 rounded-lg bg-white border border-red-200 flex items-center justify-center overflow-hidden p-2">
+                    <img src="assets/concept_cad15_after.png" alt="cad15 Feedback" class="max-h-full max-w-full object-contain">
+                  </div>
+                  <span class="mt-2 inline-block text-xs font-mono text-red-600 font-bold">Cut-1: FAIL (28.27 mm³)</span>
+                </div>
+              </div>
+              <p class="text-xs text-slate-500 text-center italic">
+                Left: Initial model with side-cut open. Right: Post-revision model where more material was trimmed overall, but the side-cut was erroneously filled!
+              </p>
+            </div>
+
+            <!-- Right: Metric & Diagnostics Matrix -->
+            <div class="lg:col-span-5 space-y-4">
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Global Aggregate Metric</h4>
+                <div class="space-y-1.5 text-sm">
+                  <div class="flex justify-between items-center">
+                    <span class="text-slate-600">Global IoU Change:</span>
+                    <span class="font-mono font-bold text-emerald-600">+0.000126 &uarr;</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-slate-600">Extra Volume:</span>
+                    <span class="font-mono font-bold text-emerald-600">-28.27 mm³ &darr; (Less error)</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-slate-600">Missing Volume:</span>
+                    <span class="font-mono text-slate-700">0.00 mm³</span>
+                  </div>
+                </div>
+                <div class="mt-3 p-2 rounded bg-amber-50 border border-amber-200 text-xs text-amber-800">
+                  Global metrics conclude the revision <strong>improved</strong> the model!
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Hard-CAD Paired Contract Diagnosis</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-xs">
+                    <thead>
+                      <tr class="border-b border-slate-200 text-slate-500 text-left">
+                        <th class="pb-1.5 font-semibold">Requirement</th>
+                        <th class="pb-1.5 font-semibold">Initial</th>
+                        <th class="pb-1.5 font-semibold">Revision</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 font-mono">
+                      <tr>
+                        <td class="py-2 font-medium text-slate-700">part-0-cut-0</td>
+                        <td class="py-2 text-red-500">FAIL 38059 mm³</td>
+                        <td class="py-2 text-red-500">FAIL 38003 mm³</td>
+                      </tr>
+                      <tr class="bg-red-50/60 font-semibold">
+                        <td class="py-2 text-red-700">part-0-cut-1</td>
+                        <td class="py-2 text-emerald-600">PASS (0.00)</td>
+                        <td class="py-2 text-red-600">FAIL (28.27 mm³) &cross;</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="mt-3 text-xs text-red-700 font-medium">
+                  <strong>Diagnostic Verdict:</strong> Regression detected! A previously passing side-cut was blocked during the edit.
+                </p>
+              </div>
+
+              <div class="pt-1 flex items-center gap-3">
+                <a href="examples/cad15_iou_improves_cut_regresses/report.html" target="_blank" class="text-xs text-brand-600 hover:text-brand-800 font-semibold inline-flex items-center gap-1">
+                  Open Recorded Report &rarr;
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Case 2: cad30 Content -->
+        <div id="case-content-cad30" class="p-6 sm:p-8 hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <!-- Left: Visual Comparison -->
+            <div class="lg:col-span-7 space-y-4">
+              <div class="grid grid-cols-2 gap-3">
+                <div class="rounded-xl border border-slate-200 p-3 bg-slate-50 text-center">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-2">Initial Candidate</span>
+                  <div class="h-44 rounded-lg bg-white border border-slate-200 flex items-center justify-center overflow-hidden p-2">
+                    <img src="assets/concept_cad30_before.png" alt="cad30 Initial" class="max-h-full max-w-full object-contain">
+                  </div>
+                  <span class="mt-2 inline-block text-xs font-mono text-red-600 font-bold">Cut-0: FAIL (37.70 mm³)</span>
+                </div>
+
+                <div class="rounded-xl border border-emerald-200 p-3 bg-emerald-50/30 text-center">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-emerald-600 block mb-2">Revised Candidate</span>
+                  <div class="h-44 rounded-lg bg-white border border-emerald-200 flex items-center justify-center overflow-hidden p-2">
+                    <img src="assets/concept_cad30_after.png" alt="cad30 Feedback" class="max-h-full max-w-full object-contain">
+                  </div>
+                  <span class="mt-2 inline-block text-xs font-mono text-emerald-600 font-bold">Cut-0: PASS (0.00 mm³)</span>
+                </div>
+              </div>
+              <p class="text-xs text-slate-500 text-center italic">
+                Left: Blocked cylindrical void. Right: Successfully cleared void, but at the cost of massive extra geometry added around non-critical edges!
+              </p>
+            </div>
+
+            <!-- Right: Metric & Diagnostics Matrix -->
+            <div class="lg:col-span-5 space-y-4">
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Global Aggregate Metric</h4>
+                <div class="space-y-1.5 text-sm">
+                  <div class="flex justify-between items-center">
+                    <span class="text-slate-600">Global IoU Change:</span>
+                    <span class="font-mono font-bold text-emerald-600">+0.030428 &uarr;</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-slate-600">Extra Volume:</span>
+                    <span class="font-mono font-bold text-red-600">+1987.30 mm³ &uarr; (Significant growth)</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-slate-600">Missing Volume:</span>
+                    <span class="font-mono text-emerald-600">-675.00 mm³ &darr;</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Hard-CAD Paired Contract Diagnosis</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-xs">
+                    <thead>
+                      <tr class="border-b border-slate-200 text-slate-500 text-left">
+                        <th class="pb-1.5 font-semibold">Requirement</th>
+                        <th class="pb-1.5 font-semibold">Initial</th>
+                        <th class="pb-1.5 font-semibold">Revision</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 font-mono">
+                      <tr class="bg-emerald-50/60 font-semibold">
+                        <td class="py-2 text-emerald-800">part-0-cut-0</td>
+                        <td class="py-2 text-red-600">FAIL (37.70 mm³)</td>
+                        <td class="py-2 text-emerald-600">PASS (0.00 mm³) &check;</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="mt-3 text-xs text-emerald-700 font-medium">
+                  <strong>Diagnostic Verdict:</strong> Repair verified! The declared functional void cleared cleanly, with exact measurement of the side-effect volume.
+                </p>
+              </div>
+
+              <div class="pt-1 flex items-center gap-3">
+                <a href="examples/cad30_void_clears_extra_grows/report.html" target="_blank" class="text-xs text-brand-600 hover:text-brand-800 font-semibold inline-flex items-center gap-1">
+                  Open Recorded Report &rarr;
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 3: Methodology & Pipeline -->
+  <section id="pipeline" class="py-16 md:py-20 bg-white border-b border-slate-200/60">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 text-brand-600 font-semibold text-xs tracking-wider uppercase">
+          <i data-lucide="layers" class="w-4 h-4"></i>
+          <span>Architecture</span>
+        </div>
+        <h2 class="text-3xl font-bold text-slate-900 tracking-tight mt-1">
+          The Contract-Based Revision Workflow
+        </h2>
+        <p class="mt-3 text-slate-600 text-sm sm:text-base">
+          From human design briefs and engineering contracts to deterministic B-Rep geometry validation and paired revision diffs.
+        </p>
+      </div>
+
+      <!-- Pipeline Diagram Image -->
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-sm mb-12">
+        <img src="assets/contract_revision_workflow.png" alt="Contract Revision Workflow" class="w-full h-auto object-contain rounded-xl">
+        <p class="mt-4 text-xs sm:text-sm text-slate-500 text-center">
+          <strong class="text-slate-700">Figure 2:</strong> Architectural flow of Hard-CAD. Modeling briefs are ingested as formal schema contracts. STEP/BREP outputs are evaluated across iterations, generating paired diff tables, individual HTML/JSON diagnosis artifacts, and reproducible provenance logs.
+        </p>
+      </div>
+
+      <!-- 3 Columns Breakdown -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <div class="text-brand-600 font-mono text-sm font-bold mb-1">01 / Specification</div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Schema Contract Brief</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Engineers specify required functional regions (cylindrical holes, planar slots, boundary bounding boxes), reference frames, explicit units (mm), and tight volumetric tolerances (<span class="font-mono text-xs">1.0e-6 mm³</span>).
+          </p>
+        </div>
+
+        <div>
+          <div class="text-brand-600 font-mono text-sm font-bold mb-1">02 / Execution</div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Deterministic CAD Kernel</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            FreeCAD's OpenCASCADE engine computes exact Boolean cuts and intersections directly on native B-Rep boundary curves and analytical surfaces, avoiding mesh approximation errors.
+          </p>
+        </div>
+
+        <div>
+          <div class="text-brand-600 font-mono text-sm font-bold mb-1">03 / Attribution</div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Paired Difference Record</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            A revision difference record pairs each requirement across candidate models $M_1$ and $M_2$, computing categorical state transitions (PASS &harr; FAIL) alongside global missing/extra volume deltas.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 4: Experimental Findings & Visual Evidence -->
+  <section id="results" class="py-16 md:py-20 bg-slate-50 border-b border-slate-200/60">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 text-brand-600 font-semibold text-xs tracking-wider uppercase">
+          <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+          <span>Experiments &amp; Evidence</span>
+        </div>
+        <h2 class="text-3xl font-bold text-slate-900 tracking-tight mt-1">
+          Empirical Findings on Generative CAD Revisions
+        </h2>
+        <p class="mt-3 text-slate-600 text-sm sm:text-base">
+          Evaluated across 30 design briefs, 41 eligible revision pairs, and 84 cut requirement instances.
+        </p>
+      </div>
+
+      <!-- Cohort and Results Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+          <h3 class="font-bold text-slate-900 text-base mb-3 flex items-center gap-2">
+            <i data-lucide="scatter-chart" class="w-4 h-4 text-brand-600"></i>
+            Revision Cohort Distribution
+          </h3>
+          <div class="rounded-lg bg-slate-50 border border-slate-100 overflow-hidden mb-3">
+            <img src="assets/revision_cohort.png" alt="Revision Cohort" class="w-full h-auto object-contain">
+          </div>
+          <p class="text-xs text-slate-600 leading-normal">
+            Distribution of IoU changes vs. localized volumetric modifications across 41 revision pairs. Several cases show IoU gains accompanied by local requirement regressions.
+          </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+          <h3 class="font-bold text-slate-900 text-base mb-3 flex items-center gap-2">
+            <i data-lucide="wrench" class="w-4 h-4 text-brand-600"></i>
+            Autonomous Agent Repair Trials
+          </h3>
+          <div class="rounded-lg bg-slate-50 border border-slate-100 overflow-hidden mb-3">
+            <img src="assets/agent_repair_examples.png" alt="Agent Repair Examples" class="w-full h-auto object-contain">
+          </div>
+          <p class="text-xs text-slate-600 leading-normal">
+            Tool-using CAD agents attempting iterative repair. While agents successfully clear specific designated cutouts, feedback comparisons show that repair loops often introduce unforeseen collateral geometry changes.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Additional Insights Box -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <i data-lucide="check-circle" class="w-5 h-5 text-emerald-600"></i>
+          Key Scientific Takeaways
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-600">
+          <div class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">1</div>
+            <div>
+              <strong class="text-slate-800">Decouple Global Similarity from Requirements:</strong>
+              A high IoU score or low Chamfer distance is necessary but insufficient. Safety-critical CAD validation requires explicit keep-out region diagnostics.
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">2</div>
+            <div>
+              <strong class="text-slate-800">Executable Determinism Matters:</strong>
+              Because Hard-CAD runs locally using FreeCAD without requiring proprietary CAD platforms, researchers can evaluate LLM CAD models reproducibly on commodity hardware.
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">3</div>
+            <div>
+              <strong class="text-slate-800">Accurate Document Extraction Replay:</strong>
+              In our retrospective audit across 22 technical engineering drawings, literal extraction attained <strong>12/12 Precision</strong> and <strong>12/13 Recall</strong> on explicit dimension triples.
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">4</div>
+            <div>
+              <strong class="text-slate-800">Clear Boundaries for Semantic Binding:</strong>
+              The study highlights the open frontier: distinguishing physical geometrical compliance from multi-modal natural-language-to-BRep entity binding.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 5: Interactive Quickstart & Contract Demo -->
+  <section id="quickstart" class="py-16 md:py-20 bg-white border-b border-slate-200/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="inline-flex items-center gap-2 text-brand-600 font-semibold text-xs tracking-wider uppercase">
+          <i data-lucide="terminal" class="w-4 h-4"></i>
+          <span>Usage</span>
+        </div>
+        <h2 class="text-3xl font-bold text-slate-900 tracking-tight mt-1">
+          Getting Started with Hard-CAD
+        </h2>
+        <p class="mt-2 text-slate-600 text-sm">
+          Run the verifiable benchmark examples or diagnose your own STEP files in seconds.
+        </p>
+      </div>
+
+      <!-- Quickstart Code Tabs -->
+      <div class="bg-slate-900 rounded-2xl shadow-xl overflow-hidden border border-slate-800">
+        
+        <div class="flex items-center justify-between px-4 py-3 bg-slate-950 border-b border-slate-800 text-xs">
+          <div class="flex items-center gap-2">
+            <button onclick="switchCode('cli')" id="code-btn-cli" class="px-3 py-1 rounded font-mono font-medium text-white bg-slate-800 hover:bg-slate-700 transition">CLI</button>
+            <button onclick="switchCode('python')" id="code-btn-python" class="px-3 py-1 rounded font-mono font-medium text-slate-400 hover:text-white transition">Python API</button>
+            <button onclick="switchCode('yaml')" id="code-btn-yaml" class="px-3 py-1 rounded font-mono font-medium text-slate-400 hover:text-white transition">Contract YAML</button>
+          </div>
+          <button onclick="copyCurrentCode()" class="text-slate-400 hover:text-white flex items-center gap-1 font-mono transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span id="copy-text">Copy</span>
+          </button>
+        </div>
+
+        <div class="p-5 font-mono text-xs sm:text-sm text-slate-200 overflow-x-auto leading-relaxed">
+          <!-- CLI Code -->
+          <pre id="code-block-cli"><span class="text-slate-500"># 1. Clone repository and install validator</span>
+git clone https://github.com/Hard-CAD/hard-cad.git
+cd hard-cad
+pip install .[yaml]
+
+<span class="text-slate-500"># 2. Run the recorded paper benchmark demo</span>
+hardcad demo --output paper-demo --cad-python python
+
+<span class="text-slate-500"># 3. View the generated diagnostic report</span>
+open paper-demo/index.html</pre>
+
+          <!-- Python Code -->
+          <pre id="code-block-python" class="hidden"><span class="text-emerald-400">from</span> hardcad <span class="text-emerald-400">import</span> diagnose
+
+<span class="text-slate-500"># Diagnose candidate STEP geometry against reference & contract brief</span>
+report = diagnose(
+    candidate=<span class="text-amber-300">"candidate_v2.step"</span>,
+    reference=<span class="text-amber-300">"reference.step"</span>,
+    brief=<span class="text-amber-300">"brief.yaml"</span>,
+    cad_python=<span class="text-amber-300">"python"</span>
+)
+
+<span class="text-slate-500"># Export interactive HTML diagnosis report</span>
+report.to_html(<span class="text-amber-300">"diagnosis.html"</span>)
+print(report.summary())</pre>
+
+          <!-- YAML Code -->
+          <pre id="code-block-yaml" class="hidden"><span class="text-brand-400">schema_version:</span> <span class="text-amber-300">hardcad.contract.v1</span>
+<span class="text-brand-400">unit:</span> <span class="text-amber-300">mm</span>
+<span class="text-brand-400">frame:</span> <span class="text-amber-300">world</span>
+<span class="text-brand-400">requirements:</span>
+  - <span class="text-brand-400">id:</span> <span class="text-amber-300">part-0-cut-0</span>
+    <span class="text-brand-400">kind:</span> <span class="text-amber-300">keep_out</span>
+    <span class="text-brand-400">region:</span>
+      <span class="text-brand-400">kind:</span> <span class="text-amber-300">box</span>
+      <span class="text-brand-400">origin:</span> [-23, -18, 2]
+      <span class="text-brand-400">size:</span> [46, 36, 23]
+    <span class="text-brand-400">tolerance_mm3:</span> <span class="text-cyan-300">1.0e-06</span>
+  - <span class="text-brand-400">id:</span> <span class="text-amber-300">part-0-cut-1</span>
+    <span class="text-brand-400">kind:</span> <span class="text-amber-300">keep_out</span>
+    <span class="text-brand-400">region:</span>
+      <span class="text-brand-400">kind:</span> <span class="text-amber-300">cylinder</span>
+      <span class="text-brand-400">origin:</span> [-25, 0, 12]
+      <span class="text-brand-400">radius:</span> <span class="text-cyan-300">3</span>
+      <span class="text-brand-400">height:</span> <span class="text-cyan-300">3</span>
+      <span class="text-brand-400">axis:</span> [1, 0, 0]
+    <span class="text-brand-400">tolerance_mm3:</span> <span class="text-cyan-300">1.0e-06</span></pre>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 6: Citation -->
+  <section id="citation" class="py-16 md:py-20 bg-slate-50 border-b border-slate-200/60">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">
+          Citation
+        </h2>
+        <button onclick="copyBibtex()" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 shadow-sm transition">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+          <span id="bibtex-copy-btn">Copy BibTeX</span>
+        </button>
+      </div>
+
+      <div class="p-4 sm:p-5 rounded-xl bg-white border border-slate-200/90 shadow-sm font-mono text-xs sm:text-sm text-slate-800 overflow-x-auto leading-relaxed">
+        <pre id="bibtex-content">@article{hardcad2026,
+  title   = {Hard-CAD: Contract-Based Diagnostics for Generated CAD Geometry},
+  journal = {Computers \& Graphics},
+  year    = {2026},
+  note    = {Under Review}
+}</pre>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10 bg-white text-slate-500 text-xs">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-700">Hard-CAD</span>
+        <span>&bull;</span>
+        <span>Deterministic Diagnostics for Generative CAD</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="assets/Hard-CAD.pdf" target="_blank" class="hover:text-slate-800 transition">Manuscript (PDF)</a>
+        <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="hover:text-slate-800 transition">GitHub</a>
+        <a href="#" class="hover:text-slate-800 transition">Back to Top &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts for Tabs, Code Switcher, and Lucide Icons -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Switch Interactive Case Study Tabs
+    function switchCase(caseId) {
+      const btn15 = document.getElementById('tab-btn-cad15');
+      const btn30 = document.getElementById('tab-btn-cad30');
+      const c15 = document.getElementById('case-content-cad15');
+      const c30 = document.getElementById('case-content-cad30');
+
+      if (caseId === 'cad15') {
+        c15.classList.remove('hidden');
+        c30.classList.add('hidden');
+        btn15.className = 'flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 bg-white text-brand-700 shadow-sm border border-slate-200/80';
+        btn30.className = 'flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 text-slate-600 hover:text-slate-900 hover:bg-white/60';
+      } else {
+        c15.classList.add('hidden');
+        c30.classList.remove('hidden');
+        btn30.className = 'flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 bg-white text-brand-700 shadow-sm border border-slate-200/80';
+        btn15.className = 'flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 text-slate-600 hover:text-slate-900 hover:bg-white/60';
+      }
+      lucide.createIcons();
+    }
+
+    // Code snippet switcher
+    let currentCodeTab = 'cli';
+    function switchCode(tab) {
+      currentCodeTab = tab;
+      const tabs = ['cli', 'python', 'yaml'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('code-btn-' + t);
+        const block = document.getElementById('code-block-' + t);
+        if (t === tab) {
+          btn.className = 'px-3 py-1 rounded font-mono font-medium text-white bg-slate-800 transition';
+          block.classList.remove('hidden');
+        } else {
+          btn.className = 'px-3 py-1 rounded font-mono font-medium text-slate-400 hover:text-white transition';
+          block.classList.add('hidden');
+        }
+      });
+    }
+
+    function copyCurrentCode() {
+      const block = document.getElementById('code-block-' + currentCodeTab);
+      navigator.clipboard.writeText(block.innerText).then(() => {
+        const copyText = document.getElementById('copy-text');
+        copyText.innerText = 'Copied!';
+        setTimeout(() => { copyText.innerText = 'Copy'; }, 2000);
+      });
+    }
+
+    function copyBibtex() {
+      const content = document.getElementById('bibtex-content').innerText;
+      navigator.clipboard.writeText(content).then(() => {
+        const btnText = document.getElementById('bibtex-copy-btn');
+        btnText.innerText = 'Copied!';
+        setTimeout(() => { btnText.innerText = 'Copy BibTeX'; }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

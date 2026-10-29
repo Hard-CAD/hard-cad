@@ -1,0 +1,228 @@
+{
+  "schema_version": "hardcad.example-bundle.v1",
+  "license": "LICENSE-CODE; curated derived CSG fixtures, not private source CAD",
+  "generator": "tools/export_validator_examples.py",
+  "generator_sha256": "6011946a5a47a027a2f9f4cfe0933d489c6bfad9ee9f50d861ec190852275e08",
+  "asset": "hardcad/examples/cad15_cad30.json",
+  "asset_sha256": "9adc5db711d89183aea7d6ebc8421d1db88655dc2639b7768e68571b297dd40e",
+  "source_provenance": {
+    "source_case_file": "data/cad_agent_cases.json",
+    "source_case_file_sha256": "b0f2408e2975028b62ef2475307d3394f4cd183c3ffc6d25ec9dcf1df1dcd091",
+    "source_program_file": "data/cad_agent_programs.json",
+    "source_program_file_sha256": "5870c5701c857f0690d2685b8f2cc1d586ac22d63c512ae055c5aa622364e948",
+    "recorded_checks_file": "results/generated_requirement_checks.json",
+    "recorded_checks_file_sha256": "63c1975b56f6fabd7e9fd425f3b76b198c423119bece9322043c5e3044343ee7",
+    "recorded_transitions_file": "results/requirement_transitions.json",
+    "recorded_transitions_file_sha256": "8717d04dd1a4043d1ef646cdcd98bba0e466766a5b522773742611120f49808f",
+    "case_program_source_commit": "80f11c5ee262f75b45860a257b67fcb40cbb75b3",
+    "requirement_result_source_commit": "6937be555fd73336cec8ad17a1a882cbae39e6c4",
+    "source": "Original controlled geometric briefs and recorded 7B initial/feedback programs; handcrafted primitive reconstruction, no archived Python execution.",
+    "roi_definition": "cut primitive AND uncut part add union MINUS full final reference union; intersecting ROIs remain separately counted.",
+    "measurement_limit": "Numerical occupancy tolerance is 1e-6 mm3; not a physical or functional tolerance."
+  },
+  "replay": {
+    "id": "cad15",
+    "status": "PASS",
+    "source_case_sha256": "c585b3204a1b11645683ccf61ff964800a231b47e8f1ffeefe302b117a4ec1f2",
+    "reference_sha256": "5e8d2576548e3a7bd2084b8d78d35197c376fa2e4d54261c6a2bd9012430d993",
+    "roi_checks": {
+      "part-0-cut-0": {
+        "actual": 0.0,
+        "recorded": 0.0,
+        "absolute_difference": 0.0,
+        "tolerance": 1e-05,
+        "matches": true
+      },
+      "part-0-cut-1": {
+        "actual": 0.0,
+        "recorded": 0.0,
+        "absolute_difference": 0.0,
+        "tolerance": 1e-05,
+        "matches": true
+      },
+      "part-0-cut-0_recorded_volume_mm3": {
+        "actual": 38088.0,
+        "recorded": 38088.0,
+        "absolute_difference": 0.0,
+        "tolerance": 1e-05,
+        "matches": true
+      },
+      "part-0-cut-1_recorded_volume_mm3": {
+        "actual": 84.82300164692441,
+        "recorded": 84.82300164692441,
+        "absolute_difference": 0.0,
+        "tolerance": 1e-05,
+        "matches": true
+      }
+    },
+    "attempts": {
+      "initial": {
+        "status": "FAIL",
+        "checks": {
+          "iou": {
+            "actual": 0.22988521926916647,
+            "recorded": 0.22988521926916655,
+            "absolute_difference": 8.326672684688674e-17,
+            "tolerance": 1e-06,
+            "matches": true
+          },
+          "extra_material_mm3": {
+            "actual": 39715.725666117694,
+            "recorded": 39715.725666117694,
+            "absolute_difference": 0.0,
+            "tolerance": 1e-05,
+            "matches": true
+          },
+          "missing_material_mm3": {
+            "actual": 0.0,
+            "recorded": 0.0,
+            "absolute_difference": 0.0,
+            "tolerance": 1e-05,
+            "matches": true
+          },
+          "candidate_volume_mm3": {
+            "actual": 51571.17699835307,
+            "recorded": 51571.17699835307,
+            "absolute_difference": 0.0,
+            "tolerance": 1e-05,
+            "matches": true
+          },
+          "reference_volume_mm3": {
+            "actual": 11855.451332235394,
+            "recorded": 11855.451332235394,
+            "absolute_difference": 0.0,
+            "tolerance": 1e-05,
+            "matches": true
+          },
+          "part-0-cut-0_occupied_mm3": {
+            "actual": 38059.725666117694,
+            "recorded": 38059.725666117694,
+            "absolute_difference": 0.0,
+            "tolerance": 1e-05,
+            "matches": true
+          },
+          "part-0-cut-1_occupied_mm3": {
+            "actual": 0.0,
+            "recorded": 0.0,
+            "absolute_difference": 0.0,
+            "tolerance": 1e-05,
+            "matches": true
+          },
+          "candidate_sha256": {
+            "actual": "6842fed2430dcdb00b8422855dc9772414795c1e21bc8e997e7169f0eed9a5a0",
+            "matches": true
+          }
+        },
+        "program_sha256": "a216692399bfe4f8cbae22b44767d88ddbed28a7238e92c089e073534bc8c604"
+      },
+      "feedback": {
+        "status": "FAIL",
+        "checks": {
+          "iou": {
+            "actual": 0.23001132492306298,
+            "recorded": 0.23001132492306317,
+            "absolute_difference": 1.942890293094024e-16,
+            "tolerance": 1e-06,
+            "matches": true
+          },
+          "extra_material_mm3": {
+            "actual": 39687.45133223539,
+            "recorded": 39687.45133223538,
+            "absolute_difference": 7.275957614183426e-12,
+            "tolerance": 1e-05,
+            "matches": true
+          },
+          "missing_material_mm3": {
+            "actual": 0.0,
+            "recorded": 0.0,
+            "absolute_difference": 0.0,
+            "tolerance": 1e-05,
+            "matches": true
+          },
+          "candidate_volume_mm3": {
+            "actual": 51542.90266447075,
+            "recorded": 51542.90266447075,
+            "absolute_difference": 0.0,
+            "tolerance": 1e-05,
+            "matches": true
+          },
+          "reference_volume_mm3": {
+            "actual": 11855.451332235394,
+            "recorded": 11855.451332235394,
+            "absolute_difference": 0.0,
+            "tolerance": 1e-05,
+            "matches": true
+          },
+          "part-0-cut-0_occupied_mm3": {
+            "actual": 38003.176998353076,
+            "recorded": 38003.176998353076,
+            "absolute_difference": 0.0,
+            "tolerance": 1e-05,
+            "matches": true
+          },
+          "part-0-cut-1_occupied_mm3": {
+            "actual": 28.274333882308134,
+            "recorded": 28.274333882308134,
+            "absolute_difference": 0.0,
+            "tolerance": 1e-05,
+            "matches": true
+          },
+          "candidate_sha256": {
+            "actual": "c76ce4ede84881aa6681e86adab0c6273c8b613f79cfffa8430dedaf7a866376",
+            "matches": true
+          }
+        },
+        "program_sha256": "bfda518ac9ad85db685d1e526d5d220a79eb586285ed5e641a8e62d5097669de"
+      }
+    },
+    "expected_transition": {
+      "part-0-cut-0": [
+        "FAIL",
+        "FAIL"
+      ],
+      "part-0-cut-1": [
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "requirements": [
+      {
+        "id": "part-0-cut-0",
+        "initial_status": "FAIL",
+        "feedback_status": "FAIL",
+        "initial_value_mm3": 38059.725666117694,
+        "feedback_value_mm3": 38003.176998353076
+      },
+      {
+        "id": "part-0-cut-1",
+        "initial_status": "PASS",
+        "feedback_status": "FAIL",
+        "initial_value_mm3": 0.0,
+        "feedback_value_mm3": 28.274333882308134
+      }
+    ],
+    "global_metric_deltas": {
+      "candidate_volume_mm3": -28.274333882320207,
+      "extra_material_mm3": -28.274333882305655,
+      "intersection_mm3": 5.4569682106375694e-12,
+      "iou": 0.00012610565389650774,
+      "missing_material_mm3": 0.0,
+      "reference_volume_mm3": 0.0
+    },
+    "comparison_status": "MEASURED",
+    "difference_file": "cad15/difference.json"
+  },
+  "files": {
+    "brief.yaml": "92558bf371a03290ed2a64fcc8b509e17ceedf9a2904ed7a6131d9914a355962",
+    "contract.json": "734ae00f64e2be5805fe2c982ece1b3964879e4b0b274ed366051d830679aee9",
+    "difference.json": "dd1a9b24cc44b61015817d8ba8f5e4068ad9fde412d59f608edb6efcfe60addb",
+    "feedback.html": "e9cd85dadcceb041c835de7378efb8de8b5fb7422c7586cbd1e47b14e6ec14b5",
+    "feedback.json": "7775937d4e9e405e4916c7bef12f3b84d384f66fcee5b8f622f8916c6e59682e",
+    "feedback.step": "c76ce4ede84881aa6681e86adab0c6273c8b613f79cfffa8430dedaf7a866376",
+    "initial.html": "fa26cdfe4a7905c50f70d4d15203690353a592a878bf7f316e543cfaacb7ee47",
+    "initial.json": "5412050e5380313f813cd3baede08595280c3a5c41ca2351a8146c89e9f57f4e",
+    "initial.step": "6842fed2430dcdb00b8422855dc9772414795c1e21bc8e997e7169f0eed9a5a0",
+    "reference.step": "5e8d2576548e3a7bd2084b8d78d35197c376fa2e4d54261c6a2bd9012430d993",
+    "report.html": "06425ca6208df0881079303eea6f4c8d6a1dfe8e6a290d1c94aa2da6135d6dd9"
+  }
+}

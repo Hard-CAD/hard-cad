@@ -1,0 +1,26 @@
+{
+  "schema_version": "hardcad.contract.v1",
+  "unit": "mm",
+  "frame": "world",
+  "state": "nominal_static",
+  "requirements": [
+    {
+      "id": "channel-A",
+      "kind": "keep_out",
+      "region": {"kind": "box", "origin": [2, 2, 0], "size": [2, 2, 10]},
+      "tolerance_mm3": 0.000001
+    },
+    {
+      "id": "channel-B",
+      "kind": "keep_out",
+      "region": {"kind": "box", "origin": [6, 6, 0], "size": [2, 2, 10]},
+      "tolerance_mm3": 0.000001
+    },
+    {
+      "id": "support-wall",
+      "kind": "keep_in",
+      "region": {"kind": "box", "origin": [0, 0, 0], "size": [1, 10, 10]},
+      "tolerance_mm3": 0.000001
+    }
+  ]
+}

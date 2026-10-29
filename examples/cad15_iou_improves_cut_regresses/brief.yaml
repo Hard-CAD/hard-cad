@@ -1,0 +1,34 @@
+# Explicit static contract; source: hardcad/examples/cad15_cad30.json
+schema_version: hardcad.contract.v1
+unit: mm
+frame: world
+state: recorded_static_pose
+requirements:
+- id: part-0-cut-0
+  kind: keep_out
+  region:
+    kind: box
+    origin:
+    - -23
+    - -18
+    - 2
+    size:
+    - 46
+    - 36
+    - 23
+  tolerance_mm3: 1.0e-06
+- id: part-0-cut-1
+  kind: keep_out
+  region:
+    kind: cylinder
+    origin:
+    - -25
+    - 0
+    - 12
+    radius: 3
+    height: 3
+    axis:
+    - 1
+    - 0
+    - 0
+  tolerance_mm3: 1.0e-06

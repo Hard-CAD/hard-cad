@@ -1,0 +1,41 @@
+{
+  "contract_sha256": "fbe415315fd70a717de4aaf31fb502b8541dced0f6676754c014d19735193018",
+  "engine": {
+    "implementation_sha256": "78f69ab792b8454e387d33ee2d2929c1ea60165718086f87789312ca0d6e2aa1",
+    "name": "FreeCAD",
+    "occt_version": "7.8.1",
+    "validator_version": "0.1.0",
+    "version": "1.1.1"
+  },
+  "errors": [],
+  "global_metrics": {
+    "candidate_volume_mm3": 6956.592864600267,
+    "extra_material_mm3": 4725.0,
+    "intersection_mm3": 2231.5928646002667,
+    "iou": 0.19353328112411072,
+    "missing_material_mm3": 4574.203552627689,
+    "reference_volume_mm3": 6805.796417227956
+  },
+  "inputs": {
+    "candidate_sha256": "c87ba2810c5031100a57dfe8496058752a8a1fcf7362068fdfa90ac5f736afb8",
+    "reference_sha256": "0e59a2358eb3d86aa3f6c2c7a98f286f7daa5ab9c8fa9f519d05e4e30949941c"
+  },
+  "requirements": [
+    {
+      "id": "part-0-cut-0",
+      "kind": "keep_out",
+      "measured_value": 0.0,
+      "reason": null,
+      "status": "PASS",
+      "tolerance": 1e-06,
+      "unit": "mm3"
+    }
+  ],
+  "schema_version": "hardcad.report.v1",
+  "scope": {
+    "frame": "world",
+    "state": "recorded_static_pose",
+    "unit": "mm"
+  },
+  "status": "PASS"
+}
