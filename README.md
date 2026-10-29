@@ -6,8 +6,9 @@
   <strong>Don't just measure IoU. Diagnose the requirement.</strong>
 </p>
 
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-10b981.svg?logo=githubpages&logoColor=white)](https://hard-cad.github.io/hard-cad/)
 [![Paper PDF](https://img.shields.io/badge/Paper-Computers%20%26%20Graphics%20(CAG)-blue.svg?logo=adobeacrobatreader&logoColor=white)](assets/Hard-CAD.pdf)
-[![Project Page](https://img.shields.io/badge/Project-Homepage%20(Interactive)-10b981.svg?logo=safari&logoColor=white)](index.html)
+[![Project Page](https://img.shields.io/badge/Project-Homepage%20(Local)-0284c7.svg?logo=safari&logoColor=white)](index.html)
 [![License](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776ab.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![Kernel](https://img.shields.io/badge/CAD%20Kernel-OpenCASCADE%20%2F%20FreeCAD-e53e3e.svg)](https://www.freecad.org/)
@@ -33,15 +34,18 @@
 
 ---
 
-## 🌟 Interactive Project Page
+## 🌟 Interactive Project Page & 3D WebGL Viewer
 
 We provide a comprehensive, standalone academic project homepage ready for browsing and deployment:
-- **Online / Local Entry Point:** [`index.html`](index.html)
+- **Live Online Demo:** [**https://hard-cad.github.io/hard-cad/**](https://hard-cad.github.io/hard-cad/)
+- **Local Entry Point:** [`index.html`](index.html)
 - **Included Features:**
+  - 🧊 **Interactive 3D WebGL CAD Viewer:** Real-time 3D rotation, panning, zoom, wireframe toggle, and state switching between initial, feedback, and ground-truth geometry powered by Three.js and tessellated B-Rep analytics.
+  - ↔️ **Split-Screen Before/After Slider:** Draggable slider interactively revealing where material regressed or grew across candidate revisions.
   - 🔄 **Interactive Case Switcher:** Toggle between `cad15` and `cad30` before/after geometry and paired diagnostic reports.
   - 📐 **B-Rep & Contract Visualizer:** High-resolution architectural diagrams and cohort distribution plots.
   - 📋 **Live Snippet Tabs:** One-click copyable CLI commands, Python API calls, and YAML schema contracts.
-  - 📄 **Full Manuscript Access:** Embedded link to [`assets/Hard-CAD.pdf`](assets/Hard-CAD.pdf).
+  - 📄 **Full Manuscript Access:** Direct link to [`assets/Hard-CAD.pdf`](assets/Hard-CAD.pdf).
 
 ---
 
