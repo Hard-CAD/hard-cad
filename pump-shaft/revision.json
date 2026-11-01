@@ -1,0 +1,41 @@
+{
+  "contract_sha256": "4c3edabe6f3cfdb34ad04e9f041e05aed3ff39eebfe79113cca8a31f56674c84",
+  "engine": {
+    "implementation_sha256": "78f69ab792b8454e387d33ee2d2929c1ea60165718086f87789312ca0d6e2aa1",
+    "name": "FreeCAD",
+    "occt_version": "7.8.1",
+    "validator_version": "0.1.0",
+    "version": "1.1.1"
+  },
+  "errors": [],
+  "global_metrics": {
+    "candidate_volume_mm3": 2104679.891342841,
+    "extra_material_mm3": 0.0,
+    "intersection_mm3": 2104679.891342841,
+    "iou": 1.0,
+    "missing_material_mm3": 0.0,
+    "reference_volume_mm3": 2104679.891342841
+  },
+  "inputs": {
+    "candidate_sha256": "fcc5c6826cfd4b4524bad5c95feee73b08e2faa1b5b226b94652dfffac9431ec",
+    "reference_sha256": "b50407df2a6bec0d4b02a3d3f8ab18de0e027c88e9f369b110d2e90279468970"
+  },
+  "requirements": [
+    {
+      "id": "shaft-core-required",
+      "kind": "keep_in",
+      "measured_value": 0.0,
+      "reason": null,
+      "status": "PASS",
+      "tolerance": 1e-06,
+      "unit": "mm3"
+    }
+  ],
+  "schema_version": "hardcad.report.v1",
+  "scope": {
+    "frame": "world",
+    "state": "nominal_static",
+    "unit": "mm"
+  },
+  "status": "PASS"
+}

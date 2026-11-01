@@ -1,0 +1,1 @@
+{"frame":"world","requirements":[{"id":"part-0-cut-0","kind":"keep_out","region":{"axis":[0.0,0.0,1.0],"height":4.0,"kind":"cylinder","origin":[0.0,0.0,0.0],"radius":4.0},"tolerance_mm3":1e-06}],"schema_version":"hardcad.contract.v1","state":"recorded_static_pose","unit":"mm"}

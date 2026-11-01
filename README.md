@@ -42,8 +42,10 @@ A standalone academic project page is provided for interactive inspection:
 - **Features:**
   - **Interactive 3D WebGL Inspector:** 360° rotation, panning, zoom, wireframe toggle, and state switching between initial, feedback, and ground-truth geometry powered by Three.js and tessellated B-Rep analytics.
   - **Before / After Split Slider:** Interactive comparison revealing localized material changes across candidate revisions.
-  - **Case Switcher:** Toggle between `cad15` (cut regression) and `cad30` (void clearance) with paired diagnostic tables.
-  - **Manuscript PDF:** Direct access to [`assets/Hard-CAD.pdf`](assets/Hard-CAD.pdf).
+  - **3D Comparison Studio:** [**inspect.html**](https://hard-cad.github.io/hard-cad/inspect.html)
+  - **Interactive Evidence Replay:** [**replay.html**](https://hard-cad.github.io/hard-cad/replay.html)
+  - **Case Switcher:** Toggle between `cad15` (cut regression), `cad30` (void clearance), and industrial pump shaft cases with paired diagnostic tables.
+  - **Manuscript PDF:** Direct access to [`manuscript.pdf`](manuscript.pdf) / [`assets/Hard-CAD.pdf`](assets/Hard-CAD.pdf).
 
 ---
 
@@ -178,7 +180,12 @@ Across 30 modeling briefs and 41 eligible revision pairs, Hard-CAD analyzed 84 p
 ```text
 hard-cad/
 ├── index.html                               # Standalone interactive academic project homepage
+├── inspect.html                             # 3D comparison studio (WebGL mesh & contract inspector)
+├── replay.html                              # Interactive evidence replay
+├── manuscript.pdf                           # Complete manuscript PDF
 ├── README.md                                # Repository guide & documentation
+├── contracts/                               # Declarative JSON geometry contracts
+├── pump-shaft/                              # Industrial pump shaft case study assets
 ├── assets/
 │   ├── Hard-CAD.pdf                         # Manuscript (Computers & Graphics)
 │   ├── diagnostic_concept.png               # Workflow Figure 1

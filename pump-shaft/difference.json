@@ -1,0 +1,50 @@
+{
+  "after_candidate_sha256": "fcc5c6826cfd4b4524bad5c95feee73b08e2faa1b5b226b94652dfffac9431ec",
+  "after_errors": [],
+  "after_status": "PASS",
+  "before_candidate_sha256": "c28fcf9ef558406d1e853c3fd2ccaf22255de3761cde08e60995de65a414fe59",
+  "before_errors": [],
+  "before_status": "FAIL",
+  "contract_sha256": "4c3edabe6f3cfdb34ad04e9f041e05aed3ff39eebfe79113cca8a31f56674c84",
+  "engine": {
+    "implementation_sha256": "78f69ab792b8454e387d33ee2d2929c1ea60165718086f87789312ca0d6e2aa1",
+    "name": "FreeCAD",
+    "occt_version": "7.8.1",
+    "validator_version": "0.1.0",
+    "version": "1.1.1"
+  },
+  "global_metric_deltas": {
+    "candidate_volume_mm3": 1000.000000002794,
+    "extra_material_mm3": 0.0,
+    "intersection_mm3": 1000.000000002794,
+    "iou": 0.00047513163598578156,
+    "missing_material_mm3": -999.9999999999998,
+    "reference_volume_mm3": 0.0
+  },
+  "reference_sha256": "b50407df2a6bec0d4b02a3d3f8ab18de0e027c88e9f369b110d2e90279468970",
+  "requirements": [
+    {
+      "after_reason": null,
+      "after_status": "PASS",
+      "after_value": 0.0,
+      "before_reason": null,
+      "before_status": "FAIL",
+      "before_value": 999.9999999999998,
+      "id": "shaft-core-required",
+      "kind": "keep_in",
+      "measured_delta": -999.9999999999998,
+      "tolerance": 1e-06,
+      "transition": "FAIL_TO_PASS",
+      "unit": "mm3"
+    }
+  ],
+  "schema_version": "hardcad.comparison.v1",
+  "scope": {
+    "frame": "world",
+    "state": "nominal_static",
+    "unit": "mm"
+  },
+  "transition_counts": {
+    "FAIL_TO_PASS": 1
+  }
+}

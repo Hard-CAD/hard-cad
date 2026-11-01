@@ -34,7 +34,7 @@
       }
     }
   </script>
-  
+
   <!-- Fonts: Newsreader (academic serif) + Inter (clean UI) + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,6 +46,14 @@
   <script src="assets/STLLoader.js"></script>
   <script src="assets/OrbitControls.js"></script>
 
+  <link rel="stylesheet" href="paper-extra.css?v=atlas-summary-5">
+  <script defer src="paper-extra.js"></script>
+  <script defer src="atlas-illustrations.js"></script>
+  <script defer src="cad-story.js?v=2"></script>
+  <script defer src="reader-journey.js?v=2"></script>
+  <script defer src="reader-motion.js?v=5"></script>
+  <script defer src="industrial-vision.js?v=1"></script>
+  <script defer src="atlas-summary.js?v=3"></script>
   <style>
     body {
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
@@ -70,8 +78,9 @@
       top: 0;
       left: 0;
       height: 100%;
-      width: 50%;
+      width: 100%;
       overflow: hidden;
+      clip-path: inset(0 50% 0 0);
     }
     .slider-line {
       position: absolute;
@@ -110,9 +119,9 @@
       <div class="flex items-center gap-2">
         <span class="font-semibold text-sm tracking-tight text-zinc-900">Hard-CAD</span>
         <span class="text-zinc-300">/</span>
-        <span class="text-xs text-zinc-500 font-serif italic">Computers &amp; Graphics 2026</span>
+        <span class="text-xs text-zinc-500 font-serif italic">Submitted manuscript</span>
       </div>
-      <div class="flex items-center gap-3 text-xs">
+      <div class="flex items-center gap-3 text-xs"><label class="language-label" for="language-select">Language</label><select id="language-select" aria-label="Language"><option value="en">English</option><option value="zh">中文</option><option value="ja">日本語</option><option value="ko">한국어</option></select>
         <a href="https://hard-cad.github.io/hard-cad/" class="text-zinc-600 hover:text-zinc-900 transition flex items-center gap-1 font-mono">
           <i data-lucide="globe" class="w-3.5 h-3.5"></i>
           <span>hard-cad.github.io</span>
@@ -129,10 +138,10 @@
   <!-- Hero: Classic Academic Paper Header -->
   <header class="pt-12 pb-10 sm:pt-16 sm:pb-12 border-b border-zinc-100 bg-[#fafafa]">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-      
+
       <!-- Journal Tag -->
       <div class="text-sm font-serif italic text-zinc-600 mb-4 tracking-wide">
-        Computers &amp; Graphics (CAG) &bull; Special Issue on Generative Geometry
+        Submitted manuscript &bull; research in progress
       </div>
 
       <!-- Title (Refined Academic Styling) -->
@@ -148,16 +157,16 @@
       <!-- Author Metadata -->
       <div class="mt-6 text-sm text-zinc-600">
         <div class="font-medium text-zinc-800">
-          Anonymous Authors
+          Hikoyan Huang and Jiayao Zhang
         </div>
         <div class="text-xs text-zinc-500 mt-1">
-          Under Peer Review &bull; Source Code &amp; Verified Assets Available
+          Pre-publication manuscript &bull; source and recorded examples
         </div>
       </div>
 
       <!-- Standard Academic Resource Buttons (Nerfies Style) -->
       <div class="mt-7 flex flex-wrap items-center justify-center gap-2.5">
-        <a href="assets/Hard-CAD.pdf" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900 text-white text-xs sm:text-sm font-medium hover:bg-zinc-800 transition shadow-sm">
+        <a href="manuscript.pdf" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900 text-white text-xs sm:text-sm font-medium hover:bg-zinc-800 transition shadow-sm">
           <i data-lucide="file-text" class="w-4 h-4"></i>
           <span>Paper (PDF)</span>
         </a>
@@ -178,18 +187,25 @@
     </div>
   </header>
 
+  <nav class="journey-nav" aria-label="On this page"><span class="journey-nav-label" data-t="navLabel">ON THIS PAGE</span><a href="#value-map"><span>01</span><b data-t="navValue">Why it matters</b></a><a href="#engineering-vision"><span>↗</span><b data-t="indNav">Engineering</b></a><a href="#research-map"><span>02</span><b data-t="navLandscape">Research map</b></a><a href="#design-rationale"><span>↗</span><b data-t="atlasDesign">Design path</b></a><a href="#paradox"><span>03</span><b data-t="navComparison">Comparison</b></a><a href="#viewer3d"><span>04</span><b data-t="navAssembly">3D &amp; assembly</b></a><a href="#interactive-study"><span>05</span><b data-t="navMath">Math</b></a><a href="#evidence-explorer"><span>06</span><b data-t="navEvidence">Evidence</b></a><a href="#quickstart"><span>07</span><b data-t="navReproduce">Reproduce</b></a></nav>
+
   <!-- Main Content Container -->
   <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-16">
 
-    <!-- Teaser Figure 1 (Journal Paper Style) -->
-    <section>
-      <div class="border border-zinc-200 rounded-lg p-2 sm:p-4 bg-white">
-        <img src="assets/diagnostic_concept.png" alt="Diagnostic Concept" class="w-full h-auto object-contain">
-      </div>
-      <p class="mt-3 text-xs sm:text-sm text-zinc-600 leading-relaxed text-justify">
-        <strong class="font-semibold text-zinc-900">Figure 1. The Hard-CAD diagnostic pipeline.</strong>
-        Generative CAD revisions are evaluated against formal requirement contracts (e.g. keep-out cylinders, bounding volumes, tolerances). Rather than reporting a single scalar overlap (IoU), Hard-CAD pairs each requirement across versions, identifying whether an edit repaired an existing defect, preserved passing geometry, or introduced a local regression.
-      </p>
+    <section id="graphical-abstract" class="submission-figure"><div class="figure-header"><span data-t="gaKicker">SUBMITTED GRAPHICAL ABSTRACT</span><span>HARD-CAD / 01</span></div><h2 data-t="gaTitle">The paper at a glance</h2><p data-t="gaIntro">The graphical abstract from the submitted manuscript traces the relationship between an explicit requirement, a CAD revision and its paired diagnostic record.</p><a href="graphical-abstract.png" target="_blank" aria-label="Open submitted graphical abstract at full size"><img src="graphical-abstract.png" alt="Submitted Hard-CAD graphical abstract: pre-existing verification methods, contract-based paired diagnostics, cad15 and empirical evidence"></a><p class="figure-caption" data-t="gaCaption">The submitted graphical abstract. Click to open the figure at full size. The cad15 example is a low-overlap case; the static high-IoU observations are a separate result.</p></section>
+
+    <section id="value-map" class="value-map" aria-labelledby="value-heading">
+      <div class="value-heading"><div><span class="value-kicker">HARD-CAD / THE CORE IDEA</span><h2 id="value-heading" data-t="valueTitle">A better-looking model can still break a requirement.</h2></div><p data-t="valueIntro">Hard-CAD makes that difference visible: name the requirement, measure it in each revision, and keep the evidence together.</p></div>
+      <div class="value-cases"><a href="#paradox" class="value-case"><span class="value-index">01 / CAD15</span><div class="value-icon value-cut" aria-hidden="true"><span></span></div><span class="value-question" data-t="case1Question">Did the opening stay clear?</span><strong>0 → 28.27 <small>mm³</small></strong><p data-t="case1Answer">The required empty region became occupied, while global IoU increased.</p><span class="value-link" data-t="caseLink">Explore the evidence ↗</span></a><a href="#interactive-study" class="value-case"><span class="value-index">02 / CONTROLLED</span><div class="value-icon value-gap" aria-hidden="true"><span></span></div><span class="value-question" data-t="case2Question">Is the fit still within its bound?</span><strong>0.03 <small>&lt; 0.05 mm</small></strong><p data-t="case2Answer">The nominal clearance fails its requirement even at IoU ≈ 0.99946.</p><span class="value-link" data-t="caseLink">Explore the evidence ↗</span></a><a href="#viewer3d" class="value-case"><span class="value-index">03 / CONTROLLED</span><div class="value-icon value-path" aria-hidden="true"><span></span></div><span class="value-question" data-t="case3Question">Can the prescribed path get there?</span><strong>0 / ≈ 201 <small>mm³</small></strong><p data-t="case3Answer">Final interference is zero; the cover-first insertion sweep intersects the cover.</p><span class="value-link" data-t="caseLink">Explore the evidence ↗</span></a></div>
+      <div class="value-audiences"><div class="audience-head"><span data-t="audienceKicker">TAKE THE IDEA FURTHER</span><h3 data-t="audienceTitle">What can you take from the paper?</h3></div><div class="audience-items"><details><summary data-t="noviceTitle">New to CAD <span>↗</span></summary><p data-t="noviceBody">Learn why shape similarity, a functional opening, clearance and an assembly path answer different questions. Start with the interactive examples.</p><a href="#interactive-study" data-t="noviceLink">Try the clearance example →</a></details><details><summary data-t="engineerTitle">Engineering teams <span>↗</span></summary><p data-t="engineerBody">Turn a critical hole, gap or assembly path into a declared check; compare its measurement across design revisions. Pilot it on real parts and tolerances before drawing production conclusions.</p><a href="#pipeline" data-t="engineerLink">See the contract workflow →</a></details><details><summary data-t="researcherTitle">Researchers &amp; builders <span>↗</span></summary><p data-t="researcherBody">Build on requirement-level paired records: test semantic feature binding, compare repair controllers under shared budgets, or add rotation and physical models.</p><a href="#evidence-explorer" data-t="researcherLink">Inspect evidence and open questions →</a></details></div></div>
+      <p class="value-boundary" data-t="valueBoundary">The first case is an observed revision; the other two are controlled constructions. The applications are future directions, not validated industrial outcomes.</p>
+    </section>
+
+    <section id="engineering-vision" class="industrial-vision" aria-labelledby="industry-heading">
+      <div class="industrial-intro"><div><span class="industrial-kicker">ENGINEERING / THE RESEARCH QUESTION</span><h2 id="industry-heading" data-t="indTitle">From a visual match to an engineering review.</h2></div><div><p data-t="indIntro">A generated model may look convincing, yet an engineer still has to check the parts, the interfaces and how the assembly moves. As generated designs multiply, that review is difficult to scale.</p><p class="industrial-quote" data-t="indConsult">In an engineering discussion, this direction received positive feedback. Turning it into a reliable workflow is the work ahead.</p></div></div>
+      <div class="industrial-questions"><article><span class="industrial-icon parts-icon" aria-hidden="true">◇ ◇ <i>◇</i></span><h3 data-t="indPartsTitle">Are the required parts present?</h3><p data-t="indParts">A missing guide can make a visually plausible assembly incomplete.</p><a href="#design-rationale" data-t="indSeeMethod">See how a check is specified →</a></article><article><span class="industrial-icon fit-icon" aria-hidden="true">◎<i>↔</i></span><h3 data-t="indGeometryTitle">Will the interfaces fit?</h3><p data-t="indGeometry">A bore can be in the wrong place even when overall overlap is high.</p><a href="#interactive-study" data-t="indSeeFit">Explore the clearance example →</a></article><article><span class="industrial-icon move-icon" aria-hidden="true">▣ <i>→</i> ▥</span><h3 data-t="indMotionTitle">Can it be assembled?</h3><p data-t="indMotion">A valid final position can hide an obstruction along a prescribed insertion path.</p><a href="#viewer3d" data-t="indSeeMotion">Compare insertion paths →</a></article></div>
+      <div class="industrial-loop"><div class="industrial-loop-header"><span class="industrial-kicker" data-t="indLoopKicker">FROM EXPERT REVIEW TO REPLAYABLE EVIDENCE</span><h3 data-t="indLoopTitle">Give a future repair system something specific to check.</h3><p data-t="indLoopIntro">Follow the loop. The first three steps are grounded in the paper; automated iteration is a research direction.</p></div><div class="industrial-track" role="group" aria-label="Engineering review and future repair workflow"><button type="button" data-ind-step="0" aria-pressed="true"><i>01</i><b data-t="indStep1">Engineering intent</b></button><button type="button" data-ind-step="1" aria-pressed="false"><i>02</i><b data-t="indStep2">Declared checks</b></button><button type="button" data-ind-step="2" aria-pressed="false"><i>03</i><b data-t="indStep3">Paired evidence</b></button><button type="button" data-ind-step="3" aria-pressed="false"><i>04</i><b data-t="indStep4">Repair &amp; recheck</b></button><button type="button" data-ind-step="4" aria-pressed="false"><i>05</i><b data-t="indStep5">Engineer review</b></button></div><div class="industrial-stage" aria-live="polite"><span id="ind-stage-tag">01 / ENGINEERING INTENT</span><p id="ind-stage-text">An engineer identifies the parts, dimensions and conditions that matter for the task.</p><a id="ind-stage-link" href="#pipeline">Explore the method →</a></div><div class="industrial-loop-foot"><b data-t="indFutureTitle">A stepping stone toward iterative AI design</b><p data-t="indFuture">Requirement-level feedback could help an AI propose a repair and check what changed, including previously satisfied requirements. Whether this saves review time or improves real manufacturing outcomes needs controlled studies and real-world validation.</p></div></div>
+      <p class="industrial-boundary" data-t="indBoundary">The earlier engineering presentation framed completeness, geometry and action order as separate questions. This submitted paper evaluates declared component witnesses, geometry and prescribed motion checks; it does not establish a general action-order score or autonomous self-improvement.</p>
     </section>
 
     <!-- Abstract -->
@@ -197,28 +213,78 @@
       <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-4 pb-2 border-b border-zinc-200">
         Abstract
       </h2>
-      <div class="text-sm sm:text-base text-zinc-700 leading-relaxed space-y-3 font-serif text-justify">
+      <details class="abstract-detail"><summary data-t="abstractExpand">Read the full abstract</summary><div class="text-sm sm:text-base text-zinc-700 leading-relaxed space-y-3 font-serif text-justify">
         <p>
           Existing CAD benchmarks evaluate geometric similarity, requirement satisfaction, and edit preservation using coarse voxel/mesh overlap or point-cloud Chamfer distance. However, in precision mechanical engineering, a generated model can preserve 99% of its occupied material while placing a mounting bore on the wrong axis, blocking a vital fluid passage, or fusing components that should remain distinct. An overlap score describes a global geometric relation; it does not specify which local requirements are satisfied.
         </p>
         <p>
           Hard-CAD brings these measurements into a contract-based diagnostic record: it pairs the same declared requirement across revisions, links local changes to global material differences, retains unavailable checks, and supports executable replay. We analyzed outputs from 30 modeling briefs under two local agent conditions, obtaining 41 eligible revision pairs. In one revision, a previously clear side-cut gains 28.27 mm³ while intersection-over-union (IoU) improves and total extra material decreases, because more material is removed elsewhere. In another, a void clears while extra material grows. The paired records identify the affected requirements and quantify both changes.
         </p>
-      </div>
+      </div></details>
     </section>
 
+    <section class="paper-extension" id="reading-guide"><div class="ext-heading"><span>READER’S GUIDE / 01</span><h2 data-t="guideTitle">From aggregate geometry to requirement-level evidence</h2><p data-t="guideIntro">A guided account of the paper, with definitions, controlled examples and the scope of each result. Expand a panel to explore the argument.</p></div><div class="ext-stack"><details><summary data-t="contribTitle">What is the contribution?</summary><div class="ext-body"><p data-t="contribBody">The record binds a declared requirement to its operands, frame, units, state and bound, then retains the measurement and availability at both revisions. The pairing is an ordinary join by requirement identity; the contribution is the explicit contract, availability semantics and replayable record—not a new matching algorithm.</p></div></details><details><summary data-t="relatedTitle">How does this relate to existing work?</summary><div class="ext-body"><p data-t="relatedBody">Requirement checks, geometric preservation and repair feedback already exist. Hard-CAD combines declared requirement transitions with global material changes; an ordinary join of external checker outputs reproduces 80 of 84 transition labels. Four differences reflect different acceptance criteria.</p></div></details><details><summary data-t="scopeTitle">Research scope and interpretation</summary><div class="ext-body"><p data-t="scopeBody">The results describe the studied cohort and should be interpreted within its sampling and protocol. Feedback comparisons describe observed outcomes, while dimension extraction and geometric entity binding are evaluated separately. Measurements retain an explicit availability status when a required operand is missing.</p></div></details></div></section>
+    <section class="paper-extension" id="join-research"><div class="ext-heading"><span>RESEARCH COMMUNITY / 02</span><h2 data-t="joinTitle">Help make design intent testable</h2><p data-t="joinBody">We invite researchers in CAD, geometric computing, engineering verification and agent repair to examine the contracts, replay the checks and build independently grounded evaluations.</p><a class="ext-button" href="https://github.com/Hard-CAD/hard-cad" data-t="joinAction">Explore the project ↗</a></div></section>
+    <section class="research-architecture research-v2" id="research-map" aria-labelledby="map-heading">
+      <div class="atlas-masthead">
+        <div><div class="atlas-kicker">HARD-CAD / RESEARCH LANDSCAPE <span>01</span></div>
+          <h2 id="map-heading" data-t="mapTitle">A map of ideas</h2>
+          <p data-t="mapIntro">Explore related work, the design of Hard-CAD, and the evidence connecting them.</p>
+        </div>
+      </div>
+      <div class="atlas-workspace">
+        <div class="atlas-canvas">
+          <div class="atlas-overline"><span data-t="atlasContext">RESEARCH CONTEXT</span><span data-t="atlasContribution">THIS MANUSCRIPT</span></div>
+          <svg class="atlas-connections" viewBox="0 0 620 570" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="atlasGradient"><stop stop-color="#54aaa0"/><stop offset="1" stop-color="#8f69c8"/></linearGradient></defs><path class="atlas-path path-bench" d="M230 70 C285 70 265 250 364 250"/><path class="atlas-path path-tests" d="M230 174 C300 174 290 263 364 263"/><path class="atlas-path path-cit" d="M230 278 H364"/><path class="atlas-path path-gen" d="M230 382 C300 382 290 295 364 295"/><path class="atlas-path path-trace" d="M230 486 C285 486 265 308 364 308"/></svg>
+          <div class="atlas-sources" role="group" aria-label="Related research">
+            <button class="knowledge-node bench" data-node="bench" aria-pressed="false"><span class="atlas-node-icon">◈</span><span><b>BenchCAD</b><small data-t="nodeBench">Geometric and feature evaluation</small></span><i>↗</i></button>
+            <button class="knowledge-node tests" data-node="tests" aria-pressed="false"><span class="atlas-node-icon">▤</span><span><b>CADTests</b><small data-t="nodeTests">Executable requirement tests</small></span><i>↗</i></button>
+            <button class="knowledge-node cit" data-node="cit" aria-pressed="false"><span class="atlas-node-icon">⌘</span><span><b>CIT-CAD</b><small data-t="nodeCit">Constraint intent and repair</small></span><i>↗</i></button>
+            <button class="knowledge-node gen" data-node="gen" aria-pressed="false"><span class="atlas-node-icon">▧</span><span><b>CADGenBench</b><small data-t="nodeGen">Local mating interface checks</small></span><i>↗</i></button>
+            <button class="knowledge-node trace" data-node="trace" aria-pressed="false"><span class="atlas-node-icon">◇</span><span><b>TraceCAD</b><small data-t="nodeTrace">Geometry preservation and repair</small></span><i>↗</i></button>
+          </div>
+          <button class="knowledge-node hard active atlas-core" data-node="hard" aria-pressed="true"><span class="atlas-core-label">CORE / THIS MANUSCRIPT</span><span class="atlas-core-icon">◈</span><b>Hard-CAD</b><small data-t="nodeHard">Contract + paired evidence + replay</small><span class="atlas-core-divider"></span><span class="atlas-core-steps"><span><i>01</i><em data-t="stage1">Specify the requirement</em></span><span><i>02</i><em data-t="stage2">Measure the geometry</em></span><span><i>03</i><em data-t="stage3">Pair the same requirement</em></span><span><i>04</i><em data-t="stage4">Explain and replay</em></span></span></button>
+        </div>
+        <aside class="atlas-inspector" aria-live="polite" aria-label="Selected research detail">
+          <div class="atlas-inspector-head"><span class="atlas-selected-icon">◈</span><div><small data-t="atlasSelected">SELECTED RESEARCH</small><strong id="node-title">Hard-CAD</strong></div><span class="atlas-status" data-t="atlasContextTag">CONTEXT</span></div>
+          <div class="atlas-inspector-body"><div class="atlas-panel-label" data-t="atlasRelation">ROLE &amp; RELATIONSHIP</div><p id="node-description">A contract binds requirement identity to operands, frame, units, state and bound.</p><figure class="atlas-figure"><div id="atlas-graphic" role="img" aria-label="Conceptual illustration of Hard-CAD"></div><figcaption id="atlas-image-caption" data-t="atlasDiagramCaption">Original schematic · conceptual illustration, not a figure from the selected paper</figcaption></figure><div class="atlas-positioning"><div class="positioning-heading" data-t="atlasCompareHeading">Contribution positioning</div><div class="positioning-row"><strong id="atlas-other-label">Selected work</strong><p id="atlas-other-text"></p></div><div class="positioning-row hard-position"><strong>Hard-CAD</strong><p id="atlas-hard-text"></p></div></div><div class="atlas-inspector-foot"><span data-t="atlasSourceHint">Read the original source or explore the method</span><a id="node-source" href="#design-rationale" data-t="nodeRead">Explore the method ↓</a></div></div>
+        </aside>
+      </div>
+      <div class="atlas-future"><div><span class="atlas-future-kicker" data-t="nodeFutureTitle">Future research</span><p data-t="atlasFutureIntro">Open questions from the manuscript</p></div><button class="knowledge-node future atlas-future-link" data-node="future" aria-pressed="false"><span data-t="atlasFuture1">Independent semantic binding</span><i>→</i><span data-t="atlasFuture2">Controlled repair studies</span><i>→</i><span data-t="atlasFuture3">Richer physical models</span><b>↗</b></button></div>
+      <p class="map-disclaimer" data-t="mapNote">Connections indicate conceptual relationships described in the paper; they do not imply a historical lineage, direct comparison, or measured superiority.</p>
+    </section>
+    <section class="design-story design-v2" id="design-rationale" aria-labelledby="design-heading">
+      <div class="atlas-masthead"><div><div class="atlas-kicker">HARD-CAD / DESIGN RATIONALE <span>02</span></div><h2 id="design-heading" data-t="designTitle">From an engineering question to a replayable record</h2><p data-t="designIntro">Follow the design decisions that make a change interpretable. Each stage adds information needed by the next.</p></div><button id="design-play" class="design-play" type="button" data-t="designPlay">▶ Play the sequence</button></div>
+      <div class="design-layout">
+        <div class="design-track" role="group" aria-label="Diagnostic design stages">
+          <button class="design-stage active" data-stage="0" aria-pressed="true"><i>01</i><span><b data-t="stage1">Specify the requirement</b><small data-t="stage1s">source · entity · frame · units · bound</small></span></button>
+          <button class="design-stage" data-stage="1" aria-pressed="false"><i>02</i><span><b data-t="stage2">Measure the geometry</b><small data-t="stage2s">operator · state · value · status</small></span></button>
+          <button class="design-stage" data-stage="2" aria-pressed="false"><i>03</i><span><b data-t="stage3">Pair the same requirement</b><small data-t="stage3s">initial → revised · identical contract</small></span></button>
+          <button class="design-stage" data-stage="3" aria-pressed="false"><i>04</i><span><b data-t="stage4">Explain and replay</b><small data-t="stage4s">local change · global change · hashes</small></span></button>
+        </div>
+        <div class="design-screen" data-step="0"><div class="screen-top"><span>HARD-CAD / DIAGNOSTIC RECORD</span><span id="design-count">01 / 04</span></div>
+          <div class="design-storyboard" aria-hidden="true"><div class="storyboard-grid"></div><div class="storyboard-contract"><div class="storyboard-tag">q / part-0-cut-1</div><div class="storyboard-row"><span>FRAME</span><b>world</b></div><div class="storyboard-row"><span>UNIT</span><b>mm</b></div><div class="storyboard-row"><span>BOUND</span><b>≤ 10⁻⁶ mm³</b></div><div class="storyboard-row"><span>CHECK</span><b>occupancy</b></div></div>
+            <div class="storyboard-flow"><span class="flow-dot"></span><span class="flow-line"></span></div>
+            <div class="storyboard-pair"><figure class="storyboard-view before"><img src="assets/concept_cad15_before.png" alt=""><figcaption><span data-t="storyInitial">v₀ / INITIAL</span><b>0.00 mm³</b></figcaption></figure><figure class="storyboard-view after"><img src="assets/concept_cad15_after.png" alt=""><figcaption><span data-t="storyRevised">v₁ / REVISION</span><b>28.27 mm³</b></figcaption></figure></div>
+            <div class="storyboard-record"><span>q</span><span>0.00 → 28.27 mm³</span><span class="record-change" data-t="storyTransition">CLEAR → VIOLATED</span><span>HASH / REPLAY</span></div>
+          </div>
+          <div class="screen-interpretation"><span id="screen-label">q · contract</span><h3 id="design-stage-title">Specify the requirement</h3><p id="design-stage-description">A requirement ID and declared entities, frame, units, state or path, operator and bound define what can be checked.</p><p class="storyboard-caption" data-t="storyboardCaption">Illustration follows the recorded cad15 side-cut; its initial overall IoU is low. Display images do not perform the geometry calculation.</p></div>
+        </div>
+      </div>
+      <div class="design-foot key-argument" data-t="designFoot">A paired record is a join by requirement identity. Its value comes from explicit inputs, availability semantics and replay—not from a new pairing algorithm.</div>
+    </section>
     <!-- Key Concept: The IoU Paradox with Academic Booktabs Table -->
     <section id="paradox">
       <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-3 pb-2 border-b border-zinc-200">
         The Metric Dilemma: Global IoU vs. Local Contract
       </h2>
       <p class="text-sm text-zinc-600 mb-6 leading-relaxed">
-        When evaluating model revisions, conventional evaluation protocols assume that an increase in IoU or a decrease in extra volume indicates improvement. The table below demonstrates why this assumption fails in precision engineering:
+        Global IoU and extra volume summarize different geometric changes. In this low-overlap example, both improve while one declared local requirement becomes violated:
       </p>
 
       <!-- Clean Academic Table (LaTeX Booktabs style) -->
-      <div class="overflow-x-auto my-6">
-        <table class="w-full text-xs sm:text-sm booktabs font-mono text-zinc-800">
+      <div class="overflow-x-auto my-6 metric-table-wrap" role="region" aria-label="Paired diagnostic measurements" tabindex="0">
+        <table class="w-full text-xs sm:text-sm booktabs font-mono text-zinc-800 metric-table">
           <thead>
             <tr class="text-left text-zinc-600 font-medium">
               <th class="py-2.5 px-3">Evaluation Metric</th>
@@ -230,16 +296,16 @@
           </thead>
           <tbody class="divide-y divide-zinc-200">
             <tr class="bg-zinc-50/50">
-              <td class="py-2.5 px-3 font-semibold text-zinc-900">Voxel IoU</td>
-              <td class="py-2.5 px-3">0.9612</td>
-              <td class="py-2.5 px-3 font-semibold text-emerald-700">0.9613</td>
+              <td class="py-2.5 px-3 font-semibold text-zinc-900">B-Rep IoU</td>
+              <td class="py-2.5 px-3">0.229885</td>
+              <td class="py-2.5 px-3 font-semibold text-emerald-700">0.230011</td>
               <td class="py-2.5 px-3 text-emerald-700">+0.000126 &uarr;</td>
               <td class="py-2.5 px-3 text-zinc-600 italic">"Model improved"</td>
             </tr>
             <tr>
               <td class="py-2.5 px-3 font-semibold text-zinc-900">Total Extra Volume</td>
-              <td class="py-2.5 px-3">38,059.73 mm³</td>
-              <td class="py-2.5 px-3 font-semibold text-emerald-700">38,031.45 mm³</td>
+              <td class="py-2.5 px-3">39,715.73 mm³</td>
+              <td class="py-2.5 px-3 font-semibold text-emerald-700">39,687.45 mm³</td>
               <td class="py-2.5 px-3 text-emerald-700">-28.27 mm³ &darr;</td>
               <td class="py-2.5 px-3 text-zinc-600 italic">"Less error volume"</td>
             </tr>
@@ -260,21 +326,22 @@
           </tbody>
         </table>
       </div>
+      <p class="metric-scroll-hint" data-t="metricScroll">Scroll sideways to see all columns →</p>
       <p class="text-xs text-zinc-500 font-serif italic text-center">
-        Table 1. Paired diagnostic measurements for brief <span class="font-mono">cad15</span>. Global volume decreased by 28.27 mm³ overall, masking that the agent filled an existing valid side cut.
+        Table 1. Paired diagnostic measurements for brief <span class="font-mono">cad15</span>. Total extra material decreased by approximately 28.27 mm³ overall, masking that the agent filled an existing valid side cut.
       </p>
 
       <!-- Draggable Visual Comparison Slider -->
       <div class="mt-8 border border-zinc-200 rounded-lg p-3 sm:p-5 bg-zinc-50">
         <div class="flex items-center justify-between text-xs text-zinc-600 mb-2 font-mono">
-          <span>&larr; Initial (Side-cut PASS: 0.00 mm³)</span>
-          <span>Feedback Revision (Side-cut FAIL: 28.27 mm³) &rarr;</span>
+          <span data-t="compareBefore">← Initial: side cut clear · 0.00 mm³</span>
+          <span data-t="compareAfter">Revision: side cut filled · 28.27 mm³ →</span>
         </div>
 
         <div class="relative rounded border border-zinc-300 bg-white slider-wrap h-64 sm:h-72" id="slider-container">
           <!-- After (Feedback) -->
           <img src="assets/concept_cad15_after.png" class="absolute inset-0 w-full h-full object-contain p-2" alt="Revision">
-          
+
           <!-- Before (Initial) with dynamic clip width -->
           <div class="slider-overlay" id="slider-overlay">
             <img src="assets/concept_cad15_before.png" class="absolute inset-0 w-full h-full object-contain p-2" alt="Initial">
@@ -288,9 +355,10 @@
           </div>
         </div>
 
-        <p class="mt-2 text-center text-xs text-zinc-500">
-          <em>Drag the blue divider to compare geometry directly. Notice how the cylindrical side-cut on the upper right is open on the left, but blocked on the right.</em>
-        </p>
+        <label class="compare-label" for="comparison-range" data-t="compareControl">Reveal initial ← / revision →</label>
+        <input id="comparison-range" class="story-range" type="range" min="0" max="100" value="50">
+        <p class="compare-explain" data-t="compareExplain">Both images show the same y = 0 section. The divider reveals the initial image on the left and the revision on the right; it does not deform the part. Follow the upper-right side-cut: the required empty region becomes occupied in the revision.</p>
+        <div class="comparison-proof"><span class="proof-highlight" data-t="compareMetric">Same requirement · occupied volume: 0.00 → 28.27 mm³</span><span data-t="compareIou">Global IoU: 0.229885 → 0.230011</span></div>
       </div>
 
     </section>
@@ -303,17 +371,17 @@
         </h2>
         <span class="text-xs font-mono text-zinc-500 uppercase tracking-wider">FreeCAD B-Rep &bull; WebGL</span>
       </div>
-      
+
       <p class="text-sm text-zinc-600 mb-5 leading-relaxed">
-        Inspect the actual CAD boundary representations evaluated in the manuscript. Rotate with left mouse button, pan with right mouse button, and zoom with scroll wheel.
+        Inspect display meshes derived from the CAD geometry evaluated in the manuscript; measurements are computed from B-Rep solids. Rotate with left mouse button, pan with right mouse button, and zoom with scroll wheel.
       </p>
 
       <!-- 3D Viewer Container (Clean Technical CAD Style) -->
       <div class="border border-zinc-300 rounded-lg overflow-hidden bg-white shadow-sm">
-        
+
         <!-- Controls Bar -->
         <div class="p-3 bg-zinc-100 border-b border-zinc-200 flex flex-wrap items-center justify-between gap-3 text-xs">
-          
+
           <!-- Model selector -->
           <div class="flex items-center gap-1.5">
             <span class="font-medium text-zinc-600">Case:</span>
@@ -335,12 +403,13 @@
               Feedback Revision
             </button>
             <button onclick="set3DState('reference')" id="btn-s-reference" class="px-2.5 py-1 rounded bg-transparent border border-transparent text-zinc-600 hover:text-zinc-900">
-              Ground Truth
+              Reference
             </button>
           </div>
 
           <!-- Display Toggles -->
           <div class="flex items-center gap-2">
+            <button onclick="toggleTransparency()" id="btn-transparent" aria-pressed="false" class="px-2 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition"><span data-t="transparent">Translucent</span></button>
             <button onclick="toggleWireframe()" id="btn-wire" class="px-2 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition flex items-center gap-1">
               <i data-lucide="grid" class="w-3 h-3"></i>
               <span>Wireframe</span>
@@ -377,8 +446,18 @@
         </div>
 
       </div>
+      <p class="story-note" data-t="transparentNote">Translucency is a display aid for the selected mesh; measurements come from the B-Rep, not the rendered image.</p>
+      <div class="assembly-story">
+        <div class="assembly-head"><div><span class="story-kicker">CONTROLLED EXPERIMENT / 01</span><h3 data-t="assemblyTitle">Same final pose, different insertion paths</h3><p data-t="assemblyIntro">In the paper's controlled assembly, the final solids do not interfere. The prescribed insertion path can still cross the cover. Compare the two declared assembly orders.</p></div><div class="assembly-switch" role="group" aria-label="Assembly order"><button id="order-cover" type="button" aria-pressed="true" data-t="coverFirst">Cover first</button><button id="order-shaft" type="button" aria-pressed="false" data-t="shaftFirst">Shaft first</button></div></div>
+        <div class="assembly-grid"><div class="assembly-visual"><svg viewBox="0 0 620 290" role="img" aria-labelledby="assembly-svg-title"><title id="assembly-svg-title">Schematic of a prescribed insertion path</title><defs><pattern id="story-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#dce9e7" stroke-width="1"/></pattern><linearGradient id="story-shaft" x2="1" y2="1"><stop stop-color="#7cbab1" stop-opacity=".85"/><stop offset="1" stop-color="#286f72" stop-opacity=".65"/></linearGradient></defs><rect width="620" height="290" fill="url(#story-grid)"/><path d="M100 250H520" stroke="#8eaaa5" stroke-width="2"/><path d="M310 20V260" stroke="#7d9d9b" stroke-dasharray="5 6"/><path d="M310 32v160m-7-8 7 8 7-8" fill="none" stroke="#567b7c" stroke-width="2"/><g id="story-cover"><path d="M145 150h123l12 16h60l12-16h123v22H145z" fill="#c3b6de" fill-opacity=".58" stroke="#7656a3" stroke-width="2"/><text x="154" y="145" fill="#7656a3" font-size="13" data-t="coverSvg">COVER</text></g><g id="story-shaft"><rect x="285" y="18" width="50" height="90" rx="8" fill="url(#story-shaft)" stroke="#24777b" stroke-width="2"/><path d="M285 37h50M285 89h50" stroke="#e5faf6" stroke-opacity=".8"/><text x="348" y="65" fill="#24777b" font-size="13" data-t="movingSvg">MOVING PART</text></g><g id="story-collision" opacity="0"><circle cx="310" cy="160" r="27" fill="#e5786d" fill-opacity=".3" stroke="#c9564d" stroke-width="2" stroke-dasharray="4 3"/><path d="M297 147l26 26m0-26-26 26" stroke="#b93c36" stroke-width="3"/></g></svg><div class="assembly-controls"><button id="assembly-play" type="button" data-t="assemblyPlay">▶ Play sequence</button><label for="assembly-progress" data-t="assemblyProgress">Sequence progress</label><input id="assembly-progress" type="range" min="0" max="100" value="0"><output id="assembly-output">0%</output></div><p class="story-small" data-t="assemblyDiagram">Conceptual animation, not the tested CAD geometry or a physics simulation. The red marker illustrates a swept-path conflict, not its spatial extent.</p></div>
+        <div class="assembly-reading"><span class="story-kicker" data-t="assemblyResultLabel">PAPER RESULT · PRESCRIBED PATH</span><strong id="assembly-result">≈ 201 mm³</strong><h4 id="assembly-result-title">Swept intersection</h4><p id="assembly-result-text">With the cover in place first, the prescribed shaft insertion crosses solid material, although the final pose has zero interference.</p><div class="assembly-final" data-t="assemblyFinal">Final-pose interference in both configurations: 0 mm³</div></div></div>
+        <div class="industry-grid"><article><b data-t="industryMeasuredTitle">01 / What was measured</b><p data-t="industryMeasured">A local cut changed from clear to occupied; separately, a prescribed insertion path intersected the cover. These are geometric checks on specified models and states.</p></article><article><b data-t="industryUseTitle">02 / Potential engineering use</b><p data-t="industryUse">An engineer could flag a blocked passage or an obstructed assembly sequence for review before fabrication, alongside the global shape score. The actual consequence depends on the part's function and process.</p></article><article><b data-t="industryNextTitle">03 / What would establish impact</b><p data-t="industryNext">Validate feature and coordinate binding on real parts, include manufacturing tolerances and representative assembly paths, then study inspection and production outcomes. Loads, deformation and rotational contact need additional models.</p></article></div>
+        <p class="story-small" data-t="industryBoundary">These are possible applications, not measured industrial savings or a validated manufacturing deployment.</p>
+        <p class="story-references"><span data-t="storyReferences">Interaction design references:</span> <a href="https://ciechanow.ski/gears/" target="_blank" rel="noopener noreferrer">Gears ↗</a> · <a href="https://distill.pub/2020/communicating-with-interactive-articles/" target="_blank" rel="noopener noreferrer">Distill ↗</a></p>
+      </div>
     </section>
 
+    <section class="paper-extension" id="interactive-study"><div class="ext-heading"><span>INTERACTIVE STUDY / 03</span><h2 data-t="studyTitle">When a global score misses a local failure</h2><p data-t="studyIntro">Move the axis of the controlled shaft–guide example. The cross-section is schematic; the curve is calculated from the paper’s analytical construction.</p></div><details open class="study-disclosure"><summary data-t="visualToggle">Show or hide the interactive animation</summary><div class="study-grid"><div class="study-visual"><svg viewBox="0 0 420 270" role="img" aria-label="Schematic bore and shaft cross-section"><circle cx="210" cy="135" r="105" fill="#ecf7f6" stroke="#24777b" stroke-width="2"/><circle cx="210" cy="135" r="93" fill="white" stroke="#7047b2" stroke-width="2" stroke-dasharray="5 4"/><circle id="shaft-circle" cx="210" cy="135" r="86" fill="#82b8b2" fill-opacity=".8" stroke="#24777b" stroke-width="2"/><path d="M80 135H340M210 18V252" stroke="#91aaa7" stroke-dasharray="4 5"/><circle id="shaft-axis" cx="210" cy="135" r="4" fill="#7047b2"/></svg><label for="offset-range" data-t="offsetLabel">Bore-axis offset e (mm)</label><input id="offset-range" type="range" min="0" max="0.14" value="0.12" step="0.01"><div class="range-line"><span>0.00 mm</span><b id="offset-value">0.12 mm</b><span>0.14 mm</span></div><button class="ext-button" type="button" id="play-offset" data-t="play">▶ Play animation</button><p class="small-note" data-t="schematic">Schematic, not to scale. The model applies only before contact (e &lt; 0.15 mm).</p></div><div class="study-data"><svg class="clearance-chart" viewBox="0 0 360 180" role="img" aria-label="Nominal clearance against bore offset"><path d="M38 12V145H340" fill="none" stroke="#a5b9b6"/><path d="M38 12 L340 136" fill="none" stroke="#24777b" stroke-width="3"/><path d="M38 101H340" fill="none" stroke="#b65b55" stroke-dasharray="5 4"/><text x="42" y="94" fill="#a44b46" font-size="10">d_min = 0.05 mm</text><text x="8" y="17" fill="#6a8580" font-size="10">0.15</text><text x="20" y="148" fill="#6a8580" font-size="10">0</text><text x="315" y="160" fill="#6a8580" font-size="10">0.14</text><text x="165" y="176" fill="#6a8580" font-size="10">e / mm</text><circle id="plot-point" cx="297" cy="119" r="5" fill="#7047b2" stroke="white" stroke-width="2"/></svg><div class="equation equation-emphasis">c(e) = R<sub>b</sub> − R<sub>s</sub> − e</div><p data-t="clearanceExplain">The bore radius is 5.15 mm and the shaft radius is 5.00 mm. The nominal clearance falls linearly as the axes separate.</p><div class="study-metric"><span data-t="nominal">Nominal clearance</span><b id="gap-value">0.03 mm</b></div><div class="study-metric"><span data-t="minimum">Required minimum</span><b>0.05 mm</b></div><div class="study-metric"><span data-t="computedIou">Analytical IoU (approx.)</span><b id="iou-value">0.99946</b></div><div class="status-badge" id="gap-status">REQUIREMENT VIOLATED</div><p class="small-note" data-t="clearanceLimit">Nominal geometry only. Independent ±0.01 mm radius bounds give a 0.01 mm worst-size gap at e = 0.12 mm; these are design bounds, not confidence intervals.</p></div></div><details class="proof"><summary data-t="proofTitle">Show the mathematical derivation</summary><div class="ext-body"><p data-t="proofBody">Let V ≈ 91,975.16 mm³ be the equal occupied volume and Δ(e) the symmetric difference. Then I(e) = (2V − Δ)/(2V + Δ), where Δ = 2h[πR² − A(R,e)] and A(R,e) = 2R² arccos(e/2R) − (e/2)√(4R² − e²). Here h = 20 mm and R = 5.15 mm. This derivation is restricted to the noncontact interval.</p></div></details></details></section>
     <!-- Methodology & Workflow -->
     <section id="pipeline">
       <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-3 pb-2 border-b border-zinc-200">
@@ -389,11 +468,11 @@
       </p>
 
       <div class="border border-zinc-200 rounded-lg p-2 sm:p-4 bg-white mb-4">
-        <img src="assets/contract_revision_workflow.png" alt="Contract Revision Workflow" class="w-full h-auto object-contain">
+        <img src="submitted-contract-revision-workflow.png" alt="Contract Revision Workflow" class="w-full h-auto object-contain">
       </div>
       <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed text-justify mb-8">
         <strong class="font-semibold text-zinc-900">Figure 2. Execution architecture.</strong>
-        Human design briefs are codified into declarative contracts specifying coordinate frames, units, and geometric regions. The FreeCAD OpenCASCADE kernel computes exact solid differences, producing self-contained diagnostic artifacts.
+        Human design briefs are codified into declarative contracts specifying coordinate frames, units, and geometric regions. The FreeCAD Open CASCADE kernel computes solid differences under declared numerical conditions, producing diagnostic artifacts.
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
@@ -408,7 +487,7 @@
           <div class="font-mono text-xs text-zinc-500 mb-1">SECTION 4</div>
           <h3 class="font-medium text-zinc-900 mb-2">Kernel Verification</h3>
           <p class="text-xs text-zinc-600 leading-relaxed">
-            Analytical B-Rep Boolean subtraction computes intersection volumes down to 10⁻⁶ mm³, completely avoiding polyhedral mesh tessellation noise.
+            B-Rep Boolean operations compute geometric quantities; 10⁻⁶ mm³ is the cut-occupancy numerical check threshold, not a manufacturing tolerance. Display tessellation does not enter these volume checks.
           </p>
         </div>
         <div class="border-t-2 border-zinc-900 pt-3">
@@ -427,33 +506,43 @@
         Empirical Evaluation
       </h2>
       <p class="text-sm text-zinc-600 mb-6 leading-relaxed">
-        Evaluation across 30 design briefs, 41 eligible revision pairs, and 84 cut requirement instances demonstrates the pervasive disconnect between scalar similarity scores and requirement-level compliance:
+        Across 30 briefs, the analysis retains 41 eligible revision pairs and 84 paired cut requirements. The results describe this cohort and do not estimate prevalence in industrial practice:
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
         <div class="border border-zinc-200 rounded-lg p-3 bg-white">
-          <img src="assets/revision_cohort.png" alt="Revision Cohort" class="w-full h-auto object-contain mb-2">
+          <img src="submitted-revision-cohort.png" alt="Revision Cohort" class="w-full h-auto object-contain mb-2">
           <p class="text-xs text-zinc-500 leading-snug">
             <strong class="text-zinc-800">Figure 3. Cohort scatter analysis.</strong> Change in global IoU versus signed volume modification across 41 revision pairs.
           </p>
         </div>
         <div class="border border-zinc-200 rounded-lg p-3 bg-white">
-          <img src="assets/agent_repair_examples.png" alt="Agent Repair Examples" class="w-full h-auto object-contain mb-2">
+          <img src="submitted-agent-repair-examples.png" alt="Agent Repair Examples" class="w-full h-auto object-contain mb-2">
           <p class="text-xs text-zinc-500 leading-snug">
-            <strong class="text-zinc-800">Figure 4. Agent repair trajectories.</strong> Tool-using agents attempting multi-stage geometry edits often generate unintended collateral volume.
+            <strong class="text-zinc-800">Figure 4. Agent repair trajectories.</strong> The controlled examples demonstrate edits, checks, and replay; feedback comparisons do not establish repair gains.
           </p>
         </div>
       </div>
     </section>
 
+    <section class="paper-extension" id="evidence-explorer"><div class="ext-heading"><span>EVIDENCE EXPLORER / 04</span><h2 data-t="evidenceTitle">Read the denominator, not just the headline</h2><p data-t="evidenceIntro">The 84 requirement transitions are paired instances across 38 applicable revision pairs and 25 briefs. They are not 84 independent industrial mechanisms.</p></div><div class="chart" role="group" aria-label="Requirement transition counts"><button class="chart-row" data-chart="0"><span data-t="cc">Clear → clear</span><span class="bar"><i style="width:100%"></i></span><b>63</b></button><button class="chart-row" data-chart="1"><span data-t="vv">Violated → violated</span><span class="bar"><i style="width:30.16%"></i></span><b>19</b></button><button class="chart-row" data-chart="2"><span data-t="cv">Clear → violated</span><span class="bar danger"><i style="width:1.59%"></i></span><b>1</b></button><button class="chart-row" data-chart="3"><span data-t="vc">Violated → clear</span><span class="bar purple"><i style="width:1.59%"></i></span><b>1</b></button></div><p class="chart-note evidence-annotation" id="chart-note" data-t="chartHelp">Select a row to inspect its meaning. Counts are from the requirement-level analysis, not the separate pair-level transition table.</p><details class="proof"><summary data-t="protocolTitle">Experimental protocol and limitations</summary><div class="ext-body"><p data-t="protocolBody">Sixty trajectories were generated from 30 authored briefs under two local agent conditions. Forty-one pairs passed the primary eligibility criteria; 38 had applicable cut requirements. Of the 41 pairs, 34 retained identical program hashes and four more were volumetrically unchanged. The feedback experiments use different cohorts and budgets and cannot be pooled into these counts.</p><p data-t="documentBody">A retrospective 22-document audit found 13 explicit-unit dimension triples and recovered 12 of them with no unmatched outputs. The same cohort informed the extraction rule; this is not held-out semantic binding accuracy. Product, feature and frame identification remain open.</p></div></details><details class="proof"><summary data-t="futureTitle">Limitations and next experiments</summary><div class="ext-body"><p data-t="futureBody">Future work needs independently specified occurrences, features and states, ideally with native constraints or semantic PMI as held-out references. A controlled repair study should share its first proposal, hold budget and controller fixed, and include withheld checks. Rotation, deformation, loads and manufacturing require further state models and checks.</p></div></details></section>
     <!-- Quickstart & Reproducibility -->
     <section id="quickstart">
       <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-3 pb-2 border-b border-zinc-200">
         Reproducibility &amp; Usage
       </h2>
-      <p class="text-sm text-zinc-600 mb-4 leading-relaxed">
-        Hard-CAD is distributed as an open-source tool and executable evaluation suite. No proprietary CAD licenses, model tokens, or GPU clusters are required.
-      </p>
+      <p class="text-sm text-zinc-600 mb-4 leading-relaxed" data-t="reproIntro">Choose a path: open the recorded reports immediately, or use the full evaluator source and a compatible FreeCAD Python interpreter to replay the geometry.</p>
+      <div class="repro-grid">
+        <div class="repro-card"><b data-t="reproReadTitle">01 / Inspect recorded results</b><p data-t="reproReadBody">A browser is enough to open the bundled cad15 and cad30 reports. These files let you inspect recorded outcomes without recomputing geometry.</p><a href="inspect.html" data-t="inspectLink">3D comparison studio ↗</a> &nbsp; <a href="replay.html" data-t="replayLink">Interactive evidence replay ↗</a> &nbsp; <a href="examples/cad15_iou_improves_cut_regresses/report.html">cad15 report ↗</a> &nbsp; <a href="examples/cad30_void_clears_extra_grows/report.html">cad30 report ↗</a></div>
+        <div class="repro-card"><b data-t="reproReplayTitle">02 / Replay the geometry</b><p data-t="reproReplayBody">The full evaluator source is required: the pinned website repository contains the page and example bundles, but no installable SDK. Obtain an authorized evaluator source checkout or an approved public package before following the steps below.</p></div>
+      </div>
+      <details class="repro-setup"><summary data-t="requirementsTitle">Environment and installation checklist</summary><div class="repro-inner"><ol>
+        <li data-t="requirement1">Use Python 3.10 or newer for the evaluator and a separate Python environment. The SDK uses the standard library for JSON contracts; YAML contracts additionally require PyYAML ≥ 6, &lt; 7.</li>
+        <li data-t="requirement2">Install FreeCAD and identify a Python executable that can import both FreeCAD and Part. The documented development configuration is FreeCAD 1.1.1 with Open CASCADE 7.8.1 on Windows. A regular system Python may not include FreeCAD.</li>
+        <li data-t="requirement3">From the evaluator source root, install its local package with python -m pip install ".[yaml]". Replace FREECAD_PYTHON in the example with the actual FreeCAD-capable executable path, quoted if it contains spaces.</li>
+        <li data-t="requirement4">Replay into a new output directory. The demo reconstructs and checks recorded cad15/cad30 examples; inspect the generated index.html and result files. A candidate requirement failure is an observed result, not necessarily a failed replay.</li>
+      </ol><p data-t="requirement5">For the full CAG test and evidence audits, the source guide additionally lists pytest ≥ 8, jsonschema ≥ 4.18 and PyMuPDF ≥ 1.24. Record Python and package versions; these minimum versions are not a complete locked environment.</p></div></details>
+      <p class="repro-note" data-t="promptHint">Use the Agent prompt tab for an environment-aware, copyable setup request. It asks the agent to identify the source and CAD runtime, use fresh outputs, and report any missing prerequisites.</p>
 
       <div class="border border-zinc-200 rounded-lg overflow-hidden bg-zinc-900 text-zinc-200 font-mono text-xs">
         <div class="px-4 py-2.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
@@ -463,6 +552,7 @@
             <button onclick="switchCode('python')" id="code-btn-python" class="text-zinc-400 hover:text-white">Python API</button>
             <span class="text-zinc-600">|</span>
             <button onclick="switchCode('yaml')" id="code-btn-yaml" class="text-zinc-400 hover:text-white">Contract YAML</button>
+            <span class="text-zinc-600">|</span><button onclick="switchCode('agent')" id="code-btn-agent" class="text-zinc-400 hover:text-white">Agent prompt</button>
           </div>
           <button onclick="copyCurrentCode()" class="text-zinc-400 hover:text-white flex items-center gap-1 transition">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
@@ -471,16 +561,23 @@
         </div>
 
         <div class="p-4 overflow-x-auto leading-relaxed">
-          <pre id="code-block-cli"># 1. Install hardcad
-git clone https://github.com/Hard-CAD/hard-cad.git
-cd hard-cad
-pip install -e ".[yaml]"
+          <pre id="code-block-cli"># Run from the full evaluator source checkout, not the website-only repository.
+python -m venv .venv
+# Activate .venv using the command for your operating system.
+python -m pip install ".[yaml]"
 
-# 2. Run the recorded paper benchmark demo
-hardcad demo --output paper-demo --cad-python python
+# Replace FREECAD_PYTHON with a Python executable that imports FreeCAD and Part.
+# Choose a new output directory. Quote the executable path if it contains spaces.
+python -m hardcad demo --output paper-demo --cad-python FREECAD_PYTHON
+# Open paper-demo/index.html and inspect the recorded outcomes.</pre>
 
-# 3. Inspect generated diagnostic reports
-open paper-demo/index.html</pre>
+          <pre id="code-block-agent" class="hidden">Please help me reproduce the recorded Hard-CAD cad15 and cad30 examples on this computer.
+
+1. Inspect the available files and documentation. Identify whether I have the full evaluator source (including pyproject.toml and the hardcad package) or only the website/example bundle. If evaluator source is missing, explain how to obtain an authorized copy and stop before installation.
+2. Check Python (3.10 or newer), create an isolated environment, and install the evaluator from its local source with YAML support. Record actual Python and dependency versions.
+3. Locate a FreeCAD Python executable and verify that it can import FreeCAD and Part. The documented development configuration is FreeCAD 1.1.1 / Open CASCADE 7.8.1 on Windows. If it is unavailable, report what is missing rather than guessing a path.
+4. Run the documented recorded-example demo using that executable and a new output directory. Open the resulting index.html and summarize the cad15 and cad30 measurements, statuses, output paths, and any failures. Distinguish an intentionally failing candidate requirement from a replay or infrastructure failure.
+5. Cite the local documentation and record the commands and versions used. Do not use private corpora or paid model calls, overwrite existing results, modify a scorer, publish anything, or push changes without my explicit instruction.</pre>
 
           <pre id="code-block-python" class="hidden">from hardcad import diagnose
 
@@ -489,7 +586,7 @@ report = diagnose(
     candidate="candidate_v2.step",
     reference="reference.step",
     brief="brief.yaml",
-    cad_python="python"  # Path to FreeCAD Python executable
+    cad_python="FREECAD_PYTHON"  # Replace with a FreeCAD-capable Python executable
 )
 
 # Export interactive report
@@ -534,12 +631,12 @@ requirements:
       </div>
 
       <div class="border border-zinc-200 rounded-lg p-4 bg-zinc-50 font-mono text-xs text-zinc-800 overflow-x-auto leading-relaxed">
-        <pre id="bibtex-content">@article{hardcad2026,
+        <pre id="bibtex-content">@misc{hardcad2026,
+  author  = {Huang, Hikoyan and Zhang, Jiayao},
   title   = {Hard-CAD: Contract-Based Diagnostics for Generated CAD Geometry},
-  journal = {Computers \& Graphics},
   year    = {2026},
   url     = {https://hard-cad.github.io/hard-cad/},
-  note    = {Under Review}
+  note    = {Submitted manuscript}
 }</pre>
       </div>
     </section>
@@ -550,11 +647,11 @@ requirements:
   <footer class="border-t border-zinc-200 py-10 text-xs text-zinc-500 bg-[#fafafa]">
     <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>
-        <span class="font-medium text-zinc-700">Hard-CAD</span> &bull; 
+        <span class="font-medium text-zinc-700">Hard-CAD</span> &bull;
         <a href="https://hard-cad.github.io/hard-cad/" class="text-zinc-600 hover:underline">hard-cad.github.io/hard-cad</a>
       </div>
       <div class="flex items-center gap-4">
-        <a href="assets/Hard-CAD.pdf" target="_blank" class="hover:text-zinc-900 transition">Manuscript (PDF)</a>
+        <a href="manuscript.pdf" target="_blank" class="hover:text-zinc-900 transition">Manuscript (PDF)</a>
         <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="hover:text-zinc-900 transition">GitHub</a>
         <a href="#" class="hover:text-zinc-900 transition">Top &uarr;</a>
       </div>
@@ -563,7 +660,7 @@ requirements:
 
   <!-- Scripts: Three.js 3D Viewer & Slider & Tabs -->
   <script>
-    lucide.createIcons();
+    if (window.lucide) lucide.createIcons();
 
     // -------------------------------------------------------------------------
     // Three.js Interactive 3D CAD Viewer (Technical Studio Lighting)
@@ -571,6 +668,7 @@ requirements:
     let scene, camera, renderer, controls, currentMesh = null;
     let autoRotate = false;
     let isWireframe = false;
+    let isTransparent = false;
     let selectedModel = 'cad15';
     let selectedState = 'feedback';
 
@@ -590,9 +688,9 @@ requirements:
           color: 0xdc2626
         },
         reference: {
-          badge: 'GROUND TRUTH',
+          badge: 'REFERENCE',
           badgeClass: 'bg-zinc-100 text-zinc-800',
-          desc: 'Ground Truth Reference: The nominal verified CAD specification.',
+          desc: 'Reference geometry constructed from the declared recipe.',
           color: 0x2563eb
         }
       },
@@ -611,9 +709,9 @@ requirements:
           color: 0x16a34a
         },
         reference: {
-          badge: 'GROUND TRUTH',
+          badge: 'REFERENCE',
           badgeClass: 'bg-zinc-100 text-zinc-800',
-          desc: 'Ground Truth Reference: Nominal verified part specification.',
+          desc: 'Reference geometry constructed from the declared recipe.',
           color: 0x2563eb
         }
       }
@@ -701,7 +799,9 @@ requirements:
             color: info.color || 0x475569,
             roughness: 0.35,
             metalness: 0.25,
-            wireframe: isWireframe
+            wireframe: isWireframe,
+            transparent: isTransparent, opacity: isTransparent ? 0.38 : 1,
+            depthWrite: !isTransparent, side: isTransparent ? THREE.DoubleSide : THREE.FrontSide
           });
 
           currentMesh = new THREE.Mesh(geometry, material);
@@ -733,10 +833,10 @@ requirements:
 
     function set3DModel(model) {
       selectedModel = model;
-      document.getElementById('btn-m-cad15').className = model === 'cad15' 
+      document.getElementById('btn-m-cad15').className = model === 'cad15'
         ? 'px-2.5 py-1 rounded bg-white border border-zinc-300 font-medium text-zinc-900 shadow-xs'
         : 'px-2.5 py-1 rounded bg-transparent border border-transparent font-medium text-zinc-500 hover:text-zinc-800';
-      document.getElementById('btn-m-cad30').className = model === 'cad30' 
+      document.getElementById('btn-m-cad30').className = model === 'cad30'
         ? 'px-2.5 py-1 rounded bg-white border border-zinc-300 font-medium text-zinc-900 shadow-xs'
         : 'px-2.5 py-1 rounded bg-transparent border border-transparent font-medium text-zinc-500 hover:text-zinc-800';
       loadCurrent3DModel();
@@ -747,12 +847,21 @@ requirements:
       ['initial', 'feedback', 'reference'].forEach(s => {
         const btn = document.getElementById('btn-s-' + s);
         if (btn) {
-          btn.className = s === state 
+          btn.className = s === state
             ? 'px-2.5 py-1 rounded bg-white border border-zinc-300 font-medium text-zinc-900 shadow-xs'
             : 'px-2.5 py-1 rounded bg-transparent border border-transparent text-zinc-600 hover:text-zinc-900';
         }
       });
       loadCurrent3DModel();
+    }
+
+    function toggleTransparency() {
+      isTransparent = !isTransparent;
+      if (currentMesh && currentMesh.material) {
+        Object.assign(currentMesh.material, {transparent: isTransparent, opacity: isTransparent ? 0.38 : 1, depthWrite: !isTransparent, side: isTransparent ? THREE.DoubleSide : THREE.FrontSide});
+        currentMesh.material.needsUpdate = true;
+      }
+      document.getElementById('btn-transparent').setAttribute('aria-pressed', String(isTransparent));
     }
 
     function toggleWireframe() {
@@ -761,7 +870,7 @@ requirements:
         currentMesh.material.wireframe = isWireframe;
       }
       const btn = document.getElementById('btn-wire');
-      btn.className = isWireframe 
+      btn.className = isWireframe
         ? 'px-2 py-1 rounded border border-blue-500 bg-blue-50 text-blue-700 transition flex items-center gap-1 font-medium'
         : 'px-2 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition flex items-center gap-1';
     }
@@ -790,32 +899,18 @@ requirements:
       const container = document.getElementById('slider-container');
       const overlay = document.getElementById('slider-overlay');
       const handle = document.getElementById('slider-handle');
-      if (!container || !overlay || !handle) return;
-
-      let clicked = false;
-
-      function slide(x) {
+      const input = document.getElementById('comparison-range');
+      if (!container || !overlay || !handle || !input) return;
+      const render = () => { const value = Number(input.value); overlay.style.clipPath = `inset(0 ${100 - value}% 0 0)`; handle.style.left = `${value}%`; };
+      input.addEventListener('input', render);
+      handle.addEventListener('pointerdown', e => { handle.setPointerCapture(e.pointerId); });
+      handle.addEventListener('pointermove', e => {
+        if (!handle.hasPointerCapture(e.pointerId)) return;
         const rect = container.getBoundingClientRect();
-        let pos = (x - rect.left) / rect.width;
-        if (pos < 0.05) pos = 0.05;
-        if (pos > 0.95) pos = 0.95;
-        overlay.style.width = (pos * 100) + '%';
-        handle.style.left = (pos * 100) + '%';
-      }
-
-      handle.addEventListener('mousedown', () => { clicked = true; });
-      window.addEventListener('mouseup', () => { clicked = false; });
-      window.addEventListener('mousemove', (e) => {
-        if (!clicked) return;
-        slide(e.clientX);
+        input.value = Math.max(0, Math.min(100, (e.clientX - rect.left) / rect.width * 100));
+        render();
       });
-
-      handle.addEventListener('touchstart', () => { clicked = true; });
-      window.addEventListener('touchend', () => { clicked = false; });
-      window.addEventListener('touchmove', (e) => {
-        if (!clicked) return;
-        slide(e.touches[0].clientX);
-      });
+      render();
     }
 
     // -------------------------------------------------------------------------
@@ -824,7 +919,7 @@ requirements:
     let currentCodeTab = 'cli';
     function switchCode(tab) {
       currentCodeTab = tab;
-      ['cli', 'python', 'yaml'].forEach(t => {
+      ['cli', 'python', 'yaml', 'agent'].forEach(t => {
         const btn = document.getElementById('code-btn-' + t);
         const block = document.getElementById('code-block-' + t);
         if (t === tab) {
