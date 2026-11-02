@@ -114,17 +114,31 @@
 <body class="bg-white text-zinc-900 font-sans selection:bg-zinc-200 selection:text-zinc-900">
 
   <!-- Top Minimalist Navigation / Meta Bar -->
-  <nav class="border-b border-zinc-200 bg-white/90 backdrop-blur sticky top-0 z-50">
+    <nav class="border-b border-zinc-200 bg-white/95 backdrop-blur sticky top-0 z-50">
     <div class="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <span class="font-semibold text-sm tracking-tight text-zinc-900">Hard-CAD</span>
+      <div class="flex items-center gap-2 sm:gap-4">
+        <a href="index.html" class="font-semibold text-sm tracking-tight text-zinc-900 hover:text-blue-600 transition flex items-center gap-1.5">
+          <i data-lucide="layers" class="w-4 h-4 text-zinc-700"></i>
+          <span>Hard-CAD</span>
+        </a>
         <span class="text-zinc-300">/</span>
-        <span class="text-xs text-zinc-500 font-serif italic">Submitted manuscript</span>
+        <div class="hidden sm:flex items-center gap-2 text-xs">
+          <a href="inspect.html" class="px-2.5 py-1 rounded-full text-zinc-600 hover:text-blue-700 hover:bg-blue-50 transition font-medium">3D Studio</a>
+          <a href="replay.html" class="px-2.5 py-1 rounded-full text-zinc-600 hover:text-emerald-700 hover:bg-emerald-50 transition font-medium">Evidence Replay</a>
+          <a href="machine-demo.html" class="px-2.5 py-1 rounded-full text-zinc-600 hover:text-amber-700 hover:bg-amber-50 transition font-medium">Pump Demo</a>
+        </div>
       </div>
-      <div class="flex items-center gap-3 text-xs"><label class="language-label" for="language-select">Language</label><select id="language-select" aria-label="Language"><option value="en">English</option><option value="zh">中文</option><option value="ja">日本語</option><option value="ko">한국어</option></select>
+      <div class="flex items-center gap-3 text-xs">
+        <label class="language-label" for="language-select">Language</label>
+        <select id="language-select" aria-label="Language">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+        </select>
         <a href="https://hard-cad.github.io/hard-cad/" class="text-zinc-600 hover:text-zinc-900 transition flex items-center gap-1 font-mono">
           <i data-lucide="globe" class="w-3.5 h-3.5"></i>
-          <span>hard-cad.github.io</span>
+          <span class="hidden md:inline">hard-cad.github.io</span>
         </a>
         <span class="text-zinc-300">|</span>
         <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="text-zinc-600 hover:text-zinc-900 transition flex items-center gap-1">
@@ -165,35 +179,103 @@
       </div>
 
       <!-- Standard Academic Resource Buttons (Nerfies Style) -->
-      <div class="mt-7 flex flex-wrap items-center justify-center gap-2.5">
-        <a href="manuscript.pdf" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900 text-white text-xs sm:text-sm font-medium hover:bg-zinc-800 transition shadow-sm">
+      <div class="mt-7 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
+        <a href="manuscript.pdf" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-zinc-900 text-white text-xs sm:text-sm font-medium hover:bg-zinc-800 transition shadow-sm">
           <i data-lucide="file-text" class="w-4 h-4"></i>
           <span>Paper (PDF)</span>
         </a>
-        <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
+        <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
           <i data-lucide="github" class="w-4 h-4"></i>
           <span>Code &amp; Benchmark</span>
         </a>
-        <a href="inspect.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
-          <i data-lucide="box" class="w-4 h-4 text-zinc-600"></i>
+        <a href="inspect.html" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs sm:text-sm font-medium hover:bg-blue-100 transition shadow-sm">
+          <i data-lucide="box" class="w-4 h-4 text-blue-600"></i>
           <span>3D Comparison Studio</span>
         </a>
-        <a href="machine-demo.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
-          <i data-lucide="cpu" class="w-4 h-4 text-zinc-600"></i>
-          <span>Process Pump Demo</span>
-        </a>
-        <a href="replay.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
-          <i data-lucide="play-circle" class="w-4 h-4 text-zinc-600"></i>
+        <a href="replay.html" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-medium hover:bg-emerald-100 transition shadow-sm">
+          <i data-lucide="play-circle" class="w-4 h-4 text-emerald-600"></i>
           <span>Evidence Replay</span>
         </a>
-        <a href="#citation" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
-          <i data-lucide="quote" class="w-4 h-4 text-zinc-600"></i>
+        <a href="machine-demo.html" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs sm:text-sm font-medium hover:bg-amber-100 transition shadow-sm">
+          <i data-lucide="cpu" class="w-4 h-4 text-amber-600"></i>
+          <span>Process Pump Demo</span>
+        </a>
+        <a href="#citation" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white border border-zinc-300 text-zinc-700 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
+          <i data-lucide="quote" class="w-4 h-4 text-zinc-500"></i>
           <span>BibTeX</span>
         </a>
       </div>
 
     </div>
   </header>
+  <!-- Interactive Pages Showcase Grid -->
+  <section id="interactive-workspaces" class="border-b border-zinc-200 bg-zinc-50/70 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <span class="text-[11px] font-mono font-bold tracking-wider text-blue-600 uppercase">STANDALONE INTERACTIVE TOOLS</span>
+          <h2 class="text-base sm:text-lg font-serif font-medium text-zinc-900 mt-0.5">Three dedicated interactive workspaces bundled with the paper</h2>
+        </div>
+        <span class="text-xs text-zinc-400 font-mono hidden sm:inline">3 standalone web tools</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+        <!-- Card 1: 3D Studio -->
+        <a href="inspect.html" class="group block p-4 rounded-xl bg-white border border-zinc-200/90 hover:border-blue-500 hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition">
+              <i data-lucide="box" class="w-4 h-4"></i>
+            </span>
+            <span class="text-[10px] font-mono text-zinc-400 group-hover:text-blue-600 transition">WEBGL / 3D &rarr;</span>
+          </div>
+          <h3 class="font-medium text-sm text-zinc-900 group-hover:text-blue-600 transition">3D Comparison Studio</h3>
+          <p class="text-xs text-zinc-500 mt-1 leading-relaxed">
+            Side-by-side &amp; overlaid 3D inspection of CAD15, CAD30 &amp; pump shaft meshes with contract diagnostics.
+          </p>
+          <div class="mt-3 text-xs font-medium text-blue-600 flex items-center gap-1">
+            <span>Launch Studio</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Card 2: Evidence Replay -->
+        <a href="replay.html" class="group block p-4 rounded-xl bg-white border border-zinc-200/90 hover:border-emerald-500 hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition">
+              <i data-lucide="play-circle" class="w-4 h-4"></i>
+            </span>
+            <span class="text-[10px] font-mono text-zinc-400 group-hover:text-emerald-600 transition">AUDIT REPLAY &rarr;</span>
+          </div>
+          <h3 class="font-medium text-sm text-zinc-900 group-hover:text-emerald-600 transition">Interactive Evidence Replay</h3>
+          <p class="text-xs text-zinc-500 mt-1 leading-relaxed">
+            Step through candidate revision endpoints, requirement clearance, and cryptographic SHA-256 evidence.
+          </p>
+          <div class="mt-3 text-xs font-medium text-emerald-600 flex items-center gap-1">
+            <span>Launch Replay</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Card 3: Process Pump Demo -->
+        <a href="machine-demo.html" class="group block p-4 rounded-xl bg-white border border-zinc-200/90 hover:border-amber-500 hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-amber-50 text-amber-600 group-hover:bg-amber-600 group-hover:text-white transition">
+              <i data-lucide="cpu" class="w-4 h-4"></i>
+            </span>
+            <span class="text-[10px] font-mono text-zinc-400 group-hover:text-amber-600 transition">LIVE DEMO &rarr;</span>
+          </div>
+          <h3 class="font-medium text-sm text-zinc-900 group-hover:text-amber-600 transition">Process Pump 3D Demo</h3>
+          <p class="text-xs text-zinc-500 mt-1 leading-relaxed">
+            Full API 610 refinery pump model with interactive exploded view, cutaway, x-ray, and operating controls.
+          </p>
+          <div class="mt-3 text-xs font-medium text-amber-600 flex items-center gap-1">
+            <span>Launch Pump Demo</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
 
   <nav class="journey-nav" aria-label="On this page"><span class="journey-nav-label" data-t="navLabel">ON THIS PAGE</span><a href="#value-map"><span>01</span><b data-t="navValue">Why it matters</b></a><a href="#engineering-vision"><span>↗</span><b data-t="indNav">Engineering</b></a><a href="#research-map"><span>02</span><b data-t="navLandscape">Research map</b></a><a href="#design-rationale"><span>↗</span><b data-t="atlasDesign">Design path</b></a><a href="#paradox"><span>03</span><b data-t="navComparison">Comparison</b></a><a href="#viewer3d"><span>04</span><b data-t="navAssembly">3D &amp; assembly</b></a><a href="#interactive-study"><span>05</span><b data-t="navMath">Math</b></a><a href="#evidence-explorer"><span>06</span><b data-t="navEvidence">Evidence</b></a><a href="#quickstart"><span>07</span><b data-t="navReproduce">Reproduce</b></a></nav>
 
