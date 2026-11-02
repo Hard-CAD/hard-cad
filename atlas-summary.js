@@ -6,6 +6,11 @@ Object.assign(extra.en,{replayLink:'Interactive evidence replay ↗'});
 Object.assign(extra.zh,{replayLink:'交互式证据回放 ↗'});
 Object.assign(extra.ja,{replayLink:'実験結果のインタラクティブ再生 ↗'});
 Object.assign(extra.ko,{replayLink:'인터랙티브 근거 재생 ↗'});
+Object.assign(extra.en,{pumpDemoLink:'Process pump demo ↗'});
+Object.assign(extra.zh,{pumpDemoLink:'工艺流程泵 3D 演示 ↗'});
+Object.assign(extra.ja,{pumpDemoLink:'プロセスポンプ 3D デモ ↗'});
+Object.assign(extra.ko,{pumpDemoLink:'공정 펌프 3D 데모 ↗'});
+
 const landscapeLabels={en:'Related work',zh:'相关研究',ja:'関連研究',ko:'관련 연구'};
 const landscapeSummary={
  en:['Prior studies examine CAD geometry and features, executable tests, design constraints, interfaces, and preservation across edits.','Hard-CAD connects declared requirements to paired measurements, availability and local/global changes in a replayable record.'],

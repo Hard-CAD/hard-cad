@@ -174,9 +174,17 @@
           <i data-lucide="github" class="w-4 h-4"></i>
           <span>Code &amp; Benchmark</span>
         </a>
-        <a href="#viewer3d" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
+        <a href="inspect.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
           <i data-lucide="box" class="w-4 h-4 text-zinc-600"></i>
-          <span>Interactive 3D View</span>
+          <span>3D Comparison Studio</span>
+        </a>
+        <a href="machine-demo.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
+          <i data-lucide="cpu" class="w-4 h-4 text-zinc-600"></i>
+          <span>Process Pump Demo</span>
+        </a>
+        <a href="replay.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
+          <i data-lucide="play-circle" class="w-4 h-4 text-zinc-600"></i>
+          <span>Evidence Replay</span>
         </a>
         <a href="#citation" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
           <i data-lucide="quote" class="w-4 h-4 text-zinc-600"></i>
@@ -533,7 +541,7 @@
       </h2>
       <p class="text-sm text-zinc-600 mb-4 leading-relaxed" data-t="reproIntro">Choose a path: open the recorded reports immediately, or use the full evaluator source and a compatible FreeCAD Python interpreter to replay the geometry.</p>
       <div class="repro-grid">
-        <div class="repro-card"><b data-t="reproReadTitle">01 / Inspect recorded results</b><p data-t="reproReadBody">A browser is enough to open the bundled cad15 and cad30 reports. These files let you inspect recorded outcomes without recomputing geometry.</p><a href="inspect.html" data-t="inspectLink">3D comparison studio ↗</a> &nbsp; <a href="replay.html" data-t="replayLink">Interactive evidence replay ↗</a> &nbsp; <a href="examples/cad15_iou_improves_cut_regresses/report.html">cad15 report ↗</a> &nbsp; <a href="examples/cad30_void_clears_extra_grows/report.html">cad30 report ↗</a></div>
+        <div class="repro-card"><b data-t="reproReadTitle">01 / Inspect recorded results</b><p data-t="reproReadBody">A browser is enough to open the bundled cad15 and cad30 reports. These files let you inspect recorded outcomes without recomputing geometry.</p><a href="inspect.html" data-t="inspectLink">3D comparison studio ↗</a> &nbsp; <a href="replay.html" data-t="replayLink">Interactive evidence replay ↗</a> &nbsp; <a href="machine-demo.html" data-t="pumpDemoLink">Process pump demo →</a> &nbsp; <a href="examples/cad15_iou_improves_cut_regresses/report.html">cad15 report ↗</a> &nbsp; <a href="examples/cad30_void_clears_extra_grows/report.html">cad30 report ↗</a></div>
         <div class="repro-card"><b data-t="reproReplayTitle">02 / Replay the geometry</b><p data-t="reproReplayBody">The full evaluator source is required: the pinned website repository contains the page and example bundles, but no installable SDK. Obtain an authorized evaluator source checkout or an approved public package before following the steps below.</p></div>
       </div>
       <details class="repro-setup"><summary data-t="requirementsTitle">Environment and installation checklist</summary><div class="repro-inner"><ol>

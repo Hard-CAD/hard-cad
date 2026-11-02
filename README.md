@@ -9,6 +9,7 @@
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-10b981.svg?logo=githubpages&logoColor=white)](https://hard-cad.github.io/hard-cad/)
 [![Paper PDF](https://img.shields.io/badge/Paper-Computers%20%26%20Graphics%20(CAG)-blue.svg?logo=adobeacrobatreader&logoColor=white)](assets/Hard-CAD.pdf)
 [![Project Page](https://img.shields.io/badge/Project-Homepage%20(Local)-0284c7.svg?logo=safari&logoColor=white)](index.html)
+[![Process Pump Demo](https://img.shields.io/badge/Live%20Demo-Process%20Pump%20(3D)-f59e0b.svg?logo=three.js&logoColor=white)](https://hard-cad.github.io/hard-cad/machine-demo.html)
 [![License](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776ab.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![Kernel](https://img.shields.io/badge/CAD%20Kernel-OpenCASCADE%20%2F%20FreeCAD-e53e3e.svg)](https://www.freecad.org/)
@@ -44,6 +45,7 @@ A standalone academic project page is provided for interactive inspection:
   - **Before / After Split Slider:** Interactive comparison revealing localized material changes across candidate revisions.
   - **3D Comparison Studio:** [**inspect.html**](https://hard-cad.github.io/hard-cad/inspect.html)
   - **Interactive Evidence Replay:** [**replay.html**](https://hard-cad.github.io/hard-cad/replay.html)
+- **Live Process Pump Demo:** [**machine-demo.html**](https://hard-cad.github.io/hard-cad/machine-demo.html)
   - **Case Switcher:** Toggle between `cad15` (cut regression), `cad30` (void clearance), and industrial pump shaft cases with paired diagnostic tables.
   - **Manuscript PDF:** Direct access to [`manuscript.pdf`](manuscript.pdf) / [`assets/Hard-CAD.pdf`](assets/Hard-CAD.pdf).
 
@@ -182,6 +184,7 @@ hard-cad/
 ├── index.html                               # Standalone interactive academic project homepage
 ├── inspect.html                             # 3D comparison studio (WebGL mesh & contract inspector)
 ├── replay.html                              # Interactive evidence replay
+├── machine-demo.html                        # Upstream interactive 3D refinery process pump demo
 ├── manuscript.pdf                           # Complete manuscript PDF
 ├── README.md                                # Repository guide & documentation
 ├── contracts/                               # Declarative JSON geometry contracts
