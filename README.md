@@ -4,7 +4,7 @@
 
 Hard-CAD follows the same declared requirement across two CAD versions. The paired report shows the measurement, verdict, and reason when a value is unavailable, alongside changes in overall geometry.
 
-[Project page](https://hard-cad.github.io/hard-cad/) · [3D comparison](https://hard-cad.github.io/hard-cad/inspect.html) · [Evidence replay](https://hard-cad.github.io/hard-cad/replay.html) · [Process pump demo](https://hard-cad.github.io/hard-cad/machine-demo.html) · [Paper](https://doi.org/10.1016/j.cag.2026.104824)
+[![Project page](assets/readme/nav/project.svg)](https://hard-cad.github.io/hard-cad/) [![3D comparison](assets/readme/nav/compare.svg)](https://hard-cad.github.io/hard-cad/inspect.html) [![Evidence replay](assets/readme/nav/replay.svg)](https://hard-cad.github.io/hard-cad/replay.html) [![Process pump demo](assets/readme/nav/pump.svg)](https://hard-cad.github.io/hard-cad/machine-demo.html) [![Read the paper](assets/readme/nav/paper.svg)](https://doi.org/10.1016/j.cag.2026.104824)
 
 ## When a better overlap score hides a blocked cut
 

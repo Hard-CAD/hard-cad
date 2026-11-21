@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="104" height="34" viewBox="0 0 104 34" role="img" aria-labelledby="title">
+  <title id="title">Project page</title>
+  <rect x="0.5" y="0.5" width="103" height="33" rx="8" fill="#152D38" stroke="#4C707A"/>
+  <g transform="translate(11 7)" fill="none" stroke="#8EDDCB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m10 1 8 4.5v9L10 19l-8-4.5v-9L10 1Z"/><path d="m2 5.5 8 4.5 8-4.5M10 10v9"/>
+  </g>
+  <text x="39" y="22" fill="#F1FAFA" font-family="Verdana, Arial, sans-serif" font-weight="600" font-size="12">Project</text>
+</svg>
