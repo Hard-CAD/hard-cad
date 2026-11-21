@@ -534,6 +534,8 @@ function studioEnvironment(renderer, theme) {
 const CSS = `
 :root { --paper:#f3f2ee; --ink:#141414; --mute:#8c8b87; --faint:#c9c7c1; --line:#e4e2dc; --accent:#e4572e; --panel:rgba(255,255,255,0.0);
   --serif:'Instrument Serif','EB Garamond',Georgia,serif; --sans:'Inter',system-ui,-apple-system,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace }
+.lab-gray-studio { --paper:#dee2e5; --ink:#18272e; --line:#b8c5cc; --mute:#44575f; --faint:#536972 }
+.lab-gray-studio .lab-no { display:none }
 .lab-night { --paper:#0d0e10; --ink:#f1efe9; --mute:#8e8c86; --faint:#4a4945; --line:#2a2a2a }
 html,body { margin:0; height:100%; background:var(--paper); color:var(--ink); font-family:var(--sans); overflow:hidden; -webkit-font-smoothing:antialiased }
 #lab-gl { position:fixed; inset:0; width:100%; height:100%; display:block; outline:none; touch-action:none }
@@ -606,6 +608,9 @@ html,body { margin:0; height:100%; background:var(--paper); color:var(--ink); fo
   .lab-pills, .lab-how, .lab-scale { display:none }
   .lab-modes { left:16px; right:16px; bottom:16px }
   .lab-big { font-size:56px }
+  .lab-gray-studio .lab-prompt { display:none }
+  .lab-gray-studio .lab-side { bottom:112px }
+  .lab-gray-studio .lab-big { font-size:44px }
 }
 `
 
@@ -660,6 +665,7 @@ export class Lab {
   _initDOM() {
     const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st)
     if (this.theme === 'night') document.documentElement.classList.add('lab-night')
+    if (this.o.grayStudio) document.documentElement.classList.add('lab-gray-studio')
     if (this.filmMode) document.documentElement.classList.add('lab-film')
     if (this.q.has('embed')) document.documentElement.classList.add('lab-embed')
     const o = this.o
@@ -765,8 +771,9 @@ export class Lab {
   // ---------- GL
   _initGL() {
     const ss = Number(this.q.get('ss') || 1)
+    const studio = this.o.grayStudio
     const r = new THREE.WebGLRenderer({ antialias: false, alpha: false, powerPreference: 'high-performance', preserveDrawingBuffer: this.filmMode })
-    r.setPixelRatio(this.filmMode ? ss : Math.min(devicePixelRatio, 2))
+    r.setPixelRatio(this.filmMode ? ss : Math.min(devicePixelRatio, studio ? 1.5 : 2))
     r.setSize(innerWidth, innerHeight)
     r.toneMapping = THREE.NoToneMapping // OutputPass applies it
     r.toneMappingExposure = this.o.exposure ?? 1
@@ -792,13 +799,14 @@ export class Lab {
     this.setView(this.o.view ?? {})
     // post: MSAA HDR render, GTAO, bloom, tone map, grade
     const size = r.getDrawingBufferSize(new THREE.Vector2())
-    const rt = new THREE.WebGLRenderTarget(size.x, size.y, { type: THREE.HalfFloatType, samples: 4 })
+    const rt = new THREE.WebGLRenderTarget(size.x, size.y, { type: THREE.HalfFloatType, samples: studio && !this.filmMode ? 2 : 4 })
     const comp = new EffectComposer(r, rt)
     comp.addPass(new RenderPass(this.scene, this.camera))
     const ao = new GTAOPass(this.scene, this.camera, size.x, size.y)
     ao.blendIntensity = this.theme === 'paper' ? 0.85 : 1
-    ao.updateGtaoMaterial({ radius: 0.35, distanceExponent: 1.6, thickness: 1.2, scale: 1, samples: 16 })
-    ao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 6, rings: 2, samples: 16 })
+    const aoSamples = studio && !this.filmMode ? 8 : 16
+    ao.updateGtaoMaterial({ radius: 0.35, distanceExponent: 1.6, thickness: 1.2, scale: 1, samples: aoSamples })
+    ao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 6, rings: 2, samples: aoSamples })
     // effects and see-through parts are not solid: keep them out of the normal/depth pass
     const aoRender = ao.render.bind(ao)
     ao.render = (...a) => { this.camera.layers.disable(LAYER_FX); const hidden = []; this.scene.traverse((m) => { if (m.isMesh && m.visible && m.userData.noAO) { m.visible = false; hidden.push(m) } }); aoRender(...a); for (const m of hidden) m.visible = true; this.camera.layers.enable(LAYER_FX) }
@@ -849,7 +857,7 @@ export class Lab {
     // seamless floor: same colour as the backdrop far away, takes shadows and contact shadow near the machine
     const gy = (this.o.ground ?? 0) * this.k
     this.groundY = gy
-    const fm = new THREE.MeshStandardMaterial({ color: paper ? 0xf0efea : 0x121315, roughness: paper ? 0.92 : 0.55, metalness: 0, envMapIntensity: paper ? 0.25 : 0.6 })
+    const fm = new THREE.MeshStandardMaterial({ color: this.o.floorColor ?? (paper ? 0xf0efea : 0x121315), roughness: paper ? 0.92 : 0.55, metalness: 0, envMapIntensity: paper ? 0.25 : 0.6 })
     fm.onBeforeCompile = (sh) => {
       sh.uniforms.uBg = { value: bg }
       sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vFW;').replace('#include <project_vertex>', '#include <project_vertex>\nvFW = (modelMatrix * vec4(transformed, 1.0)).xyz;')
@@ -862,7 +870,8 @@ export class Lab {
     // lights: soft key with VSM shadow, cool rim, gentle fill (the environment does most of the work)
     const key = new THREE.DirectionalLight(0xfff3e6, paper ? 2.4 : 2.6)
     key.position.set(-3.2, 6.5, 4.2); key.castShadow = true
-    key.shadow.mapSize.set(2048, 2048); key.shadow.radius = 7; key.shadow.blurSamples = 16
+    const shadowSize = this.o.grayStudio && !this.filmMode ? 1024 : 2048
+    key.shadow.mapSize.set(shadowSize, shadowSize); key.shadow.radius = 7; key.shadow.blurSamples = 16
     key.shadow.bias = -0.0004; key.shadow.normalBias = 0.02
     const sc = key.shadow.camera; sc.left = -3.2; sc.right = 3.2; sc.top = 3.2; sc.bottom = -3.2; sc.near = 0.5; sc.far = 20
     this.scene.add(key, key.target); this.key = key
@@ -880,8 +889,8 @@ export class Lab {
     const d = v.dist * 2.4
     const az = THREE.MathUtils.degToRad(v.az), el = THREE.MathUtils.degToRad(v.el)
     this.camera.fov = v.fov ?? 30
-    // shift the frame so the subject sits left of the side column
-    this.camera.setViewOffset(innerWidth, innerHeight, -(v.frameX ?? 0) * innerWidth, 0, innerWidth, innerHeight)
+    // Leave room for the controls beside or below the machine.
+    this.camera.setViewOffset(innerWidth, innerHeight, -(v.frameX ?? 0) * innerWidth, -(v.frameY ?? 0) * innerHeight, innerWidth, innerHeight)
     this.camera.position.set(t.x + d * Math.cos(el) * Math.sin(az), t.y + d * Math.sin(el), t.z + d * Math.cos(el) * Math.cos(az))
     this.controlsOrbit.target.copy(t)
     this.camera.lookAt(t)
@@ -1102,7 +1111,7 @@ export class Lab {
     this.tris = Math.round(tris); this.matCount = mats.size
     if (this.filmMode) { this._initFilm(); return }
     this._typePrompt(1.1)
-    this._assembly = 1
+    this._assembly = this.o.grayStudio ? 0 : 1
     const t0 = performance.now(); let last = t0
     const loop = (now) => {
       const dt = clamp((now - last) / 1000, 0, 0.05); last = Math.max(last, now)
@@ -1539,13 +1548,24 @@ const { THREE, Lab, MAT, GEO, clamp, lerp, approach, fmt, smoothstep, rng } = wi
 
 const CL = 0.70            // shaft centreline above the floor (m)
 const DECK = 0.20          // top of the baseplate deck (m)
+// Hard-CAD embeds the original model in a neutral-gray studio.
+const grayStudio = new URLSearchParams(location.search).get('studio') === 'gray'
+const compactStudio = matchMedia('(max-width: 760px)')
+const desktopView = { az: 31, el: 16, dist: 1.78, target: [-0.86, 0.86, 0], fov: 30, frameX: -0.16, frameY: 0 }
+function pumpView() {
+  if (!grayStudio || !compactStudio.matches) return desktopView
+  return { ...desktopView, dist: Math.max(3.75, 2.45 * innerHeight / innerWidth),
+    target: [-0.48, 0.82, 0], frameX: 0, frameY: -0.26 }
+}
 const lab = new Lab({
+  ...(grayStudio ? { grayStudio, bg: 0xdee2e5, floorColor: 0xdde0e4, saturation: 0.90, autoOrbit: !matchMedia('(prefers-reduced-motion: reduce)').matches } : {}),
   prompt: 'a refinery process pump, API 610 style, cut open for plant training',
   no: 3, title: 'Process pump', sub: 'API 610 OH2',
   size: 3.1,
-  view: { az: 31, el: 16, dist: 1.78, target: [-0.86, 0.86, 0], fov: 30 },
+  view: pumpView(),
   cut: { a: [0, 0, 1], b: [0, 1, 0], center: [0, CL, 0], reach: 0.45 },
 })
+if (grayStudio) compactStudio.addEventListener('change', () => lab.setView(pumpView()))
 
 // ------------------------------------------------------------------ helpers
 const V3 = (x, y, z) => new THREE.Vector3(x, y, z)

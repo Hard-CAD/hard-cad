@@ -14,6 +14,41 @@ Object.assign(extra.zh,{reproIntro:'选择复现路径：直接查看已有报�
 Object.assign(extra.ja,{reproIntro:'既存レポートを開く方法と、評価器の全ソースと FreeCAD Python で形状を再計算する方法を選べます。',reproReadTitle:'01 / 記録済み結果を見る',reproReadBody:'付属の cad15 と cad30 のレポートはブラウザで開けます。形状を再計算せず、記録された結果を確認できます。',reproReplayTitle:'02 / 形状計算を再実行',reproReplayBody:'再実行には評価器の全ソースが必要です。固定されたウェブサイトリポジトリにはページと事例が含まれますが、インストール可能な SDK は含まれません。許可されたソースまたは公開パッケージを用意してください。',requirementsTitle:'環境とインストールの確認事項',requirement1:'評価器には Python 3.10 以降と独立した Python 環境を使用します。JSON 契約は標準ライブラリで動作し、YAML 契約には PyYAML ≥ 6、< 7 が必要です。',requirement2:'FreeCAD をインストールし、FreeCAD と Part の両方を import できる Python 実行ファイルを確認します。文書化された開発環境は Windows の FreeCAD 1.1.1 / Open CASCADE 7.8.1 です。',requirement3:'評価器ソースのルートで python -m pip install ".[yaml]" を実行します。FREECAD_PYTHON を実際の実行ファイルのパスに置き換え、空白を含む場合は引用符で囲みます。',requirement4:'新規出力ディレクトリに再実行し、index.html と結果ファイルを確認します。候補モデルの要件違反は測定結果であり、再実行の失敗とは限りません。',requirement5:'CAG の全テストと証拠監査には pytest ≥ 8、jsonschema ≥ 4.18、PyMuPDF ≥ 1.24 が追加で必要です。実際のバージョンを記録してください。これらの下限は完全な固定環境ではありません。',promptHint:'Agent prompt タブから環境確認と再現の依頼をコピーできます。ソース、FreeCAD 実行環境、新規出力先を先に確認します。'});
 Object.assign(extra.ko,{reproIntro:'기록된 보고서를 바로 열거나, 전체 평가기 소스와 호환되는 FreeCAD Python으로 형상을 재계산할 수 있습니다.',reproReadTitle:'01 / 기록된 결과 보기',reproReadBody:'동봉된 cad15 및 cad30 보고서는 브라우저로 열어 형상을 다시 계산하지 않고 결과를 확인할 수 있습니다.',reproReplayTitle:'02 / 형상 계산 재실행',reproReplayBody:'재실행에는 전체 평가기 소스가 필요합니다. 고정된 웹사이트 저장소에는 페이지와 사례가 있지만 설치 가능한 SDK는 없습니다. 승인된 평가기 소스나 공개 패키지를 먼저 확보하세요.',requirementsTitle:'환경 및 설치 확인 목록',requirement1:'평가기에는 Python 3.10 이상과 별도 Python 환경을 사용합니다. JSON 계약은 표준 라이브러리를 사용하며 YAML 계약에는 PyYAML ≥ 6, < 7이 추가로 필요합니다.',requirement2:'FreeCAD를 설치하고 FreeCAD와 Part를 모두 import할 수 있는 Python 실행 파일을 찾습니다. 문서화된 개발 환경은 Windows의 FreeCAD 1.1.1 및 Open CASCADE 7.8.1입니다.',requirement3:'평가기 소스 루트에서 python -m pip install ".[yaml]"을 실행합니다. FREECAD_PYTHON을 실제 실행 파일 경로로 바꾸고 공백이 있으면 따옴표로 감쌉니다.',requirement4:'새 출력 디렉터리에서 재실행하고 생성된 index.html과 결과 파일을 확인합니다. 후보의 요구사항 위반은 측정 결과이며 반드시 재실행 실패를 뜻하지 않습니다.',requirement5:'전체 CAG 테스트 및 증거 감사에는 pytest ≥ 8, jsonschema ≥ 4.18, PyMuPDF ≥ 1.24가 추가로 필요합니다. 실제 Python과 패키지 버전을 기록하세요. 최소 버전은 완전히 고정된 환경이 아닙니다.',promptHint:'Agent prompt 탭에서 환경 확인과 재현 요청을 복사할 수 있습니다. 소스, FreeCAD 실행 환경과 새 출력 디렉터리를 먼저 확인합니다.'});
 let locale='en', selectedChart=-1, playing=null;
+Object.assign(extra.en, {
+  landingInspect:'Compare in 3D →', landingPaper:'Read the paper ↗',
+  landingInitial:'Initial · clear', landingRevised:'Revision · violated',
+  landingCaption:'cad15 · Material inside the required empty region. The overall IoU rose from 0.229885 to 0.230011.',
+  landingStudio:'3D Comparison Studio', landingStudioDesc:'Rotate, overlay and slice the recorded meshes.',
+  landingReplay:'Evidence Replay', landingReplayDesc:'Compare the recorded values before and after feedback.',
+  landingPump:'Process Pump Demo', landingPumpDesc:'Explore an interactive cutaway from machine-skill.',
+});
+Object.assign(extra.zh, {
+  landingInspect:'在 3D 中对照 →', landingPaper:'阅读论文 ↗',
+  landingInitial:'初始 · 畅通', landingRevised:'修订 · 违反',
+  landingCaption:'cad15 · 要求留空的区域内的材料量。整体 IoU 从 0.229885 升到 0.230011。',
+  landingStudio:'3D 对照', landingStudioDesc:'旋转、叠加和剖切已记录的网格。',
+  landingReplay:'证据回放', landingReplayDesc:'对照反馈前后已记录的测量值。',
+  landingPump:'流程泵演示', landingPumpDesc:'在 machine-skill 的交互案例中查看泵的内部结构。',
+});
+Object.assign(extra.ja, {
+  landingInspect:'3D で比較 →', landingPaper:'論文を読む ↗',
+  landingInitial:'初期 · 合格', landingRevised:'修正後 · 違反',
+  landingCaption:'cad15 · 空であるべき領域内の材料量。全体 IoU は 0.229885 から 0.230011 に上昇。',
+  landingStudio:'3D 比較', landingStudioDesc:'保存されたメッシュを回転、重ね合わせ、断面表示。',
+  landingReplay:'証拠の再生', landingReplayDesc:'フィードバック前後の測定値を比較。',
+  landingPump:'プロセスポンプのデモ', landingPumpDesc:'machine-skill の対話型デモでポンプの内部を見る。',
+});
+Object.assign(extra.ko, {
+  landingInspect:'3D로 비교 →', landingPaper:'논문 읽기 ↗',
+  landingInitial:'초기 · 충족', landingRevised:'수정 · 위반',
+  landingCaption:'cad15 · 비어 있어야 할 영역의 재료량. 전체 IoU는 0.229885에서 0.230011로 증가했습니다.',
+  landingStudio:'3D 비교', landingStudioDesc:'기록된 메시를 회전하고 겹치거나 단면을 봅니다.',
+  landingReplay:'증거 재생', landingReplayDesc:'피드백 전후에 기록된 측정값을 비교합니다.',
+  landingPump:'프로세스 펌프 데모', landingPumpDesc:'machine-skill의 대화형 예제에서 펌프 내부를 살펴봅니다.',
+});
+Object.assign(baseCopy.zh, {subtitle:'在两个 CAD 版本中追踪同一项设计要求，看看整体重合度提高时，哪些局部检查结果发生了变化。'});
+Object.assign(baseCopy.ja, {subtitle:'二つの CAD 版で同じ設計要件を追跡し、全体の重なりが改善しても局所的な検査結果が変わることを確かめます。'});
+Object.assign(baseCopy.ko, {subtitle:'두 CAD 버전에서 같은 설계 요구사항을 비교합니다. 전체 겹침이 개선될 때도 어떤 국소 검사 결과가 달라지는지 확인할 수 있습니다.'});
 const fixedTargets={title:'header h1',subtitle:'header h1 + p',abstract:'#abstract h2',abs1:'#abstract p:nth-child(1)',abs2:'#abstract p:nth-child(2)',paradox:'#paradox h2',paradoxIntro:'#paradox > p:first-of-type',viewer:'#viewer3d h2',viewerIntro:'#viewer3d > p',pipeline:'#pipeline h2',pipelineIntro:'#pipeline > p:first-of-type',results:'#results h2',resultsIntro:'#results > p:first-of-type',quick:'#quickstart h2',citation:'#citation h2'};
 const originals=new Map();
 function remember(el){if(!originals.has(el))originals.set(el,el.innerHTML)}
@@ -66,8 +101,8 @@ const leafTranslations={
 'B-Rep Verified':['B-Rep 检查','B-Rep 検査','B-Rep 검사'],
 'Table 1. Paired diagnostic measurements for brief':['表 1. 配对诊断测量，任务','表 1. 対応する診断測定、課題','표 1. 짝지은 진단 측정, 과제'],
 '. Total extra material decreased by approximately 28.27 mm³ overall, masking that the agent filled an existing valid side cut.':['。总多余材料约减少 28.27 mm³，但修改同时堵塞了原本畅通的侧孔。','。総余剰材料は約 28.27 mm³ 減少した一方、元は空いていた側面切除が塞がれました。','. 총 초과 재료는 약 28.27 mm³ 감소했지만 원래 열린 측면 절삭이 막혔습니다.'],
-'Figure 3. Cohort scatter analysis.':['图 3. 队列散点分析。','図 3. 集団の散布図。','그림 3. 코호트 산점도.'],
-'Change in global IoU versus signed volume modification across 41 revision pairs.':['41 对修订的整体 IoU 与有符号体积变化。','41 対の修訂における全体 IoU と符号付き体積の変化。','수정 41쌍의 전체 IoU 및 부호 있는 체적 변화.'],
+'Revision cohort.':['修订队列。','修正コホート。','수정 코호트.'],
+'Change in global IoU and extra material across 41 revision pairs.':['41 对修订的整体 IoU 与多余材料变化。','41 対の修正における全体 IoU と余分な材料の変化。','수정 41쌍의 전체 IoU 및 초과 재료 변화.'],
 'Figure 4. Agent repair trajectories.':['图 4. 智能体修复轨迹。','図 4. エージェント修復軌跡。','그림 4. 에이전트 수정 경로.'],
 'The controlled examples demonstrate edits, checks, and replay; feedback comparisons do not establish repair gains.':['受控案例展示修改、检查与重放；反馈比较不能证明修复收益。','制御例は編集、検査、再実行を示します。フィードバック比較は修復効果を立証しません。','통제 사례는 수정, 검사 및 재실행을 보여 주며 피드백 비교는 수정 효과를 입증하지 않습니다.'],
 'Manuscript (PDF)':['论文（PDF）','論文（PDF）','논문 (PDF)'],

@@ -45,9 +45,11 @@
   <script src="assets/three.min.js"></script>
   <script src="assets/STLLoader.js"></script>
   <script src="assets/OrbitControls.js"></script>
+  <script src="studio-lighting.js"></script>
 
   <link rel="stylesheet" href="paper-extra.css?v=atlas-summary-5">
-  <script defer src="paper-extra.js"></script>
+  <link rel="stylesheet" href="site.css">
+  <script defer src="paper-extra.js?v=studio-6"></script>
   <script defer src="atlas-illustrations.js"></script>
   <script defer src="cad-story.js?v=2"></script>
   <script defer src="reader-journey.js?v=2"></script>
@@ -113,169 +115,65 @@
 </head>
 <body class="bg-white text-zinc-900 font-sans selection:bg-zinc-200 selection:text-zinc-900">
 
-  <!-- Top Minimalist Navigation / Meta Bar -->
-    <nav class="border-b border-zinc-200 bg-white/95 backdrop-blur sticky top-0 z-50">
-    <div class="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
-      <div class="flex items-center gap-2 sm:gap-4">
-        <a href="index.html" class="font-semibold text-sm tracking-tight text-zinc-900 hover:text-blue-600 transition flex items-center gap-1.5">
-          <i data-lucide="layers" class="w-4 h-4 text-zinc-700"></i>
-          <span>Hard-CAD</span>
-        </a>
-        <span class="text-zinc-300">/</span>
-        <div class="hidden sm:flex items-center gap-2 text-xs">
-          <a href="inspect.html" class="px-2.5 py-1 rounded-full text-zinc-600 hover:text-blue-700 hover:bg-blue-50 transition font-medium">3D Studio</a>
-          <a href="replay.html" class="px-2.5 py-1 rounded-full text-zinc-600 hover:text-emerald-700 hover:bg-emerald-50 transition font-medium">Evidence Replay</a>
-          <a href="machine-demo.html" class="px-2.5 py-1 rounded-full text-zinc-600 hover:text-amber-700 hover:bg-amber-50 transition font-medium">Pump Demo</a>
-        </div>
-      </div>
-      <div class="flex items-center gap-3 text-xs">
-        <label class="language-label" for="language-select">Language</label>
-        <select id="language-select" aria-label="Language">
-          <option value="en">English</option>
-          <option value="zh">中文</option>
-          <option value="ja">日本語</option>
-          <option value="ko">한국어</option>
-        </select>
-        <a href="https://hard-cad.github.io/hard-cad/" class="text-zinc-600 hover:text-zinc-900 transition flex items-center gap-1 font-mono">
-          <i data-lucide="globe" class="w-3.5 h-3.5"></i>
-          <span class="hidden md:inline">hard-cad.github.io</span>
-        </a>
-        <span class="text-zinc-300">|</span>
-        <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="text-zinc-600 hover:text-zinc-900 transition flex items-center gap-1">
-          <i data-lucide="github" class="w-3.5 h-3.5"></i>
-          <span>GitHub</span>
-        </a>
-      </div>
+<nav class="site-nav" aria-label="Hard-CAD">
+  <div class="site-nav-inner">
+    <a class="site-brand" href="index.html">Hard-CAD</a>
+    <div class="site-nav-links">
+      <a href="index.html" aria-current="page">Overview</a>
+      <a href="inspect.html">3D Studio</a>
+      <a href="replay.html">Evidence Replay</a>
+      <a href="machine-demo.html">Pump Demo</a>
     </div>
-  </nav>
-
-  <!-- Hero: Classic Academic Paper Header -->
-  <header class="pt-12 pb-10 sm:pt-16 sm:pb-12 border-b border-zinc-100 bg-[#fafafa]">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-
-      <!-- Journal Tag -->
-      <div class="text-sm font-serif italic text-zinc-600 mb-4 tracking-wide">
-        Submitted manuscript &bull; research in progress
-      </div>
-
-      <!-- Title (Refined Academic Styling) -->
-      <h1 class="text-2xl sm:text-4xl md:text-[2.6rem] font-serif font-medium text-zinc-950 tracking-tight leading-tight sm:leading-tight">
-        Hard-CAD: Contract-Based Diagnostics for Generated CAD Geometry
-      </h1>
-
-      <!-- Thesis Subtitle -->
-      <p class="mt-4 text-base sm:text-lg text-zinc-600 font-serif italic max-w-2xl mx-auto">
-        &ldquo;Don't just measure IoU. Diagnose the requirement.&rdquo;
-      </p>
-
-      <!-- Author Metadata -->
-      <div class="mt-6 text-sm text-zinc-600">
-        <div class="font-medium text-zinc-800">
-          Hikoyan Huang and Jiayao Zhang
-        </div>
-        <div class="text-xs text-zinc-500 mt-1">
-          Pre-publication manuscript &bull; source and recorded examples
+    <label class="site-nav-language"><span class="language-label">Language</span>
+      <select id="language-select"><option value="en">English</option><option value="zh">中文</option><option value="ja">日本語</option><option value="ko">한국어</option></select>
+    </label>
+  </div>
+</nav>
+  <header class="landing-hero">
+    <div class="site-frame landing-hero-inner">
+      <div>
+        <p class="landing-venue">Computers &amp; Graphics · CAD/Graphics 2026</p>
+        <h1>Contract-Based Diagnostics for Generated CAD Geometry</h1>
+        <p class="landing-description">Follow the same design requirement across two CAD revisions. See which local checks change, even when overall overlap improves.</p>
+        <p class="landing-authors">Hikoyan Huang and Jiayao Zhang</p>
+        <div class="landing-actions">
+          <a class="site-button primary" href="inspect.html" data-t="landingInspect">Compare in 3D →</a>
+          <a class="site-button secondary" href="https://doi.org/10.1016/j.cag.2026.104824" data-t="landingPaper">Read the paper ↗</a>
+          <a class="site-button secondary" href="https://github.com/Hard-CAD/hard-cad">GitHub ↗</a>
         </div>
       </div>
-
-      <!-- Standard Academic Resource Buttons (Nerfies Style) -->
-      <div class="mt-7 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
-        <a href="manuscript.pdf" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-zinc-900 text-white text-xs sm:text-sm font-medium hover:bg-zinc-800 transition shadow-sm">
-          <i data-lucide="file-text" class="w-4 h-4"></i>
-          <span>Paper (PDF)</span>
-        </a>
-        <a href="https://github.com/Hard-CAD/hard-cad" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white border border-zinc-300 text-zinc-800 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
-          <i data-lucide="github" class="w-4 h-4"></i>
-          <span>Code &amp; Benchmark</span>
-        </a>
-        <a href="inspect.html" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs sm:text-sm font-medium hover:bg-blue-100 transition shadow-sm">
-          <i data-lucide="box" class="w-4 h-4 text-blue-600"></i>
-          <span>3D Comparison Studio</span>
-        </a>
-        <a href="replay.html" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-medium hover:bg-emerald-100 transition shadow-sm">
-          <i data-lucide="play-circle" class="w-4 h-4 text-emerald-600"></i>
-          <span>Evidence Replay</span>
-        </a>
-        <a href="machine-demo.html" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs sm:text-sm font-medium hover:bg-amber-100 transition shadow-sm">
-          <i data-lucide="cpu" class="w-4 h-4 text-amber-600"></i>
-          <span>Process Pump Demo</span>
-        </a>
-        <a href="#citation" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white border border-zinc-300 text-zinc-700 text-xs sm:text-sm font-medium hover:bg-zinc-50 transition shadow-sm">
-          <i data-lucide="quote" class="w-4 h-4 text-zinc-500"></i>
-          <span>BibTeX</span>
-        </a>
-      </div>
-
+      <figure class="landing-pair">
+        <div class="landing-pair-images">
+          <div>
+            <img src="assets/readme/cad15-initial.jpg" width="1200" height="820" alt="Initial cad15 geometry with an open side cut outlined in green">
+            <div class="landing-endpoint"><span data-t="landingInitial">Initial · clear</span><b>0.00 mm³</b></div>
+          </div>
+          <div>
+            <img src="assets/readme/cad15-feedback.jpg" width="1200" height="820" alt="Revised cad15 geometry with the side cut region outlined in orange">
+            <div class="landing-endpoint revision"><span data-t="landingRevised">Revision · violated</span><b>28.27 mm³</b></div>
+          </div>
+        </div>
+        <figcaption data-t="landingCaption">cad15 · Material inside the required empty region. The overall IoU rose from 0.229885 to 0.230011.</figcaption>
+      </figure>
     </div>
   </header>
-  <!-- Interactive Pages Showcase Grid -->
-  <section id="interactive-workspaces" class="border-b border-zinc-200 bg-zinc-50/70 py-8">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="flex items-center justify-between mb-4">
-        <div>
-          <span class="text-[11px] font-mono font-bold tracking-wider text-blue-600 uppercase">STANDALONE INTERACTIVE TOOLS</span>
-          <h2 class="text-base sm:text-lg font-serif font-medium text-zinc-900 mt-0.5">Three dedicated interactive workspaces bundled with the paper</h2>
-        </div>
-        <span class="text-xs text-zinc-400 font-mono hidden sm:inline">3 standalone web tools</span>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-        <!-- Card 1: 3D Studio -->
-        <a href="inspect.html" class="group block p-4 rounded-xl bg-white border border-zinc-200/90 hover:border-blue-500 hover:shadow-md transition">
-          <div class="flex items-center justify-between mb-2">
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition">
-              <i data-lucide="box" class="w-4 h-4"></i>
-            </span>
-            <span class="text-[10px] font-mono text-zinc-400 group-hover:text-blue-600 transition">WEBGL / 3D &rarr;</span>
-          </div>
-          <h3 class="font-medium text-sm text-zinc-900 group-hover:text-blue-600 transition">3D Comparison Studio</h3>
-          <p class="text-xs text-zinc-500 mt-1 leading-relaxed">
-            Side-by-side &amp; overlaid 3D inspection of CAD15, CAD30 &amp; pump shaft meshes with contract diagnostics.
-          </p>
-          <div class="mt-3 text-xs font-medium text-blue-600 flex items-center gap-1">
-            <span>Launch Studio</span>
-            <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
-          </div>
-        </a>
 
-        <!-- Card 2: Evidence Replay -->
-        <a href="replay.html" class="group block p-4 rounded-xl bg-white border border-zinc-200/90 hover:border-emerald-500 hover:shadow-md transition">
-          <div class="flex items-center justify-between mb-2">
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition">
-              <i data-lucide="play-circle" class="w-4 h-4"></i>
-            </span>
-            <span class="text-[10px] font-mono text-zinc-400 group-hover:text-emerald-600 transition">AUDIT REPLAY &rarr;</span>
-          </div>
-          <h3 class="font-medium text-sm text-zinc-900 group-hover:text-emerald-600 transition">Interactive Evidence Replay</h3>
-          <p class="text-xs text-zinc-500 mt-1 leading-relaxed">
-            Step through candidate revision endpoints, requirement clearance, and cryptographic SHA-256 evidence.
-          </p>
-          <div class="mt-3 text-xs font-medium text-emerald-600 flex items-center gap-1">
-            <span>Launch Replay</span>
-            <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
-          </div>
-        </a>
-
-        <!-- Card 3: Process Pump Demo -->
-        <a href="machine-demo.html" class="group block p-4 rounded-xl bg-white border border-zinc-200/90 hover:border-amber-500 hover:shadow-md transition">
-          <div class="flex items-center justify-between mb-2">
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-amber-50 text-amber-600 group-hover:bg-amber-600 group-hover:text-white transition">
-              <i data-lucide="cpu" class="w-4 h-4"></i>
-            </span>
-            <span class="text-[10px] font-mono text-zinc-400 group-hover:text-amber-600 transition">LIVE DEMO &rarr;</span>
-          </div>
-          <h3 class="font-medium text-sm text-zinc-900 group-hover:text-amber-600 transition">Process Pump 3D Demo</h3>
-          <p class="text-xs text-zinc-500 mt-1 leading-relaxed">
-            Full API 610 refinery pump model with interactive exploded view, cutaway, x-ray, and operating controls.
-          </p>
-          <div class="mt-3 text-xs font-medium text-amber-600 flex items-center gap-1">
-            <span>Launch Pump Demo</span>
-            <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
-          </div>
-        </a>
-      </div>
+  <section id="interactive-workspaces" class="landing-tools" aria-label="Interactive tools">
+    <div class="site-frame landing-tools-grid">
+      <a href="inspect.html" class="landing-tool">
+        <h2><span data-t="landingStudio">3D Comparison Studio</span><span aria-hidden="true">↗</span></h2>
+        <p data-t="landingStudioDesc">Rotate, overlay and slice the recorded meshes.</p>
+      </a>
+      <a href="replay.html" class="landing-tool">
+        <h2><span data-t="landingReplay">Evidence Replay</span><span aria-hidden="true">↗</span></h2>
+        <p data-t="landingReplayDesc">Compare the recorded values before and after feedback.</p>
+      </a>
+      <a href="machine-demo.html" class="landing-tool">
+        <h2><span data-t="landingPump">Process Pump Demo</span><span aria-hidden="true">↗</span></h2>
+        <p data-t="landingPumpDesc">Explore an interactive cutaway from machine-skill.</p>
+      </a>
     </div>
   </section>
-
 
   <nav class="journey-nav" aria-label="On this page"><span class="journey-nav-label" data-t="navLabel">ON THIS PAGE</span><a href="#value-map"><span>01</span><b data-t="navValue">Why it matters</b></a><a href="#engineering-vision"><span>↗</span><b data-t="indNav">Engineering</b></a><a href="#research-map"><span>02</span><b data-t="navLandscape">Research map</b></a><a href="#design-rationale"><span>↗</span><b data-t="atlasDesign">Design path</b></a><a href="#paradox"><span>03</span><b data-t="navComparison">Comparison</b></a><a href="#viewer3d"><span>04</span><b data-t="navAssembly">3D &amp; assembly</b></a><a href="#interactive-study"><span>05</span><b data-t="navMath">Math</b></a><a href="#evidence-explorer"><span>06</span><b data-t="navEvidence">Evidence</b></a><a href="#quickstart"><span>07</span><b data-t="navReproduce">Reproduce</b></a></nav>
 
@@ -539,7 +437,7 @@
       <p class="story-note" data-t="transparentNote">Translucency is a display aid for the selected mesh; measurements come from the B-Rep, not the rendered image.</p>
       <div class="assembly-story">
         <div class="assembly-head"><div><span class="story-kicker">CONTROLLED EXPERIMENT / 01</span><h3 data-t="assemblyTitle">Same final pose, different insertion paths</h3><p data-t="assemblyIntro">In the paper's controlled assembly, the final solids do not interfere. The prescribed insertion path can still cross the cover. Compare the two declared assembly orders.</p></div><div class="assembly-switch" role="group" aria-label="Assembly order"><button id="order-cover" type="button" aria-pressed="true" data-t="coverFirst">Cover first</button><button id="order-shaft" type="button" aria-pressed="false" data-t="shaftFirst">Shaft first</button></div></div>
-        <div class="assembly-grid"><div class="assembly-visual"><svg viewBox="0 0 620 290" role="img" aria-labelledby="assembly-svg-title"><title id="assembly-svg-title">Schematic of a prescribed insertion path</title><defs><pattern id="story-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#dce9e7" stroke-width="1"/></pattern><linearGradient id="story-shaft" x2="1" y2="1"><stop stop-color="#7cbab1" stop-opacity=".85"/><stop offset="1" stop-color="#286f72" stop-opacity=".65"/></linearGradient></defs><rect width="620" height="290" fill="url(#story-grid)"/><path d="M100 250H520" stroke="#8eaaa5" stroke-width="2"/><path d="M310 20V260" stroke="#7d9d9b" stroke-dasharray="5 6"/><path d="M310 32v160m-7-8 7 8 7-8" fill="none" stroke="#567b7c" stroke-width="2"/><g id="story-cover"><path d="M145 150h123l12 16h60l12-16h123v22H145z" fill="#c3b6de" fill-opacity=".58" stroke="#7656a3" stroke-width="2"/><text x="154" y="145" fill="#7656a3" font-size="13" data-t="coverSvg">COVER</text></g><g id="story-shaft"><rect x="285" y="18" width="50" height="90" rx="8" fill="url(#story-shaft)" stroke="#24777b" stroke-width="2"/><path d="M285 37h50M285 89h50" stroke="#e5faf6" stroke-opacity=".8"/><text x="348" y="65" fill="#24777b" font-size="13" data-t="movingSvg">MOVING PART</text></g><g id="story-collision" opacity="0"><circle cx="310" cy="160" r="27" fill="#e5786d" fill-opacity=".3" stroke="#c9564d" stroke-width="2" stroke-dasharray="4 3"/><path d="M297 147l26 26m0-26-26 26" stroke="#b93c36" stroke-width="3"/></g></svg><div class="assembly-controls"><button id="assembly-play" type="button" data-t="assemblyPlay">▶ Play sequence</button><label for="assembly-progress" data-t="assemblyProgress">Sequence progress</label><input id="assembly-progress" type="range" min="0" max="100" value="0"><output id="assembly-output">0%</output></div><p class="story-small" data-t="assemblyDiagram">Conceptual animation, not the tested CAD geometry or a physics simulation. The red marker illustrates a swept-path conflict, not its spatial extent.</p></div>
+        <div class="assembly-grid"><div class="assembly-visual"><svg viewBox="0 0 620 290" role="img" aria-labelledby="assembly-svg-title"><title id="assembly-svg-title">Schematic of a prescribed insertion path</title><defs><pattern id="story-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#dce9e7" stroke-width="1"/></pattern><linearGradient id="story-shaft-fill" x2="1" y2="1"><stop stop-color="#7cbab1" stop-opacity=".85"/><stop offset="1" stop-color="#286f72" stop-opacity=".65"/></linearGradient></defs><rect width="620" height="290" fill="url(#story-grid)"/><path d="M100 250H520" stroke="#8eaaa5" stroke-width="2"/><path d="M310 20V260" stroke="#7d9d9b" stroke-dasharray="5 6"/><path d="M310 32v160m-7-8 7 8 7-8" fill="none" stroke="#567b7c" stroke-width="2"/><g id="story-cover"><path d="M145 150h123l12 16h60l12-16h123v22H145z" fill="#c3b6de" fill-opacity=".58" stroke="#7656a3" stroke-width="2"/><text x="154" y="145" fill="#7656a3" font-size="13" data-t="coverSvg">COVER</text></g><g id="story-shaft"><rect x="285" y="18" width="50" height="90" rx="8" fill="url(#story-shaft-fill)" stroke="#24777b" stroke-width="2"/><path d="M285 37h50M285 89h50" stroke="#e5faf6" stroke-opacity=".8"/><text x="348" y="65" fill="#24777b" font-size="13" data-t="movingSvg">MOVING PART</text></g><g id="story-collision" opacity="0"><circle cx="310" cy="160" r="27" fill="#e5786d" fill-opacity=".3" stroke="#c9564d" stroke-width="2" stroke-dasharray="4 3"/><path d="M297 147l26 26m0-26-26 26" stroke="#b93c36" stroke-width="3"/></g></svg><div class="assembly-controls"><button id="assembly-play" type="button" data-t="assemblyPlay">▶ Play sequence</button><label for="assembly-progress" data-t="assemblyProgress">Sequence progress</label><input id="assembly-progress" type="range" min="0" max="100" value="0"><output id="assembly-output">0%</output></div><p class="story-small" data-t="assemblyDiagram">Conceptual animation, not the tested CAD geometry or a physics simulation. The red marker illustrates a swept-path conflict, not its spatial extent.</p></div>
         <div class="assembly-reading"><span class="story-kicker" data-t="assemblyResultLabel">PAPER RESULT · PRESCRIBED PATH</span><strong id="assembly-result">≈ 201 mm³</strong><h4 id="assembly-result-title">Swept intersection</h4><p id="assembly-result-text">With the cover in place first, the prescribed shaft insertion crosses solid material, although the final pose has zero interference.</p><div class="assembly-final" data-t="assemblyFinal">Final-pose interference in both configurations: 0 mm³</div></div></div>
         <div class="industry-grid"><article><b data-t="industryMeasuredTitle">01 / What was measured</b><p data-t="industryMeasured">A local cut changed from clear to occupied; separately, a prescribed insertion path intersected the cover. These are geometric checks on specified models and states.</p></article><article><b data-t="industryUseTitle">02 / Potential engineering use</b><p data-t="industryUse">An engineer could flag a blocked passage or an obstructed assembly sequence for review before fabrication, alongside the global shape score. The actual consequence depends on the part's function and process.</p></article><article><b data-t="industryNextTitle">03 / What would establish impact</b><p data-t="industryNext">Validate feature and coordinate binding on real parts, include manufacturing tolerances and representative assembly paths, then study inspection and production outcomes. Loads, deformation and rotational contact need additional models.</p></article></div>
         <p class="story-small" data-t="industryBoundary">These are possible applications, not measured industrial savings or a validated manufacturing deployment.</p>
@@ -601,9 +499,9 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
         <div class="border border-zinc-200 rounded-lg p-3 bg-white">
-          <img src="submitted-revision-cohort.png" alt="Revision Cohort" class="w-full h-auto object-contain mb-2">
+          <a href="submitted-revision-cohort.png" aria-label="Open the submitted revision cohort figure"><img src="assets/readme/cohort.svg" loading="lazy" alt="All 41 revision pairs and a zoom of the cad15 point near the origin" class="landing-plot w-full h-auto mb-2"></a>
           <p class="text-xs text-zinc-500 leading-snug">
-            <strong class="text-zinc-800">Figure 3. Cohort scatter analysis.</strong> Change in global IoU versus signed volume modification across 41 revision pairs.
+            <strong class="text-zinc-800">Revision cohort.</strong> Change in global IoU and extra material across 41 revision pairs.
           </p>
         </div>
         <div class="border border-zinc-200 rounded-lg p-3 bg-white">
@@ -815,7 +713,7 @@ requirements:
       const height = container.clientHeight || 400;
 
       scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xf8fafc); // Clean light studio gray
+      scene.background = new THREE.Color(HardCadStudio.background);
 
       camera = new THREE.PerspectiveCamera(40, width / height, 1, 2000);
       camera.position.set(110, 100, 130);
@@ -823,7 +721,10 @@ requirements:
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.shadowMap.enabled = true;
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 0.92;
+      scene.environment = HardCadStudio.createEnvironment(renderer);
       container.appendChild(renderer.domElement);
 
       controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -833,19 +734,19 @@ requirements:
       controls.autoRotateSpeed = 1.2;
 
       // Studio Lighting
-      const hemiLight = new THREE.HemisphereLight(0xffffff, 0xe2e8f0, 0.85);
+      const hemiLight = new THREE.HemisphereLight(0xffffff, 0xa9b2b8, 0.68);
       scene.add(hemiLight);
 
-      const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.75);
+      const dirLight1 = new THREE.DirectionalLight(0xfff7ee, 1.24);
       dirLight1.position.set(120, 180, 120);
       scene.add(dirLight1);
 
-      const dirLight2 = new THREE.DirectionalLight(0x94a3b8, 0.4);
+      const dirLight2 = new THREE.DirectionalLight(0xe1ebf5, 0.62);
       dirLight2.position.set(-100, -60, -100);
       scene.add(dirLight2);
 
       // Subtle drafting grid
-      const grid = new THREE.GridHelper(220, 22, 0xcbd5e1, 0xe2e8f0);
+      const grid = new THREE.GridHelper(220, 22, 0xb8c4ca, 0xd0d7db);
       grid.position.y = -35;
       scene.add(grid);
 
@@ -887,8 +788,8 @@ requirements:
           const info = modelMeta[selectedModel][selectedState];
           const material = new THREE.MeshStandardMaterial({
             color: info.color || 0x475569,
-            roughness: 0.35,
-            metalness: 0.25,
+            roughness: 0.42,
+            metalness: 0.56,
             wireframe: isWireframe,
             transparent: isTransparent, opacity: isTransparent ? 0.38 : 1,
             depthWrite: !isTransparent, side: isTransparent ? THREE.DoubleSide : THREE.FrontSide
