@@ -2,9 +2,9 @@
 
 **Contract-based diagnostics for generated CAD geometry**
 
-Hard-CAD follows the same declared requirement across two CAD versions. The paired report shows the measurement, verdict, and reason when a value is unavailable, alongside changes in overall geometry.
-
 [![Project page](assets/readme/nav/project.svg)](https://hard-cad.github.io/hard-cad/) [![3D comparison](assets/readme/nav/compare.svg)](https://hard-cad.github.io/hard-cad/inspect.html) [![Evidence replay](assets/readme/nav/replay.svg)](https://hard-cad.github.io/hard-cad/replay.html) [![Process pump demo](assets/readme/nav/pump.svg)](https://hard-cad.github.io/hard-cad/machine-demo.html) [![Read the paper](assets/readme/nav/paper.svg)](https://doi.org/10.1016/j.cag.2026.104824)
+
+Hard-CAD follows the same declared requirement across two CAD versions. The paired report shows the measurement, verdict, and reason when a value is unavailable, alongside changes in overall geometry.
 
 ## When a better overlap score hides a blocked cut
 
@@ -36,11 +36,15 @@ See the [paired report](examples/cad30_void_clears_extra_grows/report.html), [co
 
 ## Cohort results
 
-The study covers **30 modeling briefs** and **41 eligible revision pairs**. Three pairs changed the measured material volumes. Of **84 paired cut requirements**, 63 stayed clear, 19 stayed violated, one became violated, and one cleared.
+| Modeling briefs | Eligible revision pairs | Paired cut requirements |
+| :---: | :---: | :---: |
+| **30** | **41** | **84** |
 
-A separate document audit recovered 12 of 13 explicit dimension triples. All 12 returned triples were correct.
+<img src="assets/readme/cohort.svg" width="900" alt="Cohort scatter at two scales. The left panel shows all 41 eligible pairs, with 38 at the origin. The right panel shows cad15 near zero IoU change and a 28.27 cubic millimetre decrease in extra material." />
 
-<img src="assets/revision_cohort_scatter.png" width="540" alt="Change in IoU versus change in extra material across 41 pairs. 38 overlap at the origin. The lower plot enlarges the region around cad15." />
+Three pairs changed the measured material volumes. Among the 84 matched cuts, **63 stayed clear**, **19 stayed violated**, **one became violated**, and **one cleared**.
+
+A separate document audit recovered **12 of 13** explicit dimension triples. All 12 returned triples were correct.
 
 ## Open the examples
 
