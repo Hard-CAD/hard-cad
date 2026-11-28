@@ -4,7 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hard-CAD | Process Pump Demo</title>
-  <link rel="stylesheet" href="site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css?v=metal-3">
 </head>
 <body class="pump-page">
 <nav class="site-nav" aria-label="Hard-CAD">
@@ -22,31 +25,88 @@
   </div>
 </nav>
 <main class="site-frame workspace-main pump-main">
-  <header class="workspace-heading pump-heading">
-    <div>
-      <h1 data-t="title">Explore a process pump.</h1>
-      <p data-t="intro">Rotate the machine and open a cutaway to see how the parts fit.</p>
+  <header class="sub-header">
+    <div class="sub-title">
+      <h1 data-t="title">Process Pump Demo</h1>
+      <p data-t="intro">Drag to orbit, hover for component labels, or toggle explode, cutaway, and X-ray inside the upstream machine-skill viewer.</p>
     </div>
-    <p class="pump-notice" data-t="notice">An illustrative simulation from machine-skill. Its model and readouts are separate from the Hard-CAD study.</p>
+    <div class="sub-actions">
+      <a href="vendor/machine-skill/refinery-pump.html?studio=gray" target="_blank" rel="noopener" class="sub-btn" data-t="fullscreen">Open standalone ↗</a>
+      <a id="shaft-demo" href="inspect.html?case=pump" class="sub-btn primary" data-t="shaftDemo">Inspect synthetic pump shaft →</a>
+    </div>
   </header>
+
   <div class="pump-stage">
     <iframe src="vendor/machine-skill/refinery-pump.html?studio=gray" title="Machine-skill refinery process pump example" allow="fullscreen"></iframe>
     <div class="pump-stage-bar">
-      <span data-t="network">The example loads Three.js and fonts from the internet. The original controls are in English.</span>
-      <a href="vendor/machine-skill/refinery-pump.html?studio=gray" target="_blank" rel="noopener" data-t="fullscreen">Open the example in a new tab ↗</a>
+      <div class="pump-bar-notice">
+        <span class="pump-tag" data-t="tag">Illustrative upstream demo</span>
+        <span data-t="notice">Separate from the Hard-CAD study; loads Three.js and fonts online (original UI in English).</span>
+      </div>
+      <div class="pump-bar-links">
+        <span data-t="credit">By AirsupHQ</span> ·
+        <a href="vendor/machine-skill/LICENSE">MIT License</a> ·
+        <a href="https://github.com/AirsupHQ/machine-skill" target="_blank" rel="noopener">machine-skill ↗</a>
+      </div>
     </div>
   </div>
-  <div class="pump-guide">
-    <article><b data-t="oneTitle">Inspect</b><p data-t="one">Drag the model to rotate it; hover over components to reveal labels.</p></article>
-    <article><b data-t="twoTitle">Reveal</b><p data-t="two">Use the cutaway, X-ray and explode controls to inspect its structure.</p></article>
-    <article><b data-t="threeTitle">Compare</b><p><a id="shaft-demo" href="inspect.html?case=pump" data-t="shaftDemo">Inspect the synthetic pump shaft case →</a></p></article>
-  </div>
-  <footer class="workspace-note">
-    <span data-t="credit">Original example by AirsupHQ, distributed under the MIT license.</span>
-    <a href="vendor/machine-skill/LICENSE">MIT License</a> · <a href="https://github.com/AirsupHQ/machine-skill" target="_blank" rel="noopener">machine-skill ↗</a>
-  </footer>
 </main>
 <script>
-const copy={en:{shaftDemo:'Inspect the synthetic pump shaft case →',back:'← Hard-CAD evidence replay',language:'Language',title:'Explore a process pump.',intro:'Rotate the machine and open a cutaway to see how the parts fit.',notice:'An illustrative simulation from machine-skill. Its model and readouts are separate from the Hard-CAD study.',network:'The example loads Three.js and fonts from the internet. The original controls are in English.',fullscreen:'Open the example in a new tab ↗',oneTitle:'Inspect',one:'Drag the model to rotate it; hover over components to reveal labels.',twoTitle:'Reveal',two:'Use the cutaway, X-ray and explode controls to inspect its structure.',threeTitle:'Compare',three:'Return to Hard-CAD to explore recorded requirement results and replay their endpoints.',credit:'Original example by AirsupHQ, distributed under the MIT license.'},zh:{shaftDemo:'查看合成泵轴的契约评测 →',back:'← 返回 Hard-CAD 证据回放',language:'语言',title:'探索一台工业流程泵。',intro:'体验 machine-skill 原版交互案例，对照观察视觉效果和操作方式。',notice:'这是上游提供的说明性模拟，不是 Hard-CAD 实验案例或经过验证的工业结果。模型和数值由 machine-skill 示例提供。',network:'案例需要联网加载 Three.js 和字体；原版操作界面为英文。',fullscreen:'在新标签页打开案例 ↗',oneTitle:'观察',one:'拖动模型旋转视角，悬停在部件上查看名称。',twoTitle:'透视',two:'使用原版的剖切、透视和拆解控件，观察内部结构。',threeTitle:'对照',three:'返回 Hard-CAD，查看已记录的要求检查结果并回放前后状态。',credit:'原始案例由 AirsupHQ 提供，采用 MIT 许可。'},ja:{shaftDemo:'合成ポンプ軸の契約評価を見る →',back:'← Hard-CAD の証拠再生に戻る',language:'言語',title:'プロセスポンプを見る。',intro:'machine-skill のオリジナル事例で、表示と操作を体験できます。',notice:'これは上流の説明用シミュレーションです。Hard-CAD の実験事例や検証済みの産業結果ではありません。モデルと数値は machine-skill の事例によるものです。',network:'Three.js とフォントの読み込みにはインターネット接続が必要です。元の操作画面は英語です。',fullscreen:'新しいタブで開く ↗',oneTitle:'観察',one:'ドラッグして回転し、部品にカーソルを合わせると名前を確認できます。',twoTitle:'内部を見る',two:'断面、透視、分解の操作で内部構造を確認できます。',threeTitle:'比較',three:'Hard-CAD に戻り、記録済みの要件検査結果と変更前後を確認できます。',credit:'原作は AirsupHQ、MIT ライセンスで提供。'},ko:{shaftDemo:'합성 펌프 축 계약 평가 보기 →',back:'← Hard-CAD 증거 재생으로 돌아가기',language:'언어',title:'산업용 프로세스 펌프 살펴보기',intro:'machine-skill의 원본 사례로 시각 효과와 조작 방식을 체험합니다.',notice:'상류 프로젝트의 설명용 시뮬레이션입니다. Hard-CAD 실험 사례나 검증된 산업 결과가 아닙니다. 모델과 수치는 machine-skill 사례에서 제공됩니다.',network:'Three.js와 글꼴을 불러오려면 인터넷 연결이 필요합니다. 원본 조작 화면은 영어입니다.',fullscreen:'새 탭에서 사례 열기 ↗',oneTitle:'관찰',one:'모델을 드래그하여 회전하고 부품에 마우스를 올려 이름을 확인하세요.',twoTitle:'내부 보기',two:'단면, 투시, 분해 기능으로 내부 구조를 살펴보세요.',threeTitle:'비교',three:'Hard-CAD로 돌아가 기록된 요구사항 검사 결과와 전후 상태를 확인하세요.',credit:'원본 사례는 AirsupHQ가 MIT 라이선스로 제공합니다.'}};
-const select=document.getElementById('language');select.value=new URLSearchParams(location.search).get('lang') in copy?new URLSearchParams(location.search).get('lang'):'en';function translate(){const language=select.value;document.getElementById('shaft-demo').href='inspect.html?case=pump&lang='+language;document.documentElement.lang=language==='zh'?'zh-CN':language;document.querySelectorAll('[data-t]').forEach(e=>e.textContent=copy[language][e.dataset.t])}select.addEventListener('change',translate);translate();
-</script></body></html>
+const copy={
+  en:{
+    language:'Language',
+    title:'Process Pump Demo',
+    intro:'Drag to orbit, hover for component labels, or toggle explode, cutaway, and X-ray inside the upstream machine-skill viewer.',
+    fullscreen:'Open standalone ↗',
+    shaftDemo:'Inspect synthetic pump shaft →',
+    tag:'Illustrative upstream demo',
+    notice:'Separate from the Hard-CAD study; loads Three.js and fonts online (original UI in English).',
+    credit:'By AirsupHQ'
+  },
+  zh:{
+    language:'语言',
+    title:'工业流程泵交互示例',
+    intro:'拖动旋转视角、悬停查看部件标签，或使用画布内的拆解（E）、剖切（C）与透视（X）控件观察内部结构。',
+    fullscreen:'新标签页独立打开 ↗',
+    shaftDemo:'查看合成泵轴的契约评测 →',
+    tag:'上游说明性模拟',
+    notice:'独立于 Hard-CAD 实验研究；需联网加载 Three.js 与字体（原版控件为英文）。',
+    credit:'AirsupHQ 原作'
+  },
+  ja:{
+    language:'言語',
+    title:'プロセスポンプ・デモ',
+    intro:'ドラッグで回転、ホバーで部品名を表示し、分解・断面・透視コントロールで内部構造を確認できます。',
+    fullscreen:'別タブで開く ↗',
+    shaftDemo:'合成ポンプ軸の契約評価を見る →',
+    tag:'上流の説明用デモ',
+    notice:'Hard-CAD の実験結果とは独立しています。Three.js とフォントをオンラインで読み込みます（操作画面は英語）。',
+    credit:'原作: AirsupHQ'
+  },
+  ko:{
+    language:'언어',
+    title:'프로세스 펌프 데모',
+    intro:'드래그하여 회전하고 부품에 마우스를 올려 이름을 확인하며 분해·단면·투시 컨트롤로 내부 구조를 살펴보세요.',
+    fullscreen:'새 탭에서 열기 ↗',
+    shaftDemo:'합성 펌프 축 계약 평가 보기 →',
+    tag:'상류 설명용 시뮬레이션',
+    notice:'Hard-CAD 실험 연구와 별개이며 Three.js 및 글꼴을 온라인으로 불러옵니다(원본 UI 영어).',
+    credit:'원작: AirsupHQ'
+  }
+};
+const select=document.getElementById('language');
+const paramLang=new URLSearchParams(location.search).get('lang');
+select.value=Object.hasOwn(copy,paramLang)?paramLang:'en';
+function translate(){
+  const language=select.value;
+  document.getElementById('shaft-demo').href='inspect.html?case=pump&lang='+language;
+  document.documentElement.lang=language==='zh'?'zh-CN':language;
+  document.querySelectorAll('[data-t]').forEach(e=>{
+    if(Object.hasOwn(copy[language],e.dataset.t)) e.textContent=copy[language][e.dataset.t];
+  });
+}
+select.addEventListener('change',translate);
+translate();
+</script>
+</body>
+</html>
