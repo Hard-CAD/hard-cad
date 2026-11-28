@@ -47,13 +47,13 @@
   <script src="assets/OrbitControls.js"></script>
   <script src="studio-lighting.js"></script>
 
-  <link rel="stylesheet" href="paper-extra.css?v=bore-study">
+  <link rel="stylesheet" href="paper-extra.css?v=case-copy-1">
   <link rel="stylesheet" href="site.css">
-  <script defer src="paper-extra.js?v=bore-study"></script>
+  <script defer src="paper-extra.js?v=case-copy-1"></script>
   <script defer src="atlas-illustrations.js"></script>
-  <script defer src="cad-story.js?v=2"></script>
-  <script defer src="reader-journey.js?v=3"></script>
-  <script defer src="reader-motion.js?v=6"></script>
+  <script defer src="cad-story.js?v=3"></script>
+  <script defer src="reader-journey.js?v=4"></script>
+  <script defer src="reader-motion.js?v=7"></script>
   <script defer src="industrial-vision.js?v=2"></script>
   <script defer src="atlas-summary.js?v=3"></script>
   <style>
@@ -175,7 +175,7 @@
     </div>
   </section>
 
-  <nav class="journey-nav" aria-label="On this page"><span class="journey-nav-label" data-t="navLabel">ON THIS PAGE</span><a href="#value-map"><span>01</span><b data-t="navValue">Why it matters</b></a><a href="#engineering-vision"><span>↗</span><b data-t="indNav">Engineering</b></a><a href="#research-map"><span>02</span><b data-t="navLandscape">Research map</b></a><a href="#design-rationale"><span>↗</span><b data-t="atlasDesign">Design path</b></a><a href="#paradox"><span>03</span><b data-t="navComparison">Comparison</b></a><a href="#viewer3d"><span>04</span><b data-t="navAssembly">3D &amp; assembly</b></a><a href="#interactive-study"><span>05</span><b data-t="navMath">Math</b></a><a href="#evidence-explorer"><span>06</span><b data-t="navEvidence">Evidence</b></a><a href="#quickstart"><span>07</span><b data-t="navReproduce">Reproduce</b></a></nav>
+  <nav class="journey-nav" aria-label="On this page"><span class="journey-nav-label" data-t="navLabel">ON THIS PAGE</span><a href="#value-map"><span>01</span><b data-t="navValue">Case studies</b></a><a href="#engineering-vision"><span>↗</span><b data-t="indNav">Engineering</b></a><a href="#research-map"><span>02</span><b data-t="navLandscape">Research map</b></a><a href="#design-rationale"><span>↗</span><b data-t="atlasDesign">Design path</b></a><a href="#paradox"><span>03</span><b data-t="navComparison">Comparison</b></a><a href="#viewer3d"><span>04</span><b data-t="navAssembly">3D &amp; assembly</b></a><a href="#interactive-study"><span>05</span><b data-t="navMath">Math</b></a><a href="#evidence-explorer"><span>06</span><b data-t="navEvidence">Evidence</b></a><a href="#quickstart"><span>07</span><b data-t="navReproduce">Reproduce</b></a></nav>
 
   <!-- Main Content Container -->
   <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-16">
@@ -202,10 +202,30 @@
     </section>
 
     <section id="value-map" class="value-map" aria-labelledby="value-heading">
-      <div class="value-heading"><div><h2 id="value-heading" data-t="valueTitle">Three checks on revised geometry</h2></div><p data-t="valueIntro">Hard-CAD makes that difference visible: name the requirement, measure it in each revision, and keep the evidence together.</p></div>
-      <div class="value-cases"><a href="#paradox" class="value-case"><span class="value-index">01 / CAD15</span><div class="value-icon value-cut" aria-hidden="true"><span></span></div><span class="value-question" data-t="case1Question">Did the opening stay clear?</span><strong>0 → 28.27 <small>mm³</small></strong><p data-t="case1Answer">The required empty region became occupied, while global IoU increased.</p><span class="value-link" data-t="caseLink">Explore the evidence ↗</span></a><a href="#interactive-study" class="value-case"><span class="value-index">02 / CONTROLLED</span><div class="value-icon value-gap" aria-hidden="true"><span></span></div><span class="value-question" data-t="case2Question">Is the fit still within its bound?</span><strong>0.03 <small>&lt; 0.05 mm</small></strong><p data-t="case2Answer">The nominal clearance fails its requirement even at IoU ≈ 0.99946.</p><span class="value-link" data-t="caseLink">Explore the evidence ↗</span></a><a href="#viewer3d" class="value-case"><span class="value-index">03 / CONTROLLED</span><div class="value-icon value-path" aria-hidden="true"><span></span></div><span class="value-question" data-t="case3Question">Can the prescribed path get there?</span><strong>0 / ≈ 201 <small>mm³</small></strong><p data-t="case3Answer">Final interference is zero; the cover-first insertion sweep intersects the cover.</p><span class="value-link" data-t="caseLink">Explore the evidence ↗</span></a></div>
-      <div class="value-audiences"><div class="audience-head"><span data-t="audienceKicker">TAKE THE IDEA FURTHER</span><h3 data-t="audienceTitle">What can you take from the paper?</h3></div><div class="audience-items"><details><summary data-t="noviceTitle">New to CAD <span>↗</span></summary><p data-t="noviceBody">Learn why shape similarity, a functional opening, clearance and an assembly path answer different questions. Start with the interactive examples.</p><a href="#interactive-study" data-t="noviceLink">Try the clearance example →</a></details><details><summary data-t="engineerTitle">Engineering teams <span>↗</span></summary><p data-t="engineerBody">Turn a critical hole, gap or assembly path into a declared check; compare its measurement across design revisions. Pilot it on real parts and tolerances before drawing production conclusions.</p><a href="#pipeline" data-t="engineerLink">See the contract workflow →</a></details><details><summary data-t="researcherTitle">Researchers &amp; builders <span>↗</span></summary><p data-t="researcherBody">Build on requirement-level paired records: test semantic feature binding, compare repair controllers under shared budgets, or add rotation and physical models.</p><a href="#evidence-explorer" data-t="researcherLink">Inspect evidence and open questions →</a></details></div></div>
-      <p class="value-boundary" data-t="valueBoundary">The first case is an observed revision; the other two are controlled constructions. The applications are future directions, not validated industrial outcomes.</p>
+      <div class="value-heading">
+        <h2 id="value-heading" data-t="valueTitle">Side bore, shaft clearance and assembly order</h2>
+        <p data-t="valueIntro">The bore measurements come from a recorded cad15 edit. The two shaft examples use controlled geometry.</p>
+      </div>
+      <div class="value-cases">
+        <a href="#cad15-section-comparison" class="value-case">
+          <span class="value-question" data-t="case1Question">Did the side bore stay open?</span>
+          <strong>0 → 28.27 <small>mm³</small></strong>
+          <p data-t="case1Answer">The edit left a 1 mm web across the entrance.</p>
+          <span class="value-link" data-t="case1Link">Compare the two sections →</span>
+        </a>
+        <a href="#interactive-study" class="value-case">
+          <span class="value-question" data-t="case2Question">How much clearance is left?</span>
+          <strong>0.03 <small>mm</small></strong>
+          <p data-t="case2Answer">With the shaft axis offset by 0.12 mm, the gap falls below the 0.05 mm minimum.</p>
+          <span class="value-link" data-t="case2Link">Adjust the shaft offset →</span>
+        </a>
+        <a href="#assembly-order" class="value-case">
+          <span class="value-question" data-t="case3Question">Does the cover block insertion?</span>
+          <strong>≈ 201 <small>mm³</small></strong>
+          <p data-t="case3Answer">The shaft clears the cover in its final position. With the cover installed first, their volumes overlap during insertion.</p>
+          <span class="value-link" data-t="case3Link">Switch the assembly order →</span>
+        </a>
+      </div>
     </section>
 
     <section id="engineering-vision" class="industrial-vision" aria-labelledby="industry-heading">
@@ -283,10 +303,10 @@
     <!-- Key Concept: The IoU Paradox with Academic Booktabs Table -->
     <section id="paradox">
       <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-3 pb-2 border-b border-zinc-200">
-        The Metric Dilemma: Global IoU vs. Local Contract
+        cad15 before and after the edit
       </h2>
       <p class="text-sm text-zinc-600 mb-6 leading-relaxed">
-        Global IoU and extra volume summarize different geometric changes. In this low-overlap example, both improve while one declared local requirement becomes violated:
+        The first two rows measure the whole part against the reference. The last two measure material inside each of the two cuts.
       </p>
 
       <!-- Clean Academic Table (LaTeX Booktabs style) -->
@@ -307,14 +327,14 @@
               <td class="py-2.5 px-3">0.229885</td>
               <td class="py-2.5 px-3 font-semibold text-emerald-700">0.230011</td>
               <td class="py-2.5 px-3 text-emerald-700">+0.000126 &uarr;</td>
-              <td class="py-2.5 px-3 text-zinc-600 italic">"Model improved"</td>
+              <td class="py-2.5 px-3 text-zinc-600 italic">Overlap increased</td>
             </tr>
             <tr>
               <td class="py-2.5 px-3 font-semibold text-zinc-900">Total Extra Volume</td>
               <td class="py-2.5 px-3">39,715.73 mm³</td>
               <td class="py-2.5 px-3 font-semibold text-emerald-700">39,687.45 mm³</td>
               <td class="py-2.5 px-3 text-emerald-700">-28.27 mm³ &darr;</td>
-              <td class="py-2.5 px-3 text-zinc-600 italic">"Less error volume"</td>
+              <td class="py-2.5 px-3 text-zinc-600 italic">Less excess material</td>
             </tr>
             <tr class="bg-red-50/40">
               <td class="py-2.5 px-3 font-semibold text-zinc-900 font-sans">Req. 1: <code class="text-xs">part-0-cut-0</code></td>
@@ -328,7 +348,7 @@
               <td class="py-2.5 px-3 text-emerald-700 font-bold">PASS (0.00 mm³)</td>
               <td class="py-2.5 px-3 text-red-700 font-bold">FAIL (28.27 mm³)</td>
               <td class="py-2.5 px-3 text-red-700 font-bold">+28.27 mm³ filled</td>
-              <td class="py-2.5 px-3 text-red-700 font-bold">Critical Regression &cross;</td>
+              <td class="py-2.5 px-3 text-red-700 font-bold">Side bore blocked</td>
             </tr>
           </tbody>
         </table>
@@ -339,7 +359,7 @@
       </p>
 
       <!-- Draggable Visual Comparison Slider -->
-      <div class="mt-8 border border-zinc-200 rounded-lg p-3 sm:p-5 bg-zinc-50">
+      <div id="cad15-section-comparison" class="mt-8 border border-zinc-200 rounded-lg p-3 sm:p-5 bg-zinc-50">
         <div class="flex items-center justify-between text-xs text-zinc-600 mb-2 font-mono">
           <span data-t="compareBefore">← Initial: side cut clear · 0.00 mm³</span>
           <span data-t="compareAfter">Revision: side cut filled · 28.27 mm³ →</span>
@@ -364,7 +384,7 @@
 
         <label class="compare-label" for="comparison-range" data-t="compareControl">Reveal initial ← / revision →</label>
         <input id="comparison-range" class="story-range" type="range" min="0" max="100" value="50">
-        <p class="compare-explain" data-t="compareExplain">Both images show the same y = 0 section. The divider reveals the initial image on the left and the revision on the right; it does not deform the part. Follow the upper-right side-cut: the required empty region becomes occupied in the revision.</p>
+        <p class="compare-explain" data-t="compareExplain">Drag the divider across the bore at the upper right. Both views cut through the bore axis at y = 0.</p>
         <div class="comparison-proof"><span class="proof-highlight" data-t="compareMetric">Same requirement · occupied volume: 0.00 → 28.27 mm³</span><span data-t="compareIou">Global IoU: 0.229885 → 0.230011</span></div>
       </div>
 
@@ -454,7 +474,7 @@
 
       </div>
       <p class="story-note" data-t="transparentNote">Translucency is a display aid for the selected mesh; measurements come from the B-Rep, not the rendered image.</p>
-      <div class="assembly-story">
+      <div class="assembly-story" id="assembly-order">
         <div class="assembly-head"><div><span class="story-kicker">CONTROLLED EXPERIMENT / 01</span><h3 data-t="assemblyTitle">Same final pose, different insertion paths</h3><p data-t="assemblyIntro">In the paper's controlled assembly, the final solids do not interfere. The prescribed insertion path can still cross the cover. Compare the two declared assembly orders.</p></div><div class="assembly-switch" role="group" aria-label="Assembly order"><button id="order-cover" type="button" aria-pressed="true" data-t="coverFirst">Cover first</button><button id="order-shaft" type="button" aria-pressed="false" data-t="shaftFirst">Shaft first</button></div></div>
         <div class="assembly-grid"><div class="assembly-visual"><svg viewBox="0 0 620 290" role="img" aria-labelledby="assembly-svg-title"><title id="assembly-svg-title">Schematic of a prescribed insertion path</title><defs><pattern id="story-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#dce9e7" stroke-width="1"/></pattern><linearGradient id="story-shaft-fill" x2="1" y2="1"><stop stop-color="#7cbab1" stop-opacity=".85"/><stop offset="1" stop-color="#286f72" stop-opacity=".65"/></linearGradient></defs><rect width="620" height="290" fill="url(#story-grid)"/><path d="M100 250H520" stroke="#8eaaa5" stroke-width="2"/><path d="M310 20V260" stroke="#7d9d9b" stroke-dasharray="5 6"/><path d="M310 32v160m-7-8 7 8 7-8" fill="none" stroke="#567b7c" stroke-width="2"/><g id="story-cover"><path d="M145 150h123l12 16h60l12-16h123v22H145z" fill="#c3b6de" fill-opacity=".58" stroke="#7656a3" stroke-width="2"/><text x="154" y="145" fill="#7656a3" font-size="13" data-t="coverSvg">COVER</text></g><g id="story-shaft"><rect x="285" y="18" width="50" height="90" rx="8" fill="url(#story-shaft-fill)" stroke="#24777b" stroke-width="2"/><path d="M285 37h50M285 89h50" stroke="#e5faf6" stroke-opacity=".8"/><text x="348" y="65" fill="#24777b" font-size="13" data-t="movingSvg">MOVING PART</text></g><g id="story-collision" opacity="0"><circle cx="310" cy="160" r="27" fill="#e5786d" fill-opacity=".3" stroke="#c9564d" stroke-width="2" stroke-dasharray="4 3"/><path d="M297 147l26 26m0-26-26 26" stroke="#b93c36" stroke-width="3"/></g></svg><div class="assembly-controls"><button id="assembly-play" type="button" data-t="assemblyPlay">▶ Play sequence</button><label for="assembly-progress" data-t="assemblyProgress">Sequence progress</label><input id="assembly-progress" type="range" min="0" max="100" value="0"><output id="assembly-output">0%</output></div><p class="story-small" data-t="assemblyDiagram">Conceptual animation, not the tested CAD geometry or a physics simulation. The red marker illustrates a swept-path conflict, not its spatial extent.</p></div>
         <div class="assembly-reading"><span class="story-kicker" data-t="assemblyResultLabel">PAPER RESULT · PRESCRIBED PATH</span><strong id="assembly-result">≈ 201 mm³</strong><h4 id="assembly-result-title">Swept intersection</h4><p id="assembly-result-text">With the cover in place first, the prescribed shaft insertion crosses solid material, although the final pose has zero interference.</p><div class="assembly-final" data-t="assemblyFinal">Final-pose interference in both configurations: 0 mm³</div></div></div>
