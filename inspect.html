@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="site.css?v=metal-4">
-  <link rel="stylesheet" href="inspect.css?v=workbench-1">
+  <link rel="stylesheet" href="inspect.css?v=workbench-2">
   <script src="assets/three.min.js"></script>
   <script src="assets/STLLoader.js"></script>
   <script src="assets/OrbitControls.js"></script>
-  <script defer src="studio-lighting.js?v=metal-1"></script>
+  <script defer src="studio-lighting.js?v=metal-2"></script>
   <script defer src="comparison-model.js"></script>
   <script defer src="contract-model.js"></script>
-  <script defer src="inspect.js?v=workbench-1"></script>
+  <script defer src="inspect.js?v=workbench-2"></script>
 </head>
 <body class="studio-body">
 
@@ -83,6 +83,7 @@
         <div class="wb-tools" role="group" aria-label="Viewport tools">
           <button id="show-region" type="button" aria-pressed="true" data-copy="region">Show region</button>
           <button id="xray" type="button" aria-pressed="false" data-copy="xray">X-ray</button>
+          <button id="studio-theme" type="button" aria-pressed="true" data-copy="darkStudio">Dark studio</button>
           <button id="play" type="button" aria-pressed="false" data-copy="play">▶ Alternate</button>
           <button id="tour" type="button" disabled aria-pressed="false" data-copy="tour">▶ Guided view</button>
           <button id="focus-region" type="button" disabled data-copy="focusRegion">Focus region ↗</button>
@@ -90,7 +91,7 @@
         </div>
       </div>
 
-      <div class="viewer">
+      <div class="viewer is-dark">
         <div class="view-labels">
           <span data-copy="initial">INITIAL</span>
           <span data-copy="revision">REVISION</span>

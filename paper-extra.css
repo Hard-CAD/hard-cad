@@ -130,9 +130,9 @@
 .research-v2 .atlas-future-link b { color: #1f5f5b; }
 .research-v2 .atlas-future-link i { color: #7a939a; }
 
-/* Studio backdrop for metallic WebGL 3D inspector */
+/* KeyShot-style dark studio backdrop for metallic WebGL 3D inspector */
 .cad-studio-stage {
-  background: radial-gradient(ellipse at 50% 42%, #eef1f4 0%, #d4dbe0 100%);
+  background: radial-gradient(ellipse at 50% 34%, #273944 0%, #17232b 62%, #0f171d 100%);
 }
 .cad-toggle-active {
   background: #e6f2f0 !important;

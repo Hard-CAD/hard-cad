@@ -45,9 +45,9 @@
   <script src="assets/three.min.js"></script>
   <script src="assets/STLLoader.js"></script>
   <script src="assets/OrbitControls.js"></script>
-  <script src="studio-lighting.js?v=metal-1"></script>
+  <script src="studio-lighting.js?v=metal-2"></script>
 
-  <link rel="stylesheet" href="paper-extra.css?v=metal-4">
+  <link rel="stylesheet" href="paper-extra.css?v=metal-5">
   <link rel="stylesheet" href="site.css?v=metal-4">
   <script defer src="paper-extra.js?v=metal-3"></script>
   <script defer src="cad-story.js?v=metal-2"></script>
@@ -339,18 +339,18 @@
         <div class="relative w-full h-[430px] cad-studio-stage">
           <div id="cad-canvas-container" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
 
-          <!-- CAD Spec Callout Card -->
-          <div class="absolute bottom-3 left-3 max-w-[255px] p-2.5 rounded bg-white/92 backdrop-blur-xs border border-zinc-200/90 text-xs shadow-sm font-sans pointer-events-none">
-            <div class="font-semibold text-zinc-900 flex items-center justify-between gap-2 mb-1">
+          <!-- CAD Spec Callout Card (Dark Studio HUD) -->
+          <div class="absolute bottom-3 left-3 max-w-[265px] p-2.5 rounded border text-xs shadow-md font-sans pointer-events-none" style="background:rgba(15,26,33,0.88);border-color:rgba(176,204,218,0.24);backdrop-filter:blur(6px);">
+            <div class="font-semibold text-zinc-100 flex items-center justify-between gap-2 mb-1">
               <span id="overlay-title">CAD15 · FEEDBACK</span>
               <span id="overlay-badge" class="px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-red-100 text-red-800">REGRESSION (FAIL)</span>
             </div>
-            <p id="overlay-desc" class="text-zinc-600 text-[11px] leading-snug">
+            <p id="overlay-desc" class="text-[11px] leading-snug" style="color:#c1d3dc;">
               Feedback revision: IoU improved +0.000126, but side-cut filled with 28.27 mm³ unwanted material.
             </p>
-            <div class="mt-1.5 pt-1.5 border-t border-zinc-100 flex justify-between text-[10px] text-zinc-500 font-mono">
+            <div class="mt-1.5 pt-1.5 flex justify-between text-[10px] font-mono" style="border-top:1px solid rgba(176,204,218,0.18);color:#8fa6b3;">
               <span>Tolerance: 10⁻⁶ mm³</span>
-              <span class="text-teal-700 font-medium">B-Rep Verified</span>
+              <span class="font-medium" style="color:#6fe0be;">B-Rep Verified</span>
             </div>
           </div>
         </div>
@@ -895,37 +895,41 @@ requirements:
       controls.autoRotate = autoRotate;
       controls.autoRotateSpeed = 1.1;
 
-      // Studio 3-point lighting (Z-up CAD studio)
-      const hemiLight = new THREE.HemisphereLight(0xf8fbff, 0x566470, 0.55);
+      // Studio KeyShot lighting (Z-up CAD studio; HDRI drives primary metallic reflections)
+      const hemiLight = new THREE.HemisphereLight(0xdce8f4, 0x1d2b35, 0.26);
       hemiLight.position.set(0, 0, 1);
       scene.add(hemiLight);
 
-      keyLight = new THREE.DirectionalLight(0xfff8f0, 1.35);
+      keyLight = new THREE.DirectionalLight(0xfff5e8, 0.72);
       keyLight.castShadow = true;
       keyLight.shadow.mapSize.set(1024, 1024);
       keyLight.shadow.bias = -0.0003;
       scene.add(keyLight);
       scene.add(keyLight.target);
 
-      const rimLight = new THREE.DirectionalLight(0xd9eaf8, 0.85);
+      const rimLight = new THREE.DirectionalLight(0xc2dcf2, 0.48);
       rimLight.position.set(160, 140, 110);
       scene.add(rimLight);
 
-      const fillLight = new THREE.DirectionalLight(0xeef4f8, 0.45);
+      const fillLight = new THREE.DirectionalLight(0xd2e4f0, 0.22);
       fillLight.position.set(-140, 110, 40);
       scene.add(fillLight);
 
       // Soft contact shadow floor on XY plane (Z-up)
       shadowFloor = new THREE.Mesh(
         new THREE.PlaneGeometry(1, 1),
-        new THREE.ShadowMaterial({ color: 0x17242e, opacity: 0.22 })
+        new THREE.ShadowMaterial({ color: 0x050b10, opacity: 0.44 })
       );
       shadowFloor.receiveShadow = true;
       scene.add(shadowFloor);
 
       // Subtle XY drafting grid rotated from Three.js XZ default to Z-up XY
-      studioGrid = new THREE.GridHelper(220, 22, 0xa8b6bf, 0xc7d1d7);
+      studioGrid = new THREE.GridHelper(220, 22, 0x3a5260, 0x253742);
       studioGrid.rotation.x = Math.PI / 2;
+      if (studioGrid.material) {
+        studioGrid.material.transparent = true;
+        studioGrid.material.opacity = 0.34;
+      }
       scene.add(studioGrid);
 
       loadCurrent3DModel();
@@ -964,7 +968,7 @@ requirements:
       if (!region) return null;
       const group = new THREE.Group();
       const isFail = status === 'FAIL';
-      const accentHex = isFail ? 0xd63b2f : 0x16856a;
+      const accentHex = isFail ? 0xff5b47 : 0x2ee2b2;
 
       let geom, pos, axisVec = null;
       if (region.kind === 'box') {
@@ -1060,17 +1064,16 @@ requirements:
           lastFramedRadius = size.length() * 0.5;
 
           geometry.translate(-meshCenter.x, -meshCenter.y, -meshCenter.z);
+          HardCadStudio.computeBoxUVs(geometry, maxDim * 0.6);
 
           const info = meta[selectedState];
-          const maps = HardCadStudio.createBrushedMetalMaps();
-          const material = new THREE.MeshStandardMaterial({
-            color: info.color || 0xc0cad2,
-            metalness: info.metalness ?? 0.86,
-            roughness: info.roughness ?? 0.27,
+          const material = HardCadStudio.createSteelMaterial({
+            color: selectedState === 'feedback' ? 0x919fab : 0x9baab7,
+            metalness: 0.90,
+            roughness: 0.84,
             envMap: studioEnv,
-            envMapIntensity: 1.35,
-            bumpMap: maps ? maps.bumpMap : null,
-            bumpScale: maxDim * 0.0005,
+            envMapIntensity: 1.58,
+            bumpScale: maxDim * 0.0006,
             wireframe: isWireframe,
             transparent: isTransparent,
             opacity: isTransparent ? 0.34 : 1,
@@ -1083,12 +1086,12 @@ requirements:
           currentMesh.receiveShadow = true;
           scene.add(currentMesh);
 
-          // Crisp machined CAD feature edges
+          // Subtle specular bevel edges for dark KeyShot studio legibility
           const edgeGeo = new THREE.EdgesGeometry(geometry, 28);
           const edgeMat = new THREE.LineBasicMaterial({
-            color: 0x16222c,
+            color: 0xd2e4f0,
             transparent: true,
-            opacity: isTransparent ? 0.45 : 0.32
+            opacity: isTransparent ? 0.34 : 0.18
           });
           currentEdges = new THREE.LineSegments(edgeGeo, edgeMat);
           currentEdges.visible = !isWireframe;
