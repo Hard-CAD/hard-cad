@@ -15,40 +15,40 @@ Object.assign(extra.ja,{reproIntro:'既存レポートを開く方法と、評�
 Object.assign(extra.ko,{reproIntro:'기록된 보고서를 바로 열거나, 전체 평가기 소스와 호환되는 FreeCAD Python으로 형상을 재계산할 수 있습니다.',reproReadTitle:'01 / 기록된 결과 보기',reproReadBody:'동봉된 cad15 및 cad30 보고서는 브라우저로 열어 형상을 다시 계산하지 않고 결과를 확인할 수 있습니다.',reproReplayTitle:'02 / 형상 계산 재실행',reproReplayBody:'재실행에는 전체 평가기 소스가 필요합니다. 고정된 웹사이트 저장소에는 페이지와 사례가 있지만 설치 가능한 SDK는 없습니다. 승인된 평가기 소스나 공개 패키지를 먼저 확보하세요.',requirementsTitle:'환경 및 설치 확인 목록',requirement1:'평가기에는 Python 3.10 이상과 별도 Python 환경을 사용합니다. JSON 계약은 표준 라이브러리를 사용하며 YAML 계약에는 PyYAML ≥ 6, < 7이 추가로 필요합니다.',requirement2:'FreeCAD를 설치하고 FreeCAD와 Part를 모두 import할 수 있는 Python 실행 파일을 찾습니다. 문서화된 개발 환경은 Windows의 FreeCAD 1.1.1 및 Open CASCADE 7.8.1입니다.',requirement3:'평가기 소스 루트에서 python -m pip install ".[yaml]"을 실행합니다. FREECAD_PYTHON을 실제 실행 파일 경로로 바꾸고 공백이 있으면 따옴표로 감쌉니다.',requirement4:'새 출력 디렉터리에서 재실행하고 생성된 index.html과 결과 파일을 확인합니다. 후보의 요구사항 위반은 측정 결과이며 반드시 재실행 실패를 뜻하지 않습니다.',requirement5:'전체 CAG 테스트 및 증거 감사에는 pytest ≥ 8, jsonschema ≥ 4.18, PyMuPDF ≥ 1.24가 추가로 필요합니다. 실제 Python과 패키지 버전을 기록하세요. 최소 버전은 완전히 고정된 환경이 아닙니다.',promptHint:'Agent prompt 탭에서 환경 확인과 재현 요청을 복사할 수 있습니다. 소스, FreeCAD 실행 환경과 새 출력 디렉터리를 먼저 확인합니다.'});
 let locale='en', selectedChart=-1, playing=null;
 Object.assign(extra.en, {
-  landingInspect:'Compare in 3D →', landingPaper:'Read the paper ↗',
-  landingInitial:'Initial · clear', landingRevised:'Revision · violated',
-  landingCaption:'cad15 · Material inside the required empty region. The overall IoU rose from 0.229885 to 0.230011.',
+  landingInspect:'Open 3D Studio →', landingPaper:'Read the paper ↗',
+  landingInitial:'Initial · clear · 0.00 mm³', landingRevised:'Revision · violated · 28.27 mm³',
+  landingCaption:'cad15 · Drag across the Ø6 mm side bore to compare initial vs. revision.',
   landingStudio:'3D Comparison Studio', landingStudioDesc:'Compare the initial and revised meshes for cad15, cad30 or the pump shaft. Overlay them to see where the shapes differ.',
   landingReplay:'Evidence Replay', landingReplayDesc:'See which void filled in on cad15 and which cleared on cad30. Each record includes the measured volume before and after the edit.',
   landingPump:'Process Pump Demo', landingPumpDesc:'Take the pump apart in the exploded view, or switch to a cutaway to see how the shaft and impeller fit together.',
 });
 Object.assign(extra.zh, {
-  landingInspect:'在 3D 中对照 →', landingPaper:'阅读论文 ↗',
-  landingInitial:'初始 · 畅通', landingRevised:'修订 · 违反',
-  landingCaption:'cad15 · 要求留空的区域内的材料量。整体 IoU 从 0.229885 升到 0.230011。',
+  landingInspect:'打开 3D 工作室 →', landingPaper:'阅读论文 ↗',
+  landingInitial:'初始 · 畅通 · 0.00 mm³', landingRevised:'修订 · 堵死 · 28.27 mm³',
+  landingCaption:'cad15 · 左右拖动滑块，直观对比 Ø6 mm 侧孔在修改前后的变化。',
   landingStudio:'3D 对照', landingStudioDesc:'并排查看 cad15、cad30 或泵轴修改前后的网格，也可以叠加查看形状差异。',
   landingReplay:'证据回放', landingReplayDesc:'查看 cad15 的哪处空腔被堵住，以及 cad30 的哪处空腔恢复畅通。每条记录都列出修改前后的占用体积。',
   landingPump:'流程泵演示', landingPumpDesc:'用爆炸图查看泵的零件，或切到剖视图，看看泵轴与叶轮如何配合。',
 });
 Object.assign(extra.ja, {
-  landingInspect:'3D で比較 →', landingPaper:'論文を読む ↗',
-  landingInitial:'初期 · 合格', landingRevised:'修正後 · 違反',
-  landingCaption:'cad15 · 空であるべき領域内の材料量。全体 IoU は 0.229885 から 0.230011 に上昇。',
+  landingInspect:'3D スタジオを開く →', landingPaper:'論文を読む ↗',
+  landingInitial:'初期 · 合格 · 0.00 mm³', landingRevised:'修正後 · 違反 · 28.27 mm³',
+  landingCaption:'cad15 · スライダーを左右に動かし、Ø6 mm 側面穴の変化を比較できます。',
   landingStudio:'3D 比較', landingStudioDesc:'cad15、cad30、ポンプ軸の変更前後のメッシュを並べて比較できます。重ねると形状の違いがわかります。',
   landingReplay:'証拠の再生', landingReplayDesc:'cad15 で塞がった空洞と cad30 で再び開いた空洞を確認できます。各記録には変更前後の占有体積が載っています。',
   landingPump:'プロセスポンプのデモ', landingPumpDesc:'分解図でポンプの部品を確認できます。断面表示では軸と羽根車の組み合わせが見えます。',
 });
 Object.assign(extra.ko, {
-  landingInspect:'3D로 비교 →', landingPaper:'논문 읽기 ↗',
-  landingInitial:'초기 · 충족', landingRevised:'수정 · 위반',
-  landingCaption:'cad15 · 비어 있어야 할 영역의 재료량. 전체 IoU는 0.229885에서 0.230011로 증가했습니다.',
+  landingInspect:'3D 스튜디오 열기 →', landingPaper:'논문 읽기 ↗',
+  landingInitial:'초기 · 충족 · 0.00 mm³', landingRevised:'수정 · 위반 · 28.27 mm³',
+  landingCaption:'cad15 · 슬라이더를 좌우로 움직여 Ø6 mm 측면 구멍의 변화를 비교하세요.',
   landingStudio:'3D 비교', landingStudioDesc:'cad15, cad30 또는 펌프 축의 수정 전후 메시를 나란히 보거나 겹쳐서 형상 차이를 확인하세요.',
   landingReplay:'증거 재생', landingReplayDesc:'cad15에서 막힌 공간과 cad30에서 다시 열린 공간을 확인하세요. 각 기록에는 수정 전후에 재료가 차지한 부피가 나옵니다.',
   landingPump:'프로세스 펌프 데모', landingPumpDesc:'분해도에서 펌프 부품을 살펴보세요. 단면도에서는 축과 임펠러가 어떻게 맞물리는지 볼 수 있습니다.',
 });
-Object.assign(baseCopy.zh, {subtitle:'cad15 修改后，整体形状与参考模型的重合度略有提高，直径 6 mm 的侧孔却被堵住了。'});
-Object.assign(baseCopy.ja, {subtitle:'cad15 の変更後、参照形状との重なりはわずかに増えましたが、直径 6 mm の側面穴は塞がりました。'});
-Object.assign(baseCopy.ko, {subtitle:'cad15를 수정하자 기준 형상과 겹치는 정도는 조금 높아졌지만 지름 6 mm의 측면 구멍은 막혔습니다.'});
+Object.assign(baseCopy.zh, {subtitle:'整体 IoU 上升，多余材料下降——但直径 6 mm 的侧向通孔却被实体堵死了。'});
+Object.assign(baseCopy.ja, {subtitle:'全体 IoU は上昇し余分な材料も減りましたが、直径 6 mm の側面穴は塞がりました。'});
+Object.assign(baseCopy.ko, {subtitle:'전체 IoU는 상승하고 초과 재료는 줄었지만, 지름 6 mm 측면 구멍은 막혔습니다.'});
 const fixedTargets={title:'header h1',subtitle:'header h1 + p',abstract:'#abstract h2',abs1:'#abstract p:nth-child(1)',abs2:'#abstract p:nth-child(2)',paradox:'#paradox h2',paradoxIntro:'#paradox > p:first-of-type',viewer:'#viewer3d h2',viewerIntro:'#viewer3d > p',pipeline:'#pipeline h2',pipelineIntro:'#pipeline > p:first-of-type',results:'#results h2',resultsIntro:'#results > p:first-of-type',quick:'#quickstart h2',citation:'#citation h2'};
 const originals=new Map();
 function remember(el){if(!originals.has(el))originals.set(el,el.innerHTML)}
@@ -61,8 +61,8 @@ function setLocale(lang){locale=lang; document.documentElement.lang=lang==='zh'?
 for(const [key,sel] of Object.entries(fixedTargets)){const el=document.querySelector(sel);if(el)el.innerHTML=lang==='en'?originals.get(el):(baseCopy[lang][key]||originals.get(el));}
 for(const [els,key] of [[tableHeads,'table'],[stepTitles,'steps'],[stepBodies,'stepBodies'],[captions,'captions']])els.forEach((el,i)=>el.innerHTML=lang==='en'?originals.get(el):(baseCopy[lang][key][key==='captions'?i+1:i]||originals.get(el)));
 const vl=['#btn-s-initial','#btn-s-feedback','#btn-s-reference','#btn-wire span','#btn-autorotate span'];const indexes=[2,3,4,5,6]; vl.forEach((sel,i)=>{const el=document.querySelector(sel);if(!el)return;remember(el);el.textContent=lang==='en'?originals.get(el):baseCopy[lang].viewerLabels[indexes[i]]});
-document.querySelector('#play-offset').textContent=playing?extra[lang].pause:extra[lang].play;
-if(selectedChart>=0)document.querySelector('#chart-note').textContent=extra[lang].chartNotes[selectedChart];updateOffset();}
+const playBtn=document.querySelector('#play-offset');if(playBtn)playBtn.textContent=playing?extra[lang].pause:extra[lang].play;
+const chartNote=document.querySelector('#chart-note');if(selectedChart>=0&&chartNote)chartNote.textContent=extra[lang].chartNotes[selectedChart];updateOffset();}
 document.querySelector('#language-select').addEventListener('change',e=>setLocale(e.target.value));
 const range=document.querySelector('#offset-range');
 function updateOffset(){const e=Number(range.value), R=5.15, h=20, V=91975.16, A=2*R*R*Math.acos(e/(2*R))-(e/2)*Math.sqrt(4*R*R-e*e), delta=2*h*(Math.PI*R*R-A), iou=(2*V-delta)/(2*V+delta), gap=.15-e;

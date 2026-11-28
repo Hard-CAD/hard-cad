@@ -47,9 +47,9 @@
   <script src="assets/OrbitControls.js"></script>
   <script src="studio-lighting.js?v=metal-1"></script>
 
-  <link rel="stylesheet" href="paper-extra.css?v=metal-3">
-  <link rel="stylesheet" href="site.css?v=metal-2">
-  <script defer src="paper-extra.js?v=metal-2"></script>
+  <link rel="stylesheet" href="paper-extra.css?v=metal-4">
+  <link rel="stylesheet" href="site.css?v=metal-4">
+  <script defer src="paper-extra.js?v=metal-3"></script>
   <script defer src="cad-story.js?v=metal-2"></script>
   <script defer src="reader-journey.js?v=4"></script>
   <script defer src="reader-motion.js?v=7"></script>
@@ -118,8 +118,6 @@
     <div class="site-nav-links">
       <a href="index.html" aria-current="page">Overview</a>
       <a href="inspect.html">3D Studio</a>
-      <a href="replay.html">Evidence Replay</a>
-      <a href="machine-demo.html">Pump Demo</a>
     </div>
     <label class="site-nav-language"><span class="language-label">Language</span>
       <select id="language-select"><option value="en">English</option><option value="zh">中文</option><option value="ja">日本語</option><option value="ko">한국어</option></select>
@@ -131,7 +129,21 @@
       <div>
         <p class="landing-venue">Computers &amp; Graphics · CAD/Graphics 2026</p>
         <h1>Contract-Based Diagnostics for Generated CAD Geometry</h1>
-        <p class="landing-description">In cad15, overall overlap (IoU) rose slightly after the edit, but a 6 mm side bore was blocked.</p>
+        <p class="landing-description">Global IoU went up. Extra material went down. Yet the Ø6 mm side bore was sealed shut.</p>
+        <div class="landing-proof-strip" aria-label="cad15 recorded revision delta">
+          <div class="landing-proof-item is-good">
+            <span>Δ Global IoU</span>
+            <strong>+0.000126 ↑</strong>
+          </div>
+          <div class="landing-proof-item is-good">
+            <span>Δ Extra material</span>
+            <strong>−28.27 mm³ ↓</strong>
+          </div>
+          <div class="landing-proof-item is-fail">
+            <span>Side bore void</span>
+            <strong>0 → 28.27 mm³ · FAIL</strong>
+          </div>
+        </div>
         <p class="landing-authors">Hikoyan Huang and Jiayao Zhang</p>
         <div class="landing-actions">
           <a class="site-button primary" href="inspect.html" data-t="landingInspect">Compare in 3D →</a>
@@ -139,103 +151,39 @@
           <a class="site-button secondary" href="https://github.com/Hard-CAD/hard-cad">GitHub ↗</a>
         </div>
       </div>
-      <figure class="landing-pair">
-        <div class="landing-pair-images">
-          <div>
-            <img src="assets/readme/cad15-initial.jpg" width="1200" height="820" alt="Initial cad15 geometry with an open side cut outlined in green">
-            <div class="landing-endpoint"><span data-t="landingInitial">Initial · clear</span><b>0.00 mm³</b></div>
+
+      <figure class="landing-compare">
+        <div class="hero-wipe" id="hero-wipe" style="--pos: 36%;">
+          <img src="assets/readme/cad15-feedback.jpg" width="1200" height="820" alt="Revised cad15 geometry with the Ø6 mm side bore sealed shut">
+          <div class="hero-wipe-before" id="hero-wipe-before">
+            <img src="assets/readme/cad15-initial.jpg" width="1200" height="820" alt="Initial cad15 geometry with an open Ø6 mm side bore">
           </div>
-          <div>
-            <img src="assets/readme/cad15-feedback.jpg" width="1200" height="820" alt="Revised cad15 geometry with the side cut region outlined in orange">
-            <div class="landing-endpoint revision"><span data-t="landingRevised">Revision · violated</span><b>28.27 mm³</b></div>
+          <span class="hero-wipe-tag left" data-t="landingInitial">Initial · clear · 0.00 mm³</span>
+          <span class="hero-wipe-tag right" data-t="landingRevised">Revision · violated · 28.27 mm³</span>
+          <div class="hero-wipe-line" id="hero-wipe-line" aria-hidden="true">
+            <div class="hero-wipe-grip">↔</div>
           </div>
+          <input class="hero-wipe-range" id="hero-wipe-range" type="range" min="0" max="100" value="36" aria-label="Drag to compare initial open side bore against revised sealed side bore">
         </div>
-        <figcaption data-t="landingCaption">cad15 · Material inside the required empty region. The overall IoU rose from 0.229885 to 0.230011.</figcaption>
+        <figcaption class="landing-compare-bar">
+          <span data-t="landingCaption">cad15 · Drag across the Ø6 mm side bore to compare initial vs. revision.</span>
+          <div class="landing-compare-presets" role="group" aria-label="Hero comparison preset">
+            <button type="button" data-wipe-preset="100" aria-pressed="false">Initial</button>
+            <button type="button" data-wipe-preset="36" aria-pressed="true">Split</button>
+            <button type="button" data-wipe-preset="0" aria-pressed="false">Revision</button>
+          </div>
+        </figcaption>
       </figure>
     </div>
   </header>
 
-  <section id="interactive-workspaces" class="landing-tools" aria-label="Interactive tools">
-    <div class="site-frame landing-tools-grid">
-      <a href="inspect.html" class="landing-tool">
-        <div class="landing-tool-thumb"><img src="assets/readme/cad30-feedback.jpg" width="1200" height="820" alt="CNC steel render of cad30 shaft and cover assembly with clearance collar" loading="lazy"></div>
-        <div class="landing-tool-body">
-          <h2><span data-t="landingStudio">3D Comparison Studio</span><span aria-hidden="true">↗</span></h2>
-          <p data-t="landingStudioDesc">Compare the initial and revised meshes for cad15, cad30 or the pump shaft. Overlay them to see where the shapes differ.</p>
-        </div>
-      </a>
-      <a href="replay.html" class="landing-tool">
-        <div class="landing-tool-thumb"><img src="assets/renders/cad15-feedback-cutaway-steel-dark.jpg" width="1200" height="820" alt="Section cutaway of machined steel cad15 showing the blocked side bore" loading="lazy"></div>
-        <div class="landing-tool-body">
-          <h2><span data-t="landingReplay">Evidence Replay</span><span aria-hidden="true">↗</span></h2>
-          <p data-t="landingReplayDesc">See which void filled in on cad15 and which cleared on cad30. Each record includes the measured volume before and after the edit.</p>
-        </div>
-      </a>
-      <a href="machine-demo.html" class="landing-tool">
-        <div class="landing-tool-thumb"><img src="assets/renders/pump-initial-steel-dark.jpg" width="1200" height="820" alt="CNC-turned stainless steel process pump shaft render" loading="lazy"></div>
-        <div class="landing-tool-body">
-          <h2><span data-t="landingPump">Process Pump Demo</span><span aria-hidden="true">↗</span></h2>
-          <p data-t="landingPumpDesc">Take the pump apart in the exploded view, or switch to a cutaway to see how the shaft and impeller fit together.</p>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <nav class="journey-nav" aria-label="On this page"><span class="journey-nav-label" data-t="navLabel">ON THIS PAGE</span><a href="#value-map"><span>01</span><b data-t="navValue">Case studies</b></a><a href="#paradox"><span>02</span><b data-t="navComparison">Comparison</b></a><a href="#viewer3d"><span>03</span><b data-t="navAssembly">3D &amp; assembly</b></a><a href="#interactive-study"><span>04</span><b data-t="navMath">Math</b></a><a href="#results"><span>05</span><b data-t="navEvidence">Evidence</b></a><a href="#research-map"><span>06</span><b data-t="navLandscape">Related work</b></a><a href="#quickstart"><span>07</span><b data-t="navReproduce">Reproduce</b></a></nav>
+  <nav class="journey-nav" aria-label="On this page"><span class="journey-nav-label" data-t="navLabel">ON THIS PAGE</span><a href="#paradox"><span>01</span><b data-t="navComparison">Paradox</b></a><a href="#viewer3d"><span>02</span><b data-t="navAssembly">3D &amp; assembly</b></a><a href="#interactive-study"><span>03</span><b data-t="navMath">Clearance</b></a><a href="#pipeline"><span>04</span><b data-t="navArchitecture">Architecture</b></a><a href="#results"><span>05</span><b data-t="navEvidence">Evaluation</b></a><a href="#research-map"><span>06</span><b data-t="navLandscape">Related work</b></a><a href="#quickstart"><span>07</span><b data-t="navReproduce">Reproduce</b></a></nav>
 
   <!-- Main Content Container -->
   <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-12 space-y-12">
 
-    <section id="graphical-abstract" class="bore-study" aria-labelledby="bore-title">
-      <h2 id="bore-title" data-t="boreTitle">Inside the Ø6 mm side bore</h2>
-      <p data-t="boreIntro">The bore opens at the side face. In the revision, a 1 mm web covers its entrance.</p>
-      <div class="bore-views">
-        <figure>
-          <img class="bore-part" src="assets/renders/cad15-initial-steel-light.jpg" width="1200" height="820" alt="Machined steel cad15 showing the open 6 mm side bore" loading="lazy">
-          <figcaption data-t="borePart">Side bore on the initial part</figcaption>
-        </figure>
-        <figure>
-          <img src="bore-study/cad15_initial_section.svg" width="100" height="58" alt="" loading="lazy">
-          <figcaption><span data-t="boreBefore">Initial · open</span><strong>0.00 mm³</strong></figcaption>
-        </figure>
-        <figure>
-          <img src="bore-study/cad15_feedback_section.svg" width="100" height="58" alt="" loading="lazy">
-          <figcaption><span data-t="boreAfter">Revision · blocked</span><strong>28.27 mm³</strong></figcaption>
-        </figure>
-      </div>
-      <p class="bore-note" data-t="boreNote">Both sections cut through the bore axis at y = 0. Dimensions are in mm. The rust-colored hatching marks material inside the required void.</p>
-      <a href="graphical-abstract.png" data-t="boreOriginal">View the paper’s graphical abstract</a>
-    </section>
-
-    <section id="value-map" class="value-map" aria-labelledby="value-heading">
-      <div class="value-heading">
-        <h2 id="value-heading" data-t="valueTitle">Side bore, shaft clearance and assembly order</h2>
-        <p data-t="valueIntro">The bore measurements come from a recorded cad15 edit. The two shaft examples use controlled geometry.</p>
-      </div>
-      <div class="value-cases">
-        <a href="#paradox" class="value-case">
-          <span class="value-question" data-t="case1Question">Did the side bore stay open?</span>
-          <strong>0 → 28.27 <small>mm³</small></strong>
-          <p data-t="case1Answer">The edit left a 1 mm web across the entrance.</p>
-          <span class="value-link" data-t="case1Link">Compare the two sections →</span>
-        </a>
-        <a href="#interactive-study" class="value-case">
-          <span class="value-question" data-t="case2Question">How much clearance is left?</span>
-          <strong>0.03 <small>mm</small></strong>
-          <p data-t="case2Answer">With the shaft axis offset by 0.12 mm, the gap falls below the 0.05 mm minimum.</p>
-          <span class="value-link" data-t="case2Link">Adjust the shaft offset →</span>
-        </a>
-        <a href="#assembly-order" class="value-case">
-          <span class="value-question" data-t="case3Question">Does the cover block insertion?</span>
-          <strong>≈ 201 <small>mm³</small></strong>
-          <p data-t="case3Answer">The shaft clears the cover in its final position. With the cover installed first, their volumes overlap during insertion.</p>
-          <span class="value-link" data-t="case3Link">Switch the assembly order →</span>
-        </a>
-      </div>
-    </section>
-
     <!-- Abstract -->
-    <section id="abstract" class="pt-2">
+    <section id="abstract" class="pt-1">
       <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-4 pb-2 border-b border-zinc-200">
         Abstract
       </h2>
@@ -248,14 +196,26 @@
         </p>
       </div>
     </section>
-    <!-- Key Concept: The IoU Paradox with Academic Booktabs Table -->
+    <!-- Key Concept: The IoU Paradox with 2D Bore Sections + Academic Booktabs Table -->
     <section id="paradox">
       <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-3 pb-2 border-b border-zinc-200">
         cad15 before and after the edit
       </h2>
-      <p class="text-sm text-zinc-600 mb-6 leading-relaxed">
-        The first two rows measure the whole part against the reference. The last two measure material inside each of the two cuts.
+      <p class="text-sm text-zinc-600 mb-4 leading-relaxed">
+        The section cuts through the Ø6 mm bore axis at y = 0 show a 1 mm web covering the entrance in the revision. The table contrasts whole-part overlap against each declared keep-out cut.
+        <a href="graphical-abstract.png" target="_blank" class="editorial-inline-link" data-t="boreOriginal">Graphical abstract ↗</a>
       </p>
+
+      <div class="paradox-sections">
+        <figure class="paradox-section-card">
+          <img src="bore-study/cad15_initial_section.svg" width="100" height="58" alt="Cross-section of initial cad15 with open 6 mm side bore" loading="lazy">
+          <figcaption><span data-t="boreBefore">Initial · open bore (y = 0)</span><strong>0.00 mm³ · PASS</strong></figcaption>
+        </figure>
+        <figure class="paradox-section-card is-fail">
+          <img src="bore-study/cad15_feedback_section.svg" width="100" height="58" alt="Cross-section of revised cad15 with 1 mm web sealing the side bore" loading="lazy">
+          <figcaption><span data-t="boreAfter">Revision · 1 mm web (y = 0)</span><strong>28.27 mm³ · FAIL</strong></figcaption>
+        </figure>
+      </div>
 
       <!-- Clean Academic Table (LaTeX Booktabs style) -->
       <div class="overflow-x-auto my-6 metric-table-wrap" role="region" aria-label="Paired diagnostic measurements" tabindex="0">
@@ -482,41 +442,20 @@
       <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-3 pb-2 border-b border-zinc-200">
         Contract-Based Diagnostic Architecture
       </h2>
-      <p class="text-sm text-zinc-600 mb-6 leading-relaxed">
-        Hard-CAD decouples requirement evaluation into three deterministic phases: formal contract specification, analytical B-Rep kernel measurement, and paired differencing.
+      <p class="text-sm text-zinc-600 mb-5 leading-relaxed">
+        Hard-CAD decouples evaluation into declarative YAML/JSON contracts (world/local frames, mm units, keep-out bounds), analytical Open CASCADE B-Rep Booleans (10⁻⁶ mm³ numerical check threshold, display meshes excluded), and paired transition differencing with cryptographic provenance.
       </p>
 
-      <div class="border border-zinc-200 rounded-lg p-2 sm:p-4 bg-white mb-4">
-        <img src="submitted-contract-revision-workflow.png" alt="Contract Revision Workflow" class="w-full h-auto object-contain">
-      </div>
-      <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed text-justify mb-8">
-        <strong class="font-semibold text-zinc-900">Figure 2. Execution architecture.</strong>
-        Human design briefs are codified into declarative contracts specifying coordinate frames, units, and geometric regions. The FreeCAD Open CASCADE kernel computes solid differences under declared numerical conditions, producing diagnostic artifacts.
-      </p>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-        <div class="border-t-2 border-zinc-900 pt-3">
-          <div class="font-mono text-xs text-zinc-500 mb-1">SECTION 3</div>
-          <h3 class="font-medium text-zinc-900 mb-2">Schema Contracts</h3>
-          <p class="text-xs text-zinc-600 leading-relaxed">
-            Requirements are declared as YAML schemas with explicit coordinate frames (world/local), units (mm), and keep-out or bounding geometries.
-          </p>
-        </div>
-        <div class="border-t-2 border-zinc-900 pt-3">
-          <div class="font-mono text-xs text-zinc-500 mb-1">SECTION 4</div>
-          <h3 class="font-medium text-zinc-900 mb-2">Kernel Verification</h3>
-          <p class="text-xs text-zinc-600 leading-relaxed">
-            B-Rep Boolean operations compute geometric quantities; 10⁻⁶ mm³ is the cut-occupancy numerical check threshold, not a manufacturing tolerance. Display tessellation does not enter these volume checks.
-          </p>
-        </div>
-        <div class="border-t-2 border-zinc-900 pt-3">
-          <div class="font-mono text-xs text-zinc-500 mb-1">SECTION 5</div>
-          <h3 class="font-medium text-zinc-900 mb-2">Paired Differencing</h3>
-          <p class="text-xs text-zinc-600 leading-relaxed">
-            Records identify requirement transitions (PASS &rarr; FAIL) alongside global signed material changes, isolating defect regressions from repairs.
-          </p>
-        </div>
-      </div>
+      <figure class="editorial-figure my-4">
+        <a href="submitted-contract-revision-workflow.png" target="_blank" aria-label="Open the original manuscript architecture diagram">
+          <img src="assets/renders/architecture-light.svg" alt="Anatomy of a Paired Requirement Record: shared check identity, compatibility gate, B-Rep endpoints, transition verdict, and linked provenance" class="w-full h-auto block">
+        </a>
+        <figcaption class="editorial-figcaption">
+          <strong class="text-zinc-900">Figure 2. Execution architecture.</strong>
+          Requirements share a canonical identity (<span class="font-mono">q</span>) gated on identical contract, reference, scope, and checker bindings before pairing B-Rep endpoints into deterministic verdicts (<span class="font-mono">REGRESSION</span> / <span class="font-mono">REPAIR</span> / <span class="font-mono">UNCHANGED</span> / <span class="font-mono">UNAVAILABLE</span>, preserving <span class="font-mono">null ≠ 0</span>).
+          <a href="submitted-contract-revision-workflow.png" target="_blank" class="editorial-inline-link">Original manuscript figure ↗</a>
+        </figcaption>
+      </figure>
     </section>
 
     <!-- Experimental Results -->
@@ -539,6 +478,18 @@
           <a href="submitted-revision-cohort.png" target="_blank" class="editorial-inline-link">Original manuscript figure ↗</a>
         </figcaption>
       </figure>
+
+      <!-- Compact 84-requirement transition summary strip + protocol notes -->
+      <div class="transition-strip" aria-label="84 paired requirement transitions across 38 applicable pairs">
+        <div class="transition-cell"><span data-t="cc">Clear → clear</span><strong>63</strong><small>unchanged</small></div>
+        <div class="transition-cell"><span data-t="vv">Violated → violated</span><strong>19</strong><small>unchanged</small></div>
+        <div class="transition-cell is-bad"><span data-t="cv">Clear → violated</span><strong>1</strong><small>cad15 regression</small></div>
+        <div class="transition-cell is-good"><span data-t="vc">Violated → clear</span><strong>1</strong><small>cad30 repair</small></div>
+      </div>
+      <div class="space-y-2 mb-8">
+        <details class="proof"><summary data-t="protocolTitle">Experimental protocol and limitations</summary><div class="ext-body"><p data-t="protocolBody">Sixty trajectories were generated from 30 authored briefs under two local agent conditions. Forty-one pairs passed the primary eligibility criteria; 38 had applicable cut requirements. Of the 41 pairs, 34 retained identical program hashes and four more were volumetrically unchanged. The feedback experiments use different cohorts and budgets and cannot be pooled into these counts.</p><p data-t="documentBody">A retrospective 22-document audit found 13 explicit-unit dimension triples and recovered 12 of them with no unmatched outputs. The same cohort informed the extraction rule; this is not held-out semantic binding accuracy. Product, feature and frame identification remain open.</p></div></details>
+        <details class="proof"><summary data-t="futureTitle">Limitations and next experiments</summary><div class="ext-body"><p data-t="futureBody">Future work needs independently specified occurrences, features and states, ideally with native constraints or semantic PMI as held-out references. A controlled repair study should share its first proposal, hold budget and controller fixed, and include withheld checks. Rotation, deformation, loads and manufacturing require further state models and checks.</p></div></details>
+      </div>
 
       <!-- Figure 4: Metallic Cycles triptych of controlled edits & requirement-bound checks -->
       <figure class="editorial-figure mt-10 mb-4">
@@ -590,8 +541,6 @@
         </figcaption>
       </figure>
     </section>
-
-    <section class="paper-extension" id="evidence-explorer"><div class="ext-heading"><h2 data-t="evidenceTitle">Which requirements changed across revisions?</h2><p data-t="evidenceIntro">The 84 requirement transitions are paired instances across 38 applicable revision pairs and 25 briefs. They are not 84 independent industrial mechanisms.</p></div><div class="chart" role="group" aria-label="Requirement transition counts"><button class="chart-row" data-chart="0"><span data-t="cc">Clear → clear</span><span class="bar"><i style="width:100%"></i></span><b>63</b></button><button class="chart-row" data-chart="1"><span data-t="vv">Violated → violated</span><span class="bar"><i style="width:30.16%"></i></span><b>19</b></button><button class="chart-row" data-chart="2"><span data-t="cv">Clear → violated</span><span class="bar danger"><i style="width:1.59%"></i></span><b>1</b></button><button class="chart-row" data-chart="3"><span data-t="vc">Violated → clear</span><span class="bar purple"><i style="width:1.59%"></i></span><b>1</b></button></div><p class="chart-note evidence-annotation" id="chart-note" data-t="chartHelp">Select a row to inspect its meaning. Counts are from the requirement-level analysis, not the separate pair-level transition table.</p><details class="proof"><summary data-t="protocolTitle">Experimental protocol and limitations</summary><div class="ext-body"><p data-t="protocolBody">Sixty trajectories were generated from 30 authored briefs under two local agent conditions. Forty-one pairs passed the primary eligibility criteria; 38 had applicable cut requirements. Of the 41 pairs, 34 retained identical program hashes and four more were volumetrically unchanged. The feedback experiments use different cohorts and budgets and cannot be pooled into these counts.</p><p data-t="documentBody">A retrospective 22-document audit found 13 explicit-unit dimension triples and recovered 12 of them with no unmatched outputs. The same cohort informed the extraction rule; this is not held-out semantic binding accuracy. Product, feature and frame identification remain open.</p></div></details><details class="proof"><summary data-t="futureTitle">Limitations and next experiments</summary><div class="ext-body"><p data-t="futureBody">Future work needs independently specified occurrences, features and states, ideally with native constraints or semantic PMI as held-out references. A controlled repair study should share its first proposal, hold budget and controller fixed, and include withheld checks. Rotation, deformation, loads and manufacturing require further state models and checks.</p></div></details></section>
 
     <section class="paper-extension" id="research-map" aria-labelledby="map-heading">
       <div class="ext-heading">
@@ -1329,7 +1278,27 @@ requirements:
       });
     }
 
+    // -------------------------------------------------------------------------
+    // Hero Before/After Machined-Steel Wipe Comparison
+    // -------------------------------------------------------------------------
+    function initHeroWipe() {
+      const stage = document.getElementById('hero-wipe');
+      const range = document.getElementById('hero-wipe-range');
+      if (!stage || !range) return;
+      const presets = [...document.querySelectorAll('[data-wipe-preset]')];
+      const setPos = val => {
+        const clamped = Math.max(0, Math.min(100, Number(val)));
+        range.value = String(clamped);
+        stage.style.setProperty('--pos', clamped + '%');
+        presets.forEach(btn => btn.setAttribute('aria-pressed', String(Math.abs(Number(btn.dataset.wipePreset) - clamped) < 2)));
+      };
+      range.addEventListener('input', () => setPos(range.value));
+      presets.forEach(btn => btn.addEventListener('click', () => setPos(btn.dataset.wipePreset)));
+      setPos(range.value);
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
+      initHeroWipe();
       init3DViewer();
       initComparisonSlider();
     });

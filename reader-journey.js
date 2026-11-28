@@ -1,4 +1,4 @@
-Object.assign(extra.en,{navLabel:'ON THIS PAGE',navLandscape:'Research map',navComparison:'Comparison',navAssembly:'3D & assembly',navMath:'Math',navEvidence:'Evidence',navReproduce:'Reproduce',
+Object.assign(extra.en,{navLabel:'ON THIS PAGE',navLandscape:'Research map',navComparison:'Comparison',navAssembly:'3D & assembly',navMath:'Math',navArchitecture:'Architecture',navEvidence:'Evidence',navReproduce:'Reproduce',
   navValue: "Case studies",
   valueTitle: "Side bore, shaft clearance and assembly order",
   valueIntro: "The bore measurements come from a recorded cad15 edit. The two shaft examples use controlled geometry.",
@@ -12,7 +12,7 @@ Object.assign(extra.en,{navLabel:'ON THIS PAGE',navLandscape:'Research map',navC
   case3Answer: "The shaft clears the cover in its final position. With the cover installed first, their volumes overlap during insertion.",
   case3Link: "Switch the assembly order →",
   abstractExpand:'Read the full abstract',coverSvg:'COVER',movingSvg:'MOVING PART'});
-Object.assign(extra.zh,{navLabel:'页面导航',navLandscape:'研究图谱',navComparison:'案例对比',navAssembly:'三维与装配',navMath:'数学模型',navEvidence:'实验证据',navReproduce:'复现',
+Object.assign(extra.zh,{navLabel:'页面导航',navLandscape:'研究图谱',navComparison:'案例对比',navAssembly:'三维与装配',navMath:'数学模型',navArchitecture:'架构',navEvidence:'实验证据',navReproduce:'复现',
   navValue: "案例",
   valueTitle: "侧孔、轴孔间隙与装配顺序",
   valueIntro: "侧孔数据来自 cad15 的一次实际模型修改。后两个例子使用受控几何模型。",
@@ -26,7 +26,7 @@ Object.assign(extra.zh,{navLabel:'页面导航',navLandscape:'研究图谱',navC
   case3Answer: "轴就位后与盖板没有干涉。先装盖板再插轴，轴会在插入途中碰到盖板。",
   case3Link: "切换装配顺序 →",
   abstractExpand:'展开阅读完整摘要',coverSvg:'盖板',movingSvg:'移动零件'});
-Object.assign(extra.ja,{navLabel:'ページ内',navLandscape:'研究マップ',navComparison:'事例比較',navAssembly:'3D・組立',navMath:'数理モデル',navEvidence:'実験結果',navReproduce:'再現',
+Object.assign(extra.ja,{navLabel:'ページ内',navLandscape:'研究マップ',navComparison:'事例比較',navAssembly:'3D・組立',navMath:'数理モデル',navArchitecture:'構成',navEvidence:'実験結果',navReproduce:'再現',
   navValue: "事例",
   valueTitle: "側面穴、軸のすきま、組立順序",
   valueIntro: "側面穴の測定値は cad15 の変更記録から取りました。軸を扱う二つの例では実験用の形状を使います。",
@@ -40,7 +40,7 @@ Object.assign(extra.ja,{navLabel:'ページ内',navLandscape:'研究マップ',n
   case3Answer: "最終位置で軸とカバーは干渉しません。カバーを先に取り付けると、軸は挿入途中でカバーに当たります。",
   case3Link: "組立順序を切り替える →",
   abstractExpand:'要旨全文を読む',coverSvg:'カバー',movingSvg:'移動部品'});
-Object.assign(extra.ko,{navLabel:'페이지 탐색',navLandscape:'연구 지도',navComparison:'사례 비교',navAssembly:'3D와 조립',navMath:'수학 모델',navEvidence:'실험 근거',navReproduce:'재현',
+Object.assign(extra.ko,{navLabel:'페이지 탐색',navLandscape:'연구 지도',navComparison:'사례 비교',navAssembly:'3D와 조립',navMath:'수학 모델',navArchitecture:'구조',navEvidence:'실험 근거',navReproduce:'재현',
   navValue: "사례",
   valueTitle: "측면 구멍, 축 틈새, 조립 순서",
   valueIntro: "측면 구멍의 측정값은 cad15 수정 기록에서 가져왔습니다. 축을 다룬 두 사례는 실험용 형상을 사용합니다.",
