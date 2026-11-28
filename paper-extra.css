@@ -44,7 +44,7 @@
   object-fit: contain;
   background: #fff;
 }
-.bore-views .bore-part { object-fit: cover; filter: saturate(.18); }
+.bore-views .bore-part { object-fit: cover; background: #d5d9dc; }
 .bore-views figcaption {
   display: flex;
   flex-wrap: wrap;
@@ -65,3 +65,79 @@
   .bore-views figure:nth-child(2) { border-left: 0; }
   .bore-views figcaption { display: grid; }
 }
+
+/* Editorial restraint & unified slate/teal palette (tones down SaaS purple & highlighter cues) */
+.value-map { border-top: 1px solid #cfd8dc; padding-top: 1.4rem; }
+.value-heading { margin-bottom: 1.1rem; }
+.value-heading h2 { font: 500 clamp(1.45rem, 2.6vw, 1.9rem)/1.2 Newsreader, Georgia, serif; color: #16242b; margin-top: 0; }
+.value-cases { border-color: #d4dde0; border-radius: 6px; }
+.value-case { background: #fbfcfd; }
+.value-case:hover { background: #f2f6f7; transform: none; box-shadow: none; }
+.value-case + .value-case { border-left-color: #d4dde0; }
+.value-question { color: #243942; }
+.value-case strong { color: #16242b; }
+.value-link { color: #1f5f5b; }
+
+.claim-highlight { font-weight: 600; background: none !important; padding: 0; margin: 0; color: inherit !important; }
+.claim-highlight.claim-warning { color: #9a3b31 !important; }
+.claim-highlight.claim-principle { color: #1a5853 !important; }
+
+.study-visual input { accent-color: #1f5f5b; }
+.study-disclosure > summary:hover { color: #163d42; }
+.equation-emphasis { border-left: 3px solid #2b4c5c; background: #f3f6f8; color: #1c313b !important; font-size: 21px; }
+.bar.purple i { background: #2c5b75; }
+.chart-note { background: #f3f6f7; border-left-color: #2b4c5c; color: #364c54; }
+.repro-card a { color: #1f5f5b; }
+
+/* Restrained research map palette */
+.research-v2 { border-top-color: #d4dde0; padding-top: 24px; }
+.atlas-masthead h2 { font: 500 clamp(1.5rem, 2.8vw, 2rem)/1.2 Newsreader, Georgia, serif; color: #16242b; margin: 6px 0; }
+.atlas-canvas { background-color: #fafbfc; background-image: linear-gradient(#e8eef0 1px, transparent 1px), linear-gradient(90deg, #e8eef0 1px, transparent 1px); border-color: #d4dde0; }
+.research-v2 .atlas-sources .knowledge-node { border-color: #d1dce0; }
+.research-v2 .atlas-sources .knowledge-node:hover,
+.research-v2 .atlas-sources .knowledge-node.active { border-color: #275e5a; background: #f2f8f7; box-shadow: 0 3px 10px rgba(20, 36, 44, 0.08); }
+.atlas-node-icon { background: #edf3f4; color: #26575c !important; }
+.research-v2 .atlas-core { border-color: #8ab0ab; background: #f1f7f6; box-shadow: 0 8px 22px rgba(20, 36, 44, 0.07); }
+.research-v2 .atlas-core:hover,
+.research-v2 .atlas-core:focus-visible,
+.research-v2 .atlas-core.active { border-color: #1f5f5b; box-shadow: 0 8px 22px rgba(20, 36, 44, 0.12); }
+.research-v2 .atlas-core-label { color: #3b6967 !important; }
+.atlas-core-icon { background: #dcece9; color: #1f5f5b !important; }
+.research-v2 .atlas-core > b { color: #15383a; }
+.research-v2 .atlas-core > small { color: #4f6a6c; }
+.atlas-core-divider { background: #cde0dd; }
+.atlas-core-steps i { color: #245c58; background: #dcece9; }
+.atlas-core-steps em { color: #234245; }
+.atlas-inspector { border-color: #cfdbe0; }
+.atlas-inspector-head { background: #f4f7f8; border-bottom-color: #dce5e8; }
+.atlas-selected-icon { background: #e1ecee; color: #1f5f5b; }
+.atlas-inspector-head small { color: #5b747a; }
+.atlas-inspector-head strong { color: #162b32; }
+.atlas-status { color: #255a56; background: #e1efec; }
+.atlas-inspector-foot a { border-color: #c5d6da; color: #1f5f5b; }
+.atlas-inspector-foot a:hover { background: #eef5f5; }
+.positioning-row.hard-position { border-color: #1f5f5b; }
+.positioning-row.hard-position strong { color: #1f5f5b; }
+.atlas-figure #atlas-graphic { background: #f6f8f9; }
+.atlas-figure svg .diag-mark { fill: #255466; }
+.diag-purple { fill: #dce6ec; fill-opacity: .78; stroke: #35586b; }
+.diag-hole { stroke: #35586b; }
+.diag-dash { stroke: #6a8490; }
+.diag-void { stroke: #35586b; }
+.diag-keepout { fill: #d7e3ea; stroke: #35586b; }
+.research-v2 .atlas-future-link:hover,
+.research-v2 .atlas-future-link.active,
+.research-v2 .atlas-future-link b { color: #1f5f5b; }
+.research-v2 .atlas-future-link i { color: #7a939a; }
+
+/* Studio backdrop for metallic WebGL 3D inspector */
+.cad-studio-stage {
+  background: radial-gradient(ellipse at 50% 42%, #eef1f4 0%, #d4dbe0 100%);
+}
+.cad-toggle-active {
+  background: #e6f2f0 !important;
+  border-color: #2f7771 !important;
+  color: #164e4a !important;
+  font-weight: 600;
+}
+
