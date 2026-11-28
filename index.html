@@ -47,10 +47,10 @@
   <script src="assets/OrbitControls.js"></script>
   <script src="studio-lighting.js?v=metal-2"></script>
 
-  <link rel="stylesheet" href="paper-extra.css?v=metal-5">
-  <link rel="stylesheet" href="site.css?v=metal-4">
-  <script defer src="paper-extra.js?v=metal-3"></script>
-  <script defer src="cad-story.js?v=metal-2"></script>
+  <link rel="stylesheet" href="paper-extra.css?v=metal-6">
+  <link rel="stylesheet" href="site.css?v=metal-5">
+  <script defer src="paper-extra.js?v=metal-4"></script>
+  <script defer src="cad-story.js?v=metal-3"></script>
   <script defer src="reader-journey.js?v=4"></script>
   <script defer src="reader-motion.js?v=7"></script>
   <style>
@@ -166,7 +166,7 @@
           <input class="hero-wipe-range" id="hero-wipe-range" type="range" min="0" max="100" value="36" aria-label="Drag to compare initial open side bore against revised sealed side bore">
         </div>
         <figcaption class="landing-compare-bar">
-          <span data-t="landingCaption">cad15 · Drag across the Ø6 mm side bore to compare initial vs. revision.</span>
+          <span data-t="landingCaption">Drag across the Ø6 mm side bore to compare.</span>
           <div class="landing-compare-presets" role="group" aria-label="Hero comparison preset">
             <button type="button" data-wipe-preset="100" aria-pressed="false">Initial</button>
             <button type="button" data-wipe-preset="36" aria-pressed="true">Split</button>
@@ -283,54 +283,39 @@
       <!-- 3D Viewer Container (Machined Metal Studio CAD Style) -->
       <div class="border border-zinc-300 rounded-lg overflow-hidden bg-white shadow-sm">
 
-        <!-- Controls Bar -->
-        <div class="p-3 bg-zinc-100 border-b border-zinc-200 flex flex-wrap items-center justify-between gap-2.5 text-xs">
+        <!-- Streamlined Controls Bar -->
+        <div class="p-2.5 sm:px-3.5 bg-zinc-50 border-b border-zinc-200 flex flex-wrap items-center justify-between gap-2 text-xs">
 
           <!-- Model selector -->
           <div class="flex flex-wrap items-center gap-1">
-            <span class="font-medium text-zinc-600 mr-1">Case:</span>
+            <span class="font-medium text-zinc-500 mr-1">Case:</span>
             <button onclick="set3DModel('cad15')" id="btn-m-cad15" class="px-2.5 py-1 rounded bg-white border border-zinc-300 font-medium text-zinc-900 shadow-xs">
-              cad15 (Cut Regresses)
+              cad15
             </button>
             <button onclick="set3DModel('cad30')" id="btn-m-cad30" class="px-2.5 py-1 rounded bg-transparent border border-transparent font-medium text-zinc-500 hover:text-zinc-800">
-              cad30 (Void Clears)
+              cad30
             </button>
             <button onclick="set3DModel('pump')" id="btn-m-pump" class="px-2.5 py-1 rounded bg-transparent border border-transparent font-medium text-zinc-500 hover:text-zinc-800">
-              pump-shaft (Synthetic)
+              pump-shaft
             </button>
           </div>
 
-          <!-- Revision State -->
-          <div class="flex items-center gap-1">
-            <span class="font-medium text-zinc-600 mr-1">State:</span>
-            <button onclick="set3DState('initial')" id="btn-s-initial" class="px-2.5 py-1 rounded bg-transparent border border-transparent text-zinc-600 hover:text-zinc-900">
-              Initial
-            </button>
-            <button onclick="set3DState('feedback')" id="btn-s-feedback" class="px-2.5 py-1 rounded bg-white border border-zinc-300 font-medium text-zinc-900 shadow-xs">
-              Feedback Revision
-            </button>
-            <button onclick="set3DState('reference')" id="btn-s-reference" class="px-2.5 py-1 rounded bg-transparent border border-transparent text-zinc-600 hover:text-zinc-900">
-              Reference
-            </button>
-          </div>
-
-          <!-- Display Toggles -->
-          <div class="flex flex-wrap items-center gap-1.5">
-            <button onclick="toggleRegionOverlay()" id="btn-region" aria-pressed="true" class="px-2 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition cad-toggle-active">
+          <!-- Revision State + Region + Studio Launch -->
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="flex items-center gap-1">
+              <button onclick="set3DState('initial')" id="btn-s-initial" class="px-2.5 py-1 rounded bg-transparent border border-transparent text-zinc-600 hover:text-zinc-900">
+                Initial
+              </button>
+              <button onclick="set3DState('feedback')" id="btn-s-feedback" class="px-2.5 py-1 rounded bg-white border border-zinc-300 font-medium text-zinc-900 shadow-xs">
+                Revision
+              </button>
+            </div>
+            <button onclick="toggleRegionOverlay()" id="btn-region" aria-pressed="true" class="px-2.5 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition cad-toggle-active">
               <span>Region</span>
             </button>
-            <button onclick="toggleTransparency()" id="btn-transparent" aria-pressed="false" class="px-2 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition"><span data-t="transparent">Translucent</span></button>
-            <button onclick="toggleWireframe()" id="btn-wire" class="px-2 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition flex items-center gap-1">
-              <i data-lucide="grid" class="w-3 h-3"></i>
-              <span>Wireframe</span>
-            </button>
-            <button onclick="toggleAutoRotate()" id="btn-autorotate" class="px-2 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition flex items-center gap-1">
-              <i data-lucide="rotate-cw" class="w-3 h-3"></i>
-              <span>Rotate</span>
-            </button>
-            <button onclick="resetCamera()" class="px-2 py-1 rounded border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 transition">
-              Reset
-            </button>
+            <a href="inspect.html" class="px-2.5 py-1 rounded font-semibold text-white transition" style="background:#1f5f5b;text-decoration:none;">
+              Open 3D Studio ↗
+            </a>
           </div>
 
         </div>
@@ -363,7 +348,7 @@
           <div class="assembly-visual">
             <div class="assembly-render-frame">
               <img id="assembly-frame-img" src="assets/renders/assembly/cover_04.jpg" width="960" height="560" alt="Blender Cycles 3D metallic render of the shaft and cover assembly sequence">
-              <span id="assembly-hud" class="assembly-hud" data-conflict="true">INTERSECTION · 201.06 mm³</span>
+              <span id="assembly-hud" class="assembly-hud" data-conflict="false">COVER FIRST · z = 39 mm</span>
             </div>
             <div class="assembly-controls"><button id="assembly-play" type="button" data-t="assemblyPlay">▶ Play sequence</button><label for="assembly-progress" data-t="assemblyProgress">Sequence progress</label><input id="assembly-progress" type="range" min="0" max="100" value="50"><output id="assembly-output">50%</output></div>
             <p class="story-small" data-t="assemblyDiagram">Blender Cycles renders of the controlled assembly (Ø10 mm shaft, Ø6 mm cover pilot hole, 4 mm cover plate, z: 70 → 8 mm). Swept volumes come from B-Rep Booleans.</p>
@@ -373,10 +358,10 @@
       </div>
     </section>
 
-    <section class="paper-extension" id="interactive-study"><div class="ext-heading"><h2 data-t="studyTitle">When a global score misses a local failure</h2><p data-t="studyIntro">Move the axis of the controlled shaft–guide example. The cross-section is schematic; the curve is calculated from the paper’s analytical construction.</p></div><details open class="study-disclosure"><summary data-t="visualToggle">Show or hide the interactive animation</summary><div class="study-grid"><div class="study-visual">
+    <section class="paper-extension" id="interactive-study"><div class="ext-heading"><h2 data-t="studyTitle">When a global score misses a local failure</h2><p data-t="studyIntro">Move the axis of the controlled shaft–guide example. The cross-section is schematic; the curve is calculated from the paper’s analytical construction.</p></div><div class="study-grid"><div class="study-visual">
       <figure class="study-cutaway-wrap">
         <img src="assets/renders/clearance-section-steel-light.jpg" width="960" height="560" alt="Half-sectioned CNC gunmetal guide bushing and copper shaft showing tight radial clearance" loading="lazy">
-        <figcaption>Half-sectioned steel guide bushing (R<sub>b</sub> = 5.15 mm) and copper shaft (R<sub>s</sub> = 5.00 mm) at offset e = 0.12 mm.</figcaption>
+        <figcaption>Half-sectioned steel guide bushing <span class="whitespace-nowrap">(R<sub>b</sub> = 5.15 mm)</span> and copper shaft <span class="whitespace-nowrap">(R<sub>s</sub> = 5.00 mm)</span> at offset <span class="whitespace-nowrap">e = 0.12 mm</span>.</figcaption>
       </figure>
       <svg viewBox="0 0 420 270" role="img" aria-label="ISO cross-section of eccentric bore and shaft">
         <defs>
@@ -388,21 +373,21 @@
           </pattern>
         </defs>
         <!-- Guide outer housing wall with 45-degree ISO metal hatching -->
-        <circle cx="210" cy="135" r="108" fill="url(#iso-hatch-guide)" stroke="#334155" stroke-width="1.8"/>
+        <circle cx="210" cy="138" r="106" fill="url(#iso-hatch-guide)" stroke="#334155" stroke-width="1.8"/>
         <!-- Inner bore opening (R_b = 5.15 mm) -->
-        <circle cx="210" cy="135" r="93" fill="#ffffff" stroke="#1e293b" stroke-width="1.8"/>
+        <circle cx="210" cy="138" r="91" fill="#ffffff" stroke="#1e293b" stroke-width="1.8"/>
         <!-- Eccentric shaft (R_s = 5.00 mm) -->
-        <circle id="shaft-circle" cx="218.57" cy="135" r="85" fill="#f3e6e0" stroke="#7c4330" stroke-width="1.8"/>
-        <circle cx="210" cy="135" r="93" fill="none" stroke="#1e293b" stroke-width="0.9" stroke-dasharray="3 3" opacity="0.4"/>
+        <circle id="shaft-circle" cx="218.57" cy="138" r="83" fill="#f3e6e0" stroke="#7c4330" stroke-width="1.8"/>
+        <circle cx="210" cy="138" r="91" fill="none" stroke="#1e293b" stroke-width="0.9" stroke-dasharray="3 3" opacity="0.4"/>
         <!-- Precision engineering centerlines (ISO long-dash-dot) -->
-        <path d="M72 135H348M210 16V254" stroke="#64748b" stroke-width="0.9" stroke-dasharray="12 4 2 4"/>
+        <path d="M72 138H348M210 20V256" stroke="#64748b" stroke-width="0.9" stroke-dasharray="12 4 2 4"/>
         <!-- Bore axis & moving shaft axis markers -->
-        <circle cx="210" cy="135" r="2.6" fill="#334155"/>
-        <circle id="shaft-axis" cx="218.57" cy="135" r="3.6" fill="#b43f35" stroke="#ffffff" stroke-width="1.2"/>
-        <!-- Clean engineering annotations -->
-        <text x="16" y="28" fill="#334155" font-size="11" font-family="ui-monospace, monospace">Bore R_b = 5.15 mm</text>
-        <text x="16" y="45" fill="#7c4330" font-size="11" font-family="ui-monospace, monospace">Shaft R_s = 5.00 mm</text>
-        <text x="315" y="250" fill="#64748b" font-size="10.5" font-family="ui-monospace, monospace">Section A–A</text>
+        <circle cx="210" cy="138" r="2.8" fill="#334155"/>
+        <circle id="shaft-axis" cx="218.57" cy="138" r="3.8" fill="#b43f35" stroke="#ffffff" stroke-width="1.2"/>
+        <!-- Crisp engineering annotations -->
+        <text x="14" y="24" fill="#1e293b" font-size="13" font-weight="600" font-family="JetBrains Mono, ui-monospace, monospace">Bore R_b = 5.15 mm</text>
+        <text x="14" y="44" fill="#8b4730" font-size="13" font-weight="600" font-family="JetBrains Mono, ui-monospace, monospace">Shaft R_s = 5.00 mm</text>
+        <text x="406" y="254" text-anchor="end" fill="#52626b" font-size="12" font-family="JetBrains Mono, ui-monospace, monospace">Section A–A</text>
       </svg>
       <label for="offset-range" data-t="offsetLabel">Bore-axis offset e (mm)</label><input id="offset-range" type="range" min="0" max="0.14" value="0.12" step="0.01"><div class="range-line"><span>0.00 mm</span><b id="offset-value">0.12 mm</b><span>0.14 mm</span></div><button class="ext-button" type="button" id="play-offset" data-t="play">▶ Play animation</button><p class="small-note" data-t="schematic">Schematic, not to scale. The model applies only before contact (e &lt; 0.15 mm).</p>
     </div><div class="study-data">
@@ -436,7 +421,7 @@
         </g>
         <circle id="plot-point" cx="297" cy="119" r="5" fill="#b43f35" stroke="#ffffff" stroke-width="1.8"/>
       </svg>
-      <div class="equation equation-emphasis">c(e) = R<sub>b</sub> − R<sub>s</sub> − e</div><p data-t="clearanceExplain">The bore radius is 5.15 mm and the shaft radius is 5.00 mm. The nominal clearance falls linearly as the axes separate.</p><div class="study-metric"><span data-t="nominal">Nominal clearance</span><b id="gap-value">0.03 mm</b></div><div class="study-metric"><span data-t="minimum">Required minimum</span><b>0.05 mm</b></div><div class="study-metric"><span data-t="computedIou">Analytical IoU (approx.)</span><b id="iou-value">0.99946</b></div><div class="status-badge" id="gap-status">REQUIREMENT VIOLATED</div><p class="small-note" data-t="clearanceLimit">Nominal geometry only. Independent ±0.01 mm radius bounds give a 0.01 mm worst-size gap at e = 0.12 mm; these are design bounds, not confidence intervals.</p></div></div><details class="proof"><summary data-t="proofTitle">Show the mathematical derivation</summary><div class="ext-body"><p data-t="proofBody">Let V ≈ 91,975.16 mm³ be the equal occupied volume and Δ(e) the symmetric difference. Then I(e) = (2V − Δ)/(2V + Δ), where Δ = 2h[πR² − A(R,e)] and A(R,e) = 2R² arccos(e/2R) − (e/2)√(4R² − e²). Here h = 20 mm and R = 5.15 mm. This derivation is restricted to the noncontact interval.</p></div></details></details></section>
+      <div class="equation equation-emphasis">c(e) = R<sub>b</sub> − R<sub>s</sub> − e</div><p data-t="clearanceExplain">The bore radius is 5.15 mm and the shaft radius is 5.00 mm. The nominal clearance falls linearly as the axes separate.</p><div class="study-metric"><span data-t="nominal">Nominal clearance</span><b id="gap-value">0.03 mm</b></div><div class="study-metric"><span data-t="minimum">Required minimum</span><b>0.05 mm</b></div><div class="study-metric"><span data-t="computedIou">Analytical IoU (approx.)</span><b id="iou-value">0.99946</b></div><div class="status-badge" id="gap-status">REQUIREMENT VIOLATED</div><p class="small-note" data-t="clearanceLimit">Nominal geometry only. Independent ±0.01 mm radius bounds give a 0.01 mm worst-size gap at e = 0.12 mm; these are design bounds, not confidence intervals.</p></div></div><details class="proof"><summary data-t="proofTitle">Show the mathematical derivation</summary><div class="ext-body"><p data-t="proofBody">Let V ≈ 91,975.16 mm³ be the equal occupied volume and Δ(e) the symmetric difference. Then I(e) = (2V − Δ)/(2V + Δ), where Δ = 2h[πR² − A(R,e)] and A(R,e) = 2R² arccos(e/2R) − (e/2)√(4R² − e²). Here h = 20 mm and R = 5.15 mm. This derivation is restricted to the noncontact interval.</p></div></details></section>
     <!-- Methodology & Workflow -->
     <section id="pipeline">
       <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-3 pb-2 border-b border-zinc-200">
@@ -496,7 +481,7 @@
         <div class="repair-triptych">
           <article class="repair-case">
             <div class="repair-thumb">
-              <img src="assets/renders/clearance-section-steel-light.jpg" width="960" height="560" loading="lazy" alt="CNC machined steel guide bushing and copper shaft clearance edit">
+              <img src="assets/renders/fig4a-clearance-repaired-steel-light.jpg" width="960" height="560" loading="lazy" alt="Repaired CNC machined steel guide bushing and copper shaft with 0.12 mm radial clearance">
             </div>
             <div class="repair-meta">
               <h3><span>(a)</span> Guide / shaft clearance</h3>
@@ -509,7 +494,7 @@
           </article>
           <article class="repair-case">
             <div class="repair-thumb">
-              <img src="assets/renders/assembly/cover_04.jpg" width="960" height="560" loading="lazy" alt="CNC steel cover and copper shaft installation sequence check">
+              <img src="assets/renders/fig4b-assembly-repaired-steel-light.jpg" width="960" height="560" loading="lazy" alt="Repaired shaft-first installation showing cover plate clearing the seated copper shaft">
             </div>
             <div class="repair-meta">
               <h3><span>(b)</span> Shaft / cover installation</h3>
@@ -631,17 +616,15 @@
       </ol><p data-t="requirement5">For the full CAG test and evidence audits, the source guide additionally lists pytest ≥ 8, jsonschema ≥ 4.18 and PyMuPDF ≥ 1.24. Record Python and package versions; these minimum versions are not a complete locked environment.</p></div></details>
       <p class="repro-note" data-t="promptHint">Use the Agent prompt tab for an environment-aware, copyable setup request. It asks the agent to identify the source and CAD runtime, use fresh outputs, and report any missing prerequisites.</p>
 
-      <div class="border border-zinc-200 rounded-lg overflow-hidden bg-zinc-900 text-zinc-200 font-mono text-xs">
-        <div class="px-4 py-2.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <button onclick="switchCode('cli')" id="code-btn-cli" class="text-white font-semibold">CLI</button>
-            <span class="text-zinc-600">|</span>
-            <button onclick="switchCode('python')" id="code-btn-python" class="text-zinc-400 hover:text-white">Python API</button>
-            <span class="text-zinc-600">|</span>
-            <button onclick="switchCode('yaml')" id="code-btn-yaml" class="text-zinc-400 hover:text-white">Contract YAML</button>
-            <span class="text-zinc-600">|</span><button onclick="switchCode('agent')" id="code-btn-agent" class="text-zinc-400 hover:text-white">Agent prompt</button>
+      <div class="code-terminal">
+        <div class="code-terminal-bar">
+          <div class="code-terminal-tabs">
+            <button onclick="switchCode('cli')" id="code-btn-cli" class="is-active">CLI</button>
+            <button onclick="switchCode('python')" id="code-btn-python">Python API</button>
+            <button onclick="switchCode('yaml')" id="code-btn-yaml">Contract YAML</button>
+            <button onclick="switchCode('agent')" id="code-btn-agent">Agent prompt</button>
           </div>
-          <button onclick="copyCurrentCode()" class="text-zinc-400 hover:text-white flex items-center gap-1 transition">
+          <button onclick="copyCurrentCode()" class="code-terminal-copy">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
             <span id="copy-text">Copy</span>
           </button>
@@ -718,12 +701,13 @@ requirements:
       </div>
 
       <div class="border border-zinc-200 rounded-lg p-4 bg-zinc-50 font-mono text-xs text-zinc-800 overflow-x-auto leading-relaxed">
-        <pre id="bibtex-content">@misc{hardcad2026,
+        <pre id="bibtex-content">@article{hardcad2026,
   author  = {Huang, Hikoyan and Zhang, Jiayao},
   title   = {Hard-CAD: Contract-Based Diagnostics for Generated CAD Geometry},
+  journal = {Computers \&amp; Graphics},
   year    = {2026},
-  url     = {https://hard-cad.github.io/hard-cad/},
-  note    = {Submitted manuscript}
+  doi     = {10.1016/j.cag.2026.104824},
+  url     = {https://hard-cad.github.io/hard-cad/}
 }</pre>
       </div>
     </section>
@@ -1253,13 +1237,9 @@ requirements:
       ['cli', 'python', 'yaml', 'agent'].forEach(t => {
         const btn = document.getElementById('code-btn-' + t);
         const block = document.getElementById('code-block-' + t);
-        if (t === tab) {
-          btn.className = 'text-white font-semibold';
-          block.classList.remove('hidden');
-        } else {
-          btn.className = 'text-zinc-400 hover:text-white';
-          block.classList.add('hidden');
-        }
+        if (!btn || !block) return;
+        btn.classList.toggle('is-active', t === tab);
+        block.classList.toggle('hidden', t !== tab);
       });
     }
 

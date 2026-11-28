@@ -24,6 +24,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUT_ASSEMBLY = ROOT / "assets" / "renders" / "assembly"
 OUT_CLEARANCE = ROOT / "assets" / "renders" / "clearance-section-steel-light.jpg"
+OUT_FIG4A = ROOT / "assets" / "renders" / "fig4a-clearance-repaired-steel-light.jpg"
+OUT_FIG4B = ROOT / "assets" / "renders" / "fig4b-assembly-repaired-steel-light.jpg"
 
 SCALE = 0.05  # 1 mm -> 0.05 Blender units
 
@@ -34,6 +36,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--frames", type=int, default=9)
     parser.add_argument("--width", type=int, default=960)
     parser.add_argument("--height", type=int, default=560)
+    parser.add_argument("--only", choices=("all", "fig4"), default="all")
     return parser.parse_args(argv)
 
 
@@ -520,8 +523,105 @@ def run_blender(args: argparse.Namespace) -> None:
         bpy.ops.render.render(write_still=True)
         print(f"[rendered] {OUT_CLEARANCE}")
 
-    render_assembly_sequence()
-    render_clearance_cutaway()
+    def render_fig4_repaired():
+        # Figure 4(a): Elevated right-3/4 cutaway of REPAIRED guide/shaft clearance (e = 0.03 mm -> 0.12 mm PASS)
+        bpy.ops.wm.read_factory_settings(use_empty=True)
+        scene = bpy.context.scene
+        mat_steel = make_metal("BrushedSteel", (0.76, 0.79, 0.82), 0.17, 0.27, 0.96, 0.40, 0.010)
+        mat_gunmetal = make_metal("GunmetalGuide", (0.43, 0.52, 0.57), 0.20, 0.29, 0.92, 0.36, 0.010)
+        mat_cut = make_metal("CutFace", (0.52, 0.58, 0.62), 0.26, 0.34, 0.90, 0.20, 0.006)
+        mat_dark_steel = make_metal("DarkBolt", (0.28, 0.31, 0.35), 0.25, 0.36, 0.92, 0.25, 0.008)
+        mat_copper = make_metal("MachinedCopper", (0.82, 0.49, 0.36), 0.15, 0.23, 0.96, 0.45, 0.010)
+        mat_pass = make_translucent("ClearancePass", (0.12, 0.62, 0.50), alpha=0.68, emit=0.42)
+
+        build_base_and_bushing(mat_steel, mat_gunmetal, mat_dark_steel, include_posts=False, include_bushing=False)
+        make_half_bushing(
+            "HalfGuideBushing",
+            r_outer=10.5 * SCALE,
+            r_inner=5.15 * SCALE,
+            height=20.0 * SCALE,
+            z_bot=14.0 * SCALE,
+            mat_body=mat_gunmetal,
+            mat_cut=mat_cut,
+        )
+        bpy.ops.mesh.primitive_cylinder_add(vertices=72, radius=5.0 * SCALE, depth=34.0 * SCALE, location=(0.03 * SCALE, 0, 26.0 * SCALE))
+        shaft = bpy.context.object
+        shaft.data.materials.append(mat_copper)
+
+        # Glowing teal radial clearance collar at top lip of guide bore
+        ring = make_holed_cylinder(
+            "PassClearanceRing",
+            r_outer=5.32 * SCALE,
+            r_inner=4.98 * SCALE,
+            height=1.1 * SCALE,
+            loc=(0.0, 0.0, 34.15 * SCALE),
+            mat=mat_pass,
+        )
+        ring.visible_shadow = False
+
+        target = Vector((0.0, 0.0, 23.0 * SCALE))
+        setup_light_studio(scene, target, 3.8)
+        cam_dir = Vector((1.55, -2.05, 1.75)).normalized()
+        bpy.ops.object.camera_add(location=target + cam_dir * 9.8)
+        cam = bpy.context.object
+        cam.rotation_euler = (-cam_dir).to_track_quat("-Z", "Y").to_euler()
+        cam.data.type = "PERSP"
+        cam.data.lens = 78.0
+        scene.camera = cam
+        setup_cycles(scene, 960, 560, max(args.samples, 80))
+        OUT_FIG4A.parent.mkdir(parents=True, exist_ok=True)
+        scene.render.filepath = str(OUT_FIG4A)
+        bpy.ops.render.render(write_still=True)
+        print(f"[rendered] {OUT_FIG4A}")
+
+        # Figure 4(b): Opposite elevated 3/4 view of REPAIRED Shaft-first installation (0.00 mm^3 PASS)
+        bpy.ops.wm.read_factory_settings(use_empty=True)
+        scene = bpy.context.scene
+        mat_steel = make_metal("BrushedSteel", (0.76, 0.79, 0.82), 0.17, 0.27, 0.96, 0.40, 0.011)
+        mat_gunmetal = make_metal("GunmetalGuide", (0.42, 0.50, 0.55), 0.22, 0.31, 0.90, 0.35, 0.011)
+        mat_dark_steel = make_metal("DarkBolt", (0.28, 0.31, 0.35), 0.25, 0.36, 0.92, 0.25, 0.008)
+        mat_copper = make_metal("MachinedCopper", (0.80, 0.48, 0.36), 0.16, 0.24, 0.96, 0.45, 0.011)
+        mat_pass = make_translucent("OrderPass", (0.12, 0.62, 0.50), alpha=0.58, emit=0.45)
+
+        build_base_and_bushing(mat_steel, mat_gunmetal, mat_dark_steel, include_posts=True)
+        cover = build_cover_plate(46.0, mat_steel)
+        cover.location.z = 9.5 * SCALE  # gliding cleanly down onto standoffs after shaft is seated
+        shaft_len = 36.0
+        bpy.ops.mesh.primitive_cylinder_add(vertices=72, radius=5.0 * SCALE, depth=shaft_len * SCALE, location=(0, 0, (8.0 + shaft_len * 0.5) * SCALE))
+        shaft = bpy.context.object
+        shaft.data.materials.append(mat_copper)
+
+        # Teal pilot-hole clearance ring inside the descending cover plate
+        pilot_ring = make_holed_cylinder(
+            "PilotClearRing",
+            r_outer=3.35 * SCALE,
+            r_inner=2.94 * SCALE,
+            height=4.35 * SCALE,
+            loc=(0, 0, (48.0 + 9.5) * SCALE),
+            mat=mat_pass,
+        )
+        pilot_ring.visible_shadow = False
+
+        target = Vector((0.0, 0.0, 35.0 * SCALE))
+        setup_light_studio(scene, target, 4.6)
+        cam_dir = Vector((1.85, -2.05, 1.55)).normalized()
+        bpy.ops.object.camera_add(location=target + cam_dir * 16.0)
+        cam = bpy.context.object
+        cam.rotation_euler = (-cam_dir).to_track_quat("-Z", "Y").to_euler()
+        cam.data.type = "PERSP"
+        cam.data.lens = 68.0
+        scene.camera = cam
+        setup_cycles(scene, 960, 560, max(args.samples, 80))
+        scene.render.filepath = str(OUT_FIG4B)
+        bpy.ops.render.render(write_still=True)
+        print(f"[rendered] {OUT_FIG4B}")
+
+    if args.only == "fig4":
+        render_fig4_repaired()
+    else:
+        render_assembly_sequence()
+        render_clearance_cutaway()
+        render_fig4_repaired()
 
 
 def main() -> None:

@@ -31,10 +31,10 @@ function updateAssembly() {
   if (storyHud) {
     const zVal = Math.round(70 - 62 * (cover ? p / 100 : Math.min(1, (p / 100) / 0.55)));
     const stateTag = cover
-      ? (p >= 35 ? 'INTERSECTION · 201.06 mm³' : `APPROACH · z = ${zVal} mm`)
-      : (p <= 55 ? `SHAFT INSERT · z = ${zVal} mm` : 'COVER INSTALL · 0.00 mm³');
+      ? `COVER FIRST · z = ${zVal} mm`
+      : (p <= 55 ? `SHAFT FIRST · z = ${zVal} mm` : `COVER SEAT · ${p}%`);
     storyHud.textContent = stateTag;
-    storyHud.dataset.conflict = String(cover && p >= 35);
+    storyHud.dataset.conflict = 'false';
   }
   document.querySelector('#assembly-output').textContent = p + '%';
   const resEl = document.querySelector('#assembly-result');

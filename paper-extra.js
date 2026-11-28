@@ -17,7 +17,7 @@ let locale='en', selectedChart=-1, playing=null;
 Object.assign(extra.en, {
   landingInspect:'Open 3D Studio →', landingPaper:'Read the paper ↗',
   landingInitial:'Initial · clear · 0.00 mm³', landingRevised:'Revision · violated · 28.27 mm³',
-  landingCaption:'cad15 · Drag across the Ø6 mm side bore to compare initial vs. revision.',
+  landingCaption:'Drag across the Ø6 mm side bore to compare.',
   landingStudio:'3D Comparison Studio', landingStudioDesc:'Compare the initial and revised meshes for cad15, cad30 or the pump shaft. Overlay them to see where the shapes differ.',
   landingReplay:'Evidence Replay', landingReplayDesc:'See which void filled in on cad15 and which cleared on cad30. Each record includes the measured volume before and after the edit.',
   landingPump:'Process Pump Demo', landingPumpDesc:'Take the pump apart in the exploded view, or switch to a cutaway to see how the shaft and impeller fit together.',
@@ -25,7 +25,7 @@ Object.assign(extra.en, {
 Object.assign(extra.zh, {
   landingInspect:'打开 3D 工作室 →', landingPaper:'阅读论文 ↗',
   landingInitial:'初始 · 畅通 · 0.00 mm³', landingRevised:'修订 · 堵死 · 28.27 mm³',
-  landingCaption:'cad15 · 左右拖动滑块，直观对比 Ø6 mm 侧孔在修改前后的变化。',
+  landingCaption:'拖动对比 Ø6 mm 侧孔修改前后。',
   landingStudio:'3D 对照', landingStudioDesc:'并排查看 cad15、cad30 或泵轴修改前后的网格，也可以叠加查看形状差异。',
   landingReplay:'证据回放', landingReplayDesc:'查看 cad15 的哪处空腔被堵住，以及 cad30 的哪处空腔恢复畅通。每条记录都列出修改前后的占用体积。',
   landingPump:'流程泵演示', landingPumpDesc:'用爆炸图查看泵的零件，或切到剖视图，看看泵轴与叶轮如何配合。',
@@ -33,7 +33,7 @@ Object.assign(extra.zh, {
 Object.assign(extra.ja, {
   landingInspect:'3D スタジオを開く →', landingPaper:'論文を読む ↗',
   landingInitial:'初期 · 合格 · 0.00 mm³', landingRevised:'修正後 · 違反 · 28.27 mm³',
-  landingCaption:'cad15 · スライダーを左右に動かし、Ø6 mm 側面穴の変化を比較できます。',
+  landingCaption:'ドラッグして Ø6 mm 側面穴を比較。',
   landingStudio:'3D 比較', landingStudioDesc:'cad15、cad30、ポンプ軸の変更前後のメッシュを並べて比較できます。重ねると形状の違いがわかります。',
   landingReplay:'証拠の再生', landingReplayDesc:'cad15 で塞がった空洞と cad30 で再び開いた空洞を確認できます。各記録には変更前後の占有体積が載っています。',
   landingPump:'プロセスポンプのデモ', landingPumpDesc:'分解図でポンプの部品を確認できます。断面表示では軸と羽根車の組み合わせが見えます。',
@@ -41,7 +41,7 @@ Object.assign(extra.ja, {
 Object.assign(extra.ko, {
   landingInspect:'3D 스튜디오 열기 →', landingPaper:'논문 읽기 ↗',
   landingInitial:'초기 · 충족 · 0.00 mm³', landingRevised:'수정 · 위반 · 28.27 mm³',
-  landingCaption:'cad15 · 슬라이더를 좌우로 움직여 Ø6 mm 측면 구멍의 변화를 비교하세요.',
+  landingCaption:'드래그하여 Ø6 mm 측면 구멍 비교.',
   landingStudio:'3D 비교', landingStudioDesc:'cad15, cad30 또는 펌프 축의 수정 전후 메시를 나란히 보거나 겹쳐서 형상 차이를 확인하세요.',
   landingReplay:'증거 재생', landingReplayDesc:'cad15에서 막힌 공간과 cad30에서 다시 열린 공간을 확인하세요. 각 기록에는 수정 전후에 재료가 차지한 부피가 나옵니다.',
   landingPump:'프로세스 펌프 데모', landingPumpDesc:'분해도에서 펌프 부품을 살펴보세요. 단면도에서는 축과 임펠러가 어떻게 맞물리는지 볼 수 있습니다.',
@@ -73,13 +73,13 @@ document.querySelector('#play-offset').addEventListener('click',()=>{if(playing)
 document.querySelectorAll('[data-chart]').forEach(button=>button.addEventListener('click',()=>{selectedChart=Number(button.dataset.chart);document.querySelectorAll('[data-chart]').forEach(el=>el.setAttribute('aria-pressed',String(el===button)));document.querySelector('#chart-note').textContent=extra[locale].chartNotes[selectedChart]}));
 setLocale('en');
 Object.assign(extra.en,{visualToggle:'Show or hide the interactive animation'});Object.assign(extra.zh,{visualToggle:'展开或隐藏交互动画'});Object.assign(extra.ja,{visualToggle:'インタラクティブなアニメーションを開閉'});Object.assign(extra.ko,{visualToggle:'대화형 애니메이션 펼치기 / 숨기기'});
-document.querySelector('.study-disclosure').addEventListener('toggle',event=>{if(!event.currentTarget.open && playing)stopPlaying()});
+document.querySelector('.study-disclosure')?.addEventListener('toggle',event=>{if(!event.currentTarget.open && playing)stopPlaying()});
 const minor={
 zh:{'a[href="#viewer3d"] span':'交互式 3D 视图','a[href="#citation"] span':'引用','a[href="manuscript.pdf"] span':'论文 PDF','#btn-m-cad15':'cad15（切除区回归）','#btn-m-cad30':'cad30（空腔清除）','#btn-m-pump':'pump-shaft（合成泵轴）','#btn-s-reference':'参考','#code-btn-cli':'命令行','#code-btn-python':'Python API','#code-btn-yaml':'契约 YAML','#copy-text':'复制','#bibtex-copy-btn':'复制 BibTeX'},
 ja:{'a[href="#viewer3d"] span':'対話型 3D','a[href="#citation"] span':'引用','a[href="manuscript.pdf"] span':'論文 PDF','#btn-m-cad15':'cad15（切除部の回帰）','#btn-m-cad30':'cad30（空洞の開通）','#btn-m-pump':'pump-shaft（ポンプ軸）','#btn-s-reference':'参照','#code-btn-cli':'CLI','#code-btn-python':'Python API','#code-btn-yaml':'契約 YAML','#copy-text':'コピー','#bibtex-copy-btn':'BibTeX をコピー'},
 ko:{'a[href="#viewer3d"] span':'대화형 3D','a[href="#citation"] span':'인용','a[href="manuscript.pdf"] span':'논문 PDF','#btn-m-cad15':'cad15 (절삭 회귀)','#btn-m-cad30':'cad30 (공간 확보)','#btn-m-pump':'pump-shaft (펌프 축)','#btn-s-reference':'참조','#code-btn-cli':'CLI','#code-btn-python':'Python API','#code-btn-yaml':'계약 YAML','#copy-text':'복사','#bibtex-copy-btn':'BibTeX 복사'}};
 const minorOriginal=new Map();Object.keys(minor.zh).forEach(sel=>{const el=document.querySelector(sel);if(el)minorOriginal.set(sel,el.innerHTML)});
-const baseSetLocale=setLocale;setLocale=function(lang){baseSetLocale(lang);document.querySelector('[data-t="visualToggle"]').textContent=extra[lang].visualToggle;for(const [sel,initial] of minorOriginal){const el=document.querySelector(sel);if(el)el.innerHTML=lang==='en'?initial:minor[lang][sel]}};setLocale('en');
+const baseSetLocale=setLocale;setLocale=function(lang){baseSetLocale(lang);const vt=document.querySelector('[data-t="visualToggle"]');if(vt)vt.textContent=extra[lang].visualToggle;for(const [sel,initial] of minorOriginal){const el=document.querySelector(sel);if(el)el.innerHTML=lang==='en'?initial:minor[lang][sel]}};setLocale('en');
 const updateWithPlot=updateOffset;updateOffset=function(){updateWithPlot();const e=Number(range.value);const point=document.querySelector('#plot-point');point.setAttribute('cx',38+302*e/.14);point.setAttribute('cy',12+133*e/.15)};updateOffset();
 const leafTranslations={
 'Language':['语言','言語','언어'],

@@ -249,18 +249,25 @@
 }
 .landing-compare-bar {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-  gap: 8px 12px;
+  gap: 10px;
   padding: 9px 12px;
   border-top: 1px solid #354a54;
   background: #14232b;
   color: #b7c9d1;
   font-size: 12px;
 }
+.landing-compare-bar > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .landing-compare-presets {
   display: inline-flex;
+  flex-shrink: 0;
   gap: 2px;
   padding: 2px;
   border-radius: 5px;
