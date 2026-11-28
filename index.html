@@ -47,14 +47,12 @@
   <script src="assets/OrbitControls.js"></script>
   <script src="studio-lighting.js?v=metal-1"></script>
 
-  <link rel="stylesheet" href="paper-extra.css?v=metal-1">
-  <link rel="stylesheet" href="site.css">
-  <script defer src="paper-extra.js?v=metal-1"></script>
-  <script defer src="atlas-illustrations.js"></script>
-  <script defer src="cad-story.js?v=3"></script>
+  <link rel="stylesheet" href="paper-extra.css?v=metal-2">
+  <link rel="stylesheet" href="site.css?v=metal-2">
+  <script defer src="paper-extra.js?v=metal-2"></script>
+  <script defer src="cad-story.js?v=metal-2"></script>
   <script defer src="reader-journey.js?v=4"></script>
   <script defer src="reader-motion.js?v=7"></script>
-  <script defer src="atlas-summary.js?v=3"></script>
   <style>
     body {
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
@@ -401,12 +399,84 @@
       <p class="story-note" data-t="transparentNote">Translucency is a display aid for the selected mesh; measurements come from the B-Rep, not the rendered image.</p>
       <div class="assembly-story" id="assembly-order">
         <div class="assembly-head"><div><h3 data-t="assemblyTitle">Same final pose, different insertion paths</h3><p data-t="assemblyIntro">In the paper's controlled assembly, the final solids do not interfere. The prescribed insertion path can still cross the cover. Compare the two declared assembly orders.</p></div><div class="assembly-switch" role="group" aria-label="Assembly order"><button id="order-cover" type="button" aria-pressed="true" data-t="coverFirst">Cover first</button><button id="order-shaft" type="button" aria-pressed="false" data-t="shaftFirst">Shaft first</button></div></div>
-        <div class="assembly-grid"><div class="assembly-visual"><svg viewBox="0 0 620 290" role="img" aria-labelledby="assembly-svg-title"><title id="assembly-svg-title">Schematic of a prescribed insertion path</title><defs><pattern id="story-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#e4eceb" stroke-width="1"/></pattern><linearGradient id="story-shaft-fill" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8b9ca6"/><stop offset="0.35" stop-color="#dce4e8"/><stop offset="0.7" stop-color="#96a8b2"/><stop offset="1" stop-color="#60737e"/></linearGradient><linearGradient id="story-cover-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cbd5dc"/><stop offset="1" stop-color="#98a8b4"/></linearGradient></defs><rect width="620" height="290" fill="url(#story-grid)"/><path d="M100 250H520" stroke="#7c8f96" stroke-width="2"/><path d="M310 20V260" stroke="#728890" stroke-dasharray="5 6"/><path d="M310 32v160m-7-8 7 8 7-8" fill="none" stroke="#46606b" stroke-width="2"/><g id="story-cover"><path d="M145 150h123l12 16h60l12-16h123v22H145z" fill="url(#story-cover-fill)" fill-opacity=".86" stroke="#3c5260" stroke-width="2"/><text x="154" y="143" fill="#3c5260" font-size="12" font-weight="600" data-t="coverSvg">COVER</text></g><g id="story-shaft"><rect x="285" y="18" width="50" height="90" rx="5" fill="url(#story-shaft-fill)" stroke="#243a44" stroke-width="2"/><path d="M285 37h50M285 89h50" stroke="#f0f5f7" stroke-opacity=".85"/><text x="348" y="65" fill="#243a44" font-size="12" font-weight="600" data-t="movingSvg">MOVING PART</text></g><g id="story-collision" opacity="0"><circle cx="310" cy="160" r="27" fill="#d94e3f" fill-opacity=".24" stroke="#b93c32" stroke-width="2" stroke-dasharray="4 3"/><path d="M297 147l26 26m0-26-26 26" stroke="#b93c32" stroke-width="2.5"/></g></svg><div class="assembly-controls"><button id="assembly-play" type="button" data-t="assemblyPlay">▶ Play sequence</button><label for="assembly-progress" data-t="assemblyProgress">Sequence progress</label><input id="assembly-progress" type="range" min="0" max="100" value="0"><output id="assembly-output">0%</output></div><p class="story-small" data-t="assemblyDiagram">Conceptual animation, not the tested CAD geometry or a physics simulation. The red marker illustrates a swept-path conflict, not its spatial extent.</p></div>
-        <div class="assembly-reading"><span class="story-kicker" data-t="assemblyResultLabel">PAPER RESULT · PRESCRIBED PATH</span><strong id="assembly-result">≈ 201 mm³</strong><h4 id="assembly-result-title">Swept intersection</h4><p id="assembly-result-text">With the cover in place first, the prescribed shaft insertion crosses solid material, although the final pose has zero interference.</p><div class="assembly-final" data-t="assemblyFinal">Final-pose interference in both configurations: 0 mm³</div></div></div>
+        <div class="assembly-grid">
+          <div class="assembly-visual">
+            <div class="assembly-render-frame">
+              <img id="assembly-frame-img" src="assets/renders/assembly/cover_04.jpg" width="960" height="560" alt="Blender Cycles 3D metallic render of the shaft and cover assembly sequence">
+              <span id="assembly-hud" class="assembly-hud" data-conflict="true">INTERSECTION · 201.06 mm³</span>
+            </div>
+            <div class="assembly-controls"><button id="assembly-play" type="button" data-t="assemblyPlay">▶ Play sequence</button><label for="assembly-progress" data-t="assemblyProgress">Sequence progress</label><input id="assembly-progress" type="range" min="0" max="100" value="50"><output id="assembly-output">50%</output></div>
+            <p class="story-small" data-t="assemblyDiagram">Blender Cycles renders of the controlled assembly (Ø10 mm shaft, Ø6 mm cover pilot hole, 4 mm cover plate, z: 70 → 8 mm). Swept volumes come from B-Rep Booleans.</p>
+          </div>
+          <div class="assembly-reading"><span class="story-kicker" data-t="assemblyResultLabel">PAPER RESULT · PRESCRIBED PATH</span><strong id="assembly-result">201.06 mm³</strong><h4 id="assembly-result-title">Swept intersection</h4><p id="assembly-result-text">With the cover in place first, the prescribed shaft insertion crosses solid material (201.06 mm³), although the final pose has zero interference.</p><div class="assembly-final" data-t="assemblyFinal">Final-pose interference in both configurations: 0 mm³</div></div>
+        </div>
       </div>
     </section>
 
-    <section class="paper-extension" id="interactive-study"><div class="ext-heading"><h2 data-t="studyTitle">When a global score misses a local failure</h2><p data-t="studyIntro">Move the axis of the controlled shaft–guide example. The cross-section is schematic; the curve is calculated from the paper’s analytical construction.</p></div><details open class="study-disclosure"><summary data-t="visualToggle">Show or hide the interactive animation</summary><div class="study-grid"><div class="study-visual"><svg viewBox="0 0 420 270" role="img" aria-label="Schematic bore and shaft cross-section"><circle cx="210" cy="135" r="105" fill="#edf2f5" stroke="#2c4a58" stroke-width="2"/><circle cx="210" cy="135" r="93" fill="white" stroke="#2c5b75" stroke-width="2" stroke-dasharray="5 4"/><circle id="shaft-circle" cx="210" cy="135" r="86" fill="#9fb0ba" fill-opacity=".75" stroke="#243c47" stroke-width="2"/><path d="M80 135H340M210 18V252" stroke="#8a9da6" stroke-dasharray="4 5"/><circle id="shaft-axis" cx="210" cy="135" r="4" fill="#1f5f5b"/></svg><label for="offset-range" data-t="offsetLabel">Bore-axis offset e (mm)</label><input id="offset-range" type="range" min="0" max="0.14" value="0.12" step="0.01"><div class="range-line"><span>0.00 mm</span><b id="offset-value">0.12 mm</b><span>0.14 mm</span></div><button class="ext-button" type="button" id="play-offset" data-t="play">▶ Play animation</button><p class="small-note" data-t="schematic">Schematic, not to scale. The model applies only before contact (e &lt; 0.15 mm).</p></div><div class="study-data"><svg class="clearance-chart" viewBox="0 0 360 180" role="img" aria-label="Nominal clearance against bore offset"><path d="M38 12V145H340" fill="none" stroke="#9eb1b8"/><path d="M38 12 L340 136" fill="none" stroke="#1f5f5b" stroke-width="3"/><path d="M38 101H340" fill="none" stroke="#b65249" stroke-dasharray="5 4"/><text x="42" y="94" fill="#a4443d" font-size="10">d_min = 0.05 mm</text><text x="8" y="17" fill="#5e747c" font-size="10">0.15</text><text x="20" y="148" fill="#5e747c" font-size="10">0</text><text x="315" y="160" fill="#5e747c" font-size="10">0.14</text><text x="165" y="176" fill="#5e747c" font-size="10">e / mm</text><circle id="plot-point" cx="297" cy="119" r="5" fill="#1f5f5b" stroke="white" stroke-width="2"/></svg><div class="equation equation-emphasis">c(e) = R<sub>b</sub> − R<sub>s</sub> − e</div><p data-t="clearanceExplain">The bore radius is 5.15 mm and the shaft radius is 5.00 mm. The nominal clearance falls linearly as the axes separate.</p><div class="study-metric"><span data-t="nominal">Nominal clearance</span><b id="gap-value">0.03 mm</b></div><div class="study-metric"><span data-t="minimum">Required minimum</span><b>0.05 mm</b></div><div class="study-metric"><span data-t="computedIou">Analytical IoU (approx.)</span><b id="iou-value">0.99946</b></div><div class="status-badge" id="gap-status">REQUIREMENT VIOLATED</div><p class="small-note" data-t="clearanceLimit">Nominal geometry only. Independent ±0.01 mm radius bounds give a 0.01 mm worst-size gap at e = 0.12 mm; these are design bounds, not confidence intervals.</p></div></div><details class="proof"><summary data-t="proofTitle">Show the mathematical derivation</summary><div class="ext-body"><p data-t="proofBody">Let V ≈ 91,975.16 mm³ be the equal occupied volume and Δ(e) the symmetric difference. Then I(e) = (2V − Δ)/(2V + Δ), where Δ = 2h[πR² − A(R,e)] and A(R,e) = 2R² arccos(e/2R) − (e/2)√(4R² − e²). Here h = 20 mm and R = 5.15 mm. This derivation is restricted to the noncontact interval.</p></div></details></details></section>
+    <section class="paper-extension" id="interactive-study"><div class="ext-heading"><h2 data-t="studyTitle">When a global score misses a local failure</h2><p data-t="studyIntro">Move the axis of the controlled shaft–guide example. The cross-section is schematic; the curve is calculated from the paper’s analytical construction.</p></div><details open class="study-disclosure"><summary data-t="visualToggle">Show or hide the interactive animation</summary><div class="study-grid"><div class="study-visual">
+      <figure class="study-cutaway-wrap">
+        <img src="assets/renders/clearance-section-steel-light.jpg" width="960" height="560" alt="Half-sectioned CNC gunmetal guide bushing and copper shaft showing tight radial clearance" loading="lazy">
+        <figcaption>Half-sectioned steel guide bushing (R<sub>b</sub> = 5.15 mm) and copper shaft (R<sub>s</sub> = 5.00 mm) at offset e = 0.12 mm.</figcaption>
+      </figure>
+      <svg viewBox="0 0 420 270" role="img" aria-label="ISO cross-section of eccentric bore and shaft">
+        <defs>
+          <pattern id="iso-hatch-guide" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="#64748b" stroke-width="1.1"/>
+          </pattern>
+          <pattern id="iso-hatch-shaft" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+            <line x1="0" y1="0" x2="0" y2="7" stroke="#9a5c44" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <!-- Guide outer housing wall with 45-degree ISO metal hatching -->
+        <circle cx="210" cy="135" r="108" fill="url(#iso-hatch-guide)" stroke="#334155" stroke-width="1.8"/>
+        <!-- Inner bore opening (R_b = 5.15 mm) -->
+        <circle cx="210" cy="135" r="93" fill="#ffffff" stroke="#1e293b" stroke-width="1.8"/>
+        <!-- Eccentric shaft (R_s = 5.00 mm) -->
+        <circle id="shaft-circle" cx="218.57" cy="135" r="85" fill="#f3e6e0" stroke="#7c4330" stroke-width="1.8"/>
+        <circle cx="210" cy="135" r="93" fill="none" stroke="#1e293b" stroke-width="0.9" stroke-dasharray="3 3" opacity="0.4"/>
+        <!-- Precision engineering centerlines (ISO long-dash-dot) -->
+        <path d="M72 135H348M210 16V254" stroke="#64748b" stroke-width="0.9" stroke-dasharray="12 4 2 4"/>
+        <!-- Bore axis & moving shaft axis markers -->
+        <circle cx="210" cy="135" r="2.6" fill="#334155"/>
+        <circle id="shaft-axis" cx="218.57" cy="135" r="3.6" fill="#b43f35" stroke="#ffffff" stroke-width="1.2"/>
+        <!-- Clean engineering annotations -->
+        <text x="16" y="28" fill="#334155" font-size="11" font-family="ui-monospace, monospace">Bore R_b = 5.15 mm</text>
+        <text x="16" y="45" fill="#7c4330" font-size="11" font-family="ui-monospace, monospace">Shaft R_s = 5.00 mm</text>
+        <text x="315" y="250" fill="#64748b" font-size="10.5" font-family="ui-monospace, monospace">Section A–A</text>
+      </svg>
+      <label for="offset-range" data-t="offsetLabel">Bore-axis offset e (mm)</label><input id="offset-range" type="range" min="0" max="0.14" value="0.12" step="0.01"><div class="range-line"><span>0.00 mm</span><b id="offset-value">0.12 mm</b><span>0.14 mm</span></div><button class="ext-button" type="button" id="play-offset" data-t="play">▶ Play animation</button><p class="small-note" data-t="schematic">Schematic, not to scale. The model applies only before contact (e &lt; 0.15 mm).</p>
+    </div><div class="study-data">
+      <svg class="clearance-chart" viewBox="0 0 360 180" role="img" aria-label="Nominal clearance against bore offset">
+        <!-- Shaded violation zone (c < 0.05 mm) -->
+        <rect x="38" y="101" width="302" height="44" fill="#fae9e7" opacity="0.72"/>
+        <!-- Subtle scientific gridlines -->
+        <g stroke="#e2e8ed" stroke-width="0.8">
+          <line x1="38" y1="56.5" x2="340" y2="56.5"/>
+          <line x1="145.9" y1="12" x2="145.9" y2="145"/>
+          <line x1="253.7" y1="12" x2="253.7" y2="145"/>
+        </g>
+        <!-- Axes -->
+        <path d="M38 12V145H340" fill="none" stroke="#475569" stroke-width="1.2"/>
+        <!-- Minimum clearance threshold -->
+        <line x1="38" y1="101" x2="340" y2="101" stroke="#b43f35" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <text x="44" y="95" fill="#9b342b" font-size="9.5" font-family="ui-monospace, monospace" font-weight="600">d_min = 0.05 mm (violation below)</text>
+        <!-- Analytical linear clearance curve -->
+        <path d="M38 12 L340 136" fill="none" stroke="#183840" stroke-width="2.4"/>
+        <!-- Axis ticks & labels -->
+        <g fill="#475569" font-size="9.5" font-family="ui-monospace, monospace">
+          <text x="6" y="16">0.15</text>
+          <text x="6" y="60">0.10</text>
+          <text x="6" y="104">0.05</text>
+          <text x="20" y="148">0</text>
+          <text x="34" y="159">0.00</text>
+          <text x="134" y="159">0.05</text>
+          <text x="241" y="159">0.10</text>
+          <text x="318" y="159">0.14</text>
+          <text x="155" y="175" fill="#334155">Bore offset e (mm)</text>
+        </g>
+        <circle id="plot-point" cx="297" cy="119" r="5" fill="#b43f35" stroke="#ffffff" stroke-width="1.8"/>
+      </svg>
+      <div class="equation equation-emphasis">c(e) = R<sub>b</sub> − R<sub>s</sub> − e</div><p data-t="clearanceExplain">The bore radius is 5.15 mm and the shaft radius is 5.00 mm. The nominal clearance falls linearly as the axes separate.</p><div class="study-metric"><span data-t="nominal">Nominal clearance</span><b id="gap-value">0.03 mm</b></div><div class="study-metric"><span data-t="minimum">Required minimum</span><b>0.05 mm</b></div><div class="study-metric"><span data-t="computedIou">Analytical IoU (approx.)</span><b id="iou-value">0.99946</b></div><div class="status-badge" id="gap-status">REQUIREMENT VIOLATED</div><p class="small-note" data-t="clearanceLimit">Nominal geometry only. Independent ±0.01 mm radius bounds give a 0.01 mm worst-size gap at e = 0.12 mm; these are design bounds, not confidence intervals.</p></div></div><details class="proof"><summary data-t="proofTitle">Show the mathematical derivation</summary><div class="ext-body"><p data-t="proofBody">Let V ≈ 91,975.16 mm³ be the equal occupied volume and Δ(e) the symmetric difference. Then I(e) = (2V − Δ)/(2V + Δ), where Δ = 2h[πR² − A(R,e)] and A(R,e) = 2R² arccos(e/2R) − (e/2)√(4R² − e²). Here h = 20 mm and R = 5.15 mm. This derivation is restricted to the noncontact interval.</p></div></details></details></section>
     <!-- Methodology & Workflow -->
     <section id="pipeline">
       <h2 class="text-xl sm:text-2xl font-serif font-medium text-zinc-950 mb-3 pb-2 border-b border-zinc-200">
@@ -476,33 +546,60 @@
 
     <section class="paper-extension" id="evidence-explorer"><div class="ext-heading"><h2 data-t="evidenceTitle">Which requirements changed across revisions?</h2><p data-t="evidenceIntro">The 84 requirement transitions are paired instances across 38 applicable revision pairs and 25 briefs. They are not 84 independent industrial mechanisms.</p></div><div class="chart" role="group" aria-label="Requirement transition counts"><button class="chart-row" data-chart="0"><span data-t="cc">Clear → clear</span><span class="bar"><i style="width:100%"></i></span><b>63</b></button><button class="chart-row" data-chart="1"><span data-t="vv">Violated → violated</span><span class="bar"><i style="width:30.16%"></i></span><b>19</b></button><button class="chart-row" data-chart="2"><span data-t="cv">Clear → violated</span><span class="bar danger"><i style="width:1.59%"></i></span><b>1</b></button><button class="chart-row" data-chart="3"><span data-t="vc">Violated → clear</span><span class="bar purple"><i style="width:1.59%"></i></span><b>1</b></button></div><p class="chart-note evidence-annotation" id="chart-note" data-t="chartHelp">Select a row to inspect its meaning. Counts are from the requirement-level analysis, not the separate pair-level transition table.</p><details class="proof"><summary data-t="protocolTitle">Experimental protocol and limitations</summary><div class="ext-body"><p data-t="protocolBody">Sixty trajectories were generated from 30 authored briefs under two local agent conditions. Forty-one pairs passed the primary eligibility criteria; 38 had applicable cut requirements. Of the 41 pairs, 34 retained identical program hashes and four more were volumetrically unchanged. The feedback experiments use different cohorts and budgets and cannot be pooled into these counts.</p><p data-t="documentBody">A retrospective 22-document audit found 13 explicit-unit dimension triples and recovered 12 of them with no unmatched outputs. The same cohort informed the extraction rule; this is not held-out semantic binding accuracy. Product, feature and frame identification remain open.</p></div></details><details class="proof"><summary data-t="futureTitle">Limitations and next experiments</summary><div class="ext-body"><p data-t="futureBody">Future work needs independently specified occurrences, features and states, ideally with native constraints or semantic PMI as held-out references. A controlled repair study should share its first proposal, hold budget and controller fixed, and include withheld checks. Rotation, deformation, loads and manufacturing require further state models and checks.</p></div></details></section>
 
-    <section class="research-architecture research-v2" id="research-map" aria-labelledby="map-heading">
-      <div class="atlas-masthead">
-        <div>
-          <h2 id="map-heading" data-t="mapTitle">A map of ideas</h2>
-          <p data-t="mapIntro">Explore related work, the design of Hard-CAD, and the evidence connecting them.</p>
-        </div>
+    <section class="paper-extension" id="research-map" aria-labelledby="map-heading">
+      <div class="ext-heading">
+        <h2 id="map-heading" data-t="mapTitle">Related work &amp; positioning</h2>
+        <p data-t="mapIntro">Complementary benchmarks and verification frameworks discussed in the manuscript, alongside how Hard-CAD structures requirement-level paired records.</p>
       </div>
-      <div class="atlas-workspace">
-        <div class="atlas-canvas">
-          <div class="atlas-overline"><span data-t="atlasContext">RESEARCH CONTEXT</span><span data-t="atlasContribution">THIS MANUSCRIPT</span></div>
-          <svg class="atlas-connections" viewBox="0 0 620 570" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="atlasGradient"><stop stop-color="#608f8a"/><stop offset="1" stop-color="#2c5b75"/></linearGradient></defs><path class="atlas-path path-bench" d="M230 70 C285 70 265 250 364 250"/><path class="atlas-path path-tests" d="M230 174 C300 174 290 263 364 263"/><path class="atlas-path path-cit" d="M230 278 H364"/><path class="atlas-path path-gen" d="M230 382 C300 382 290 295 364 295"/><path class="atlas-path path-trace" d="M230 486 C285 486 265 308 364 308"/></svg>
-          <div class="atlas-sources" role="group" aria-label="Related research">
-            <button class="knowledge-node bench" data-node="bench" aria-pressed="false"><span class="atlas-node-icon">◈</span><span><b>BenchCAD</b><small data-t="nodeBench">Geometric and feature evaluation</small></span><i>↗</i></button>
-            <button class="knowledge-node tests" data-node="tests" aria-pressed="false"><span class="atlas-node-icon">▤</span><span><b>CADTests</b><small data-t="nodeTests">Executable requirement tests</small></span><i>↗</i></button>
-            <button class="knowledge-node cit" data-node="cit" aria-pressed="false"><span class="atlas-node-icon">⌘</span><span><b>CIT-CAD</b><small data-t="nodeCit">Constraint intent and repair</small></span><i>↗</i></button>
-            <button class="knowledge-node gen" data-node="gen" aria-pressed="false"><span class="atlas-node-icon">▧</span><span><b>CADGenBench</b><small data-t="nodeGen">Local mating interface checks</small></span><i>↗</i></button>
-            <button class="knowledge-node trace" data-node="trace" aria-pressed="false"><span class="atlas-node-icon">◇</span><span><b>TraceCAD</b><small data-t="nodeTrace">Geometry preservation and repair</small></span><i>↗</i></button>
-          </div>
-          <button class="knowledge-node hard active atlas-core" data-node="hard" aria-pressed="true"><span class="atlas-core-label">CORE / THIS MANUSCRIPT</span><span class="atlas-core-icon">◈</span><b>Hard-CAD</b><small data-t="nodeHard">Contract + paired evidence + replay</small><span class="atlas-core-divider"></span><span class="atlas-core-steps"><span><i>01</i><em data-t="stage1">Specify the requirement</em></span><span><i>02</i><em data-t="stage2">Measure the geometry</em></span><span><i>03</i><em data-t="stage3">Pair the same requirement</em></span><span><i>04</i><em data-t="stage4">Explain and replay</em></span></span></button>
-        </div>
-        <aside class="atlas-inspector" aria-live="polite" aria-label="Selected research detail">
-          <div class="atlas-inspector-head"><span class="atlas-selected-icon">◈</span><div><small data-t="atlasSelected">SELECTED RESEARCH</small><strong id="node-title">Hard-CAD</strong></div><span class="atlas-status" data-t="atlasContextTag">CONTEXT</span></div>
-          <div class="atlas-inspector-body"><div class="atlas-panel-label" data-t="atlasRelation">ROLE &amp; RELATIONSHIP</div><p id="node-description">A contract binds requirement identity to operands, frame, units, state and bound.</p><figure class="atlas-figure"><div id="atlas-graphic" role="img" aria-label="Conceptual illustration of Hard-CAD"></div><figcaption id="atlas-image-caption" data-t="atlasDiagramCaption">Original schematic · conceptual illustration, not a figure from the selected paper</figcaption></figure><div class="atlas-positioning"><div class="positioning-heading" data-t="atlasCompareHeading">Contribution positioning</div><div class="positioning-row"><strong id="atlas-other-label">Selected work</strong><p id="atlas-other-text"></p></div><div class="positioning-row hard-position"><strong>Hard-CAD</strong><p id="atlas-hard-text"></p></div></div><div class="atlas-inspector-foot"><span data-t="atlasSourceHint">Read the original source or explore the method</span><a id="node-source" href="#pipeline" data-t="nodeRead">Explore the method ↓</a></div></div>
-        </aside>
+      <div class="related-table-wrap" role="region" aria-label="Comparison with related CAD evaluation works" tabindex="0">
+        <table class="related-table">
+          <thead>
+            <tr>
+              <th style="width:17%">Work</th>
+              <th style="width:26%">Primary focus</th>
+              <th style="width:57%">Relationship to Hard-CAD</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="https://arxiv.org/abs/2605.10865" target="_blank" rel="noopener noreferrer">BenchCAD ↗</a></td>
+              <td>Geometric, feature &amp; edit evaluation</td>
+              <td>Its high-IoU blocked-bore observation motivates local checks; Hard-CAD’s <code class="text-xs">cad15</code> is a separate low-IoU revision pair.</td>
+            </tr>
+            <tr>
+              <td><a href="https://arxiv.org/abs/2605.07807" target="_blank" rel="noopener noreferrer">CADTests ↗</a></td>
+              <td>Executable geometry &amp; topology tests</td>
+              <td>Provides prompt-specific executable checks and test feedback; Hard-CAD runs an external transfer audit under a separate fixed budget.</td>
+            </tr>
+            <tr>
+              <td><a href="https://arxiv.org/abs/2609.07434" target="_blank" rel="noopener noreferrer">CIT-CAD ↗</a></td>
+              <td>Constraint-intent trees &amp; repair</td>
+              <td>Organizes inferred design intent into constraint trees; Hard-CAD binds declared operands and frames under fixed checking conditions.</td>
+            </tr>
+            <tr>
+              <td><a href="https://github.com/huggingface/cadgenbench/blob/33304cf771fc5639144b1df9611e347251052cf8/docs/metrics/interface_match.md" target="_blank" rel="noopener noreferrer">CADGenBench ↗</a></td>
+              <td>Local mating interface checks</td>
+              <td>Measures keep-in / keep-out interfaces; joining its fixed-pose checker reproduces 80/84 paired labels (4 differences reflect acceptance bounds).</td>
+            </tr>
+            <tr>
+              <td><a href="https://arxiv.org/abs/2608.03062" target="_blank" rel="noopener noreferrer">TraceCAD ↗</a></td>
+              <td>Edit preservation &amp; repair memory</td>
+              <td>Pairs geometry-preservation measures with localized repair search; Hard-CAD retains requirement identity and availability per revision pair.</td>
+            </tr>
+            <tr class="related-this">
+              <td><strong class="text-zinc-900">Hard-CAD</strong><br><span class="text-[11px] font-mono text-teal-800">This manuscript</span></td>
+              <td>Declarative contract + paired record + replay</td>
+              <td>Binds requirement ID, operands, frame, units, state/path, and bound into a hashed diagnostic record linking local transitions to global deltas.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="atlas-future"><div><span class="atlas-future-kicker" data-t="nodeFutureTitle">Future research</span><p data-t="atlasFutureIntro">Open questions from the manuscript</p></div><button class="knowledge-node future atlas-future-link" data-node="future" aria-pressed="false"><span data-t="atlasFuture1">Independent semantic binding</span><i>→</i><span data-t="atlasFuture2">Controlled repair studies</span><i>→</i><span data-t="atlasFuture3">Richer physical models</span><b>↗</b></button></div>
-      <p class="map-disclaimer" data-t="mapNote">Connections indicate conceptual relationships described in the paper; they do not imply a historical lineage, direct comparison, or measured superiority.</p>
+      <div class="related-open">
+        <div><b data-t="atlasFuture1">Independent semantic binding</b>Ground entity, feature, and coordinate references against native CAD constraints or semantic PMI.</div>
+        <div><b data-t="atlasFuture2">Controlled repair studies</b>Share initial proposals, fix budgets and controllers, and include withheld checks to measure true repair gains.</div>
+        <div><b data-t="atlasFuture3">Richer physical models</b>Extend static and rigid-sweep checks to rotation, structural deformation, loads, and manufacturing tolerances.</div>
+      </div>
+      <p class="map-disclaimer" data-t="mapNote">Relationships reflect conceptual positioning in the manuscript and do not imply a direct ranking or measured superiority.</p>
     </section>
     <!-- Quickstart & Reproducibility -->
     <section id="quickstart">
